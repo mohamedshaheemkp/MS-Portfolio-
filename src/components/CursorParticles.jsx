@@ -7,72 +7,160 @@ const CursorParticles = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     
+    // Antigravity signature colors
+    const colors = ["#00F5FF", "#8B5CF6", "#3b82f6", "#ef4444", "#eab308"];
     let particles = [];
     
-    // Antigravity-style colors (Cyan, Purple, Blue, Red, Yellow)
-    const colors = ["#00F5FF", "#8B5CF6", "#3b82f6", "#ef4444", "#eab308"];
+    // Mouse state with a larger radius for the reveal effect
+    let mouse = { x: -1000, y: -1000, radius: 250 };
+
+    // 3D Engine Constants
+    const perspective = 1000;
+    let rotation = 0;
+    let sphereRadius = 800;
+
+    const initParticles = () => {
+      particles = [];
+      // Lower particle count for a highly refined, premium, and cinematic feel
+      const numberOfParticles = window.innerWidth < 768 ? 2000 : 4000; 
+      // Giant sphere to fill the full webpage
+      sphereRadius = Math.max(window.innerWidth, window.innerHeight) * 0.8;
+      
+      // Generate particles in a spherical 3D distribution
+      for (let i = 0; i < numberOfParticles; i++) {
+        const u = Math.random();
+        const v = Math.random();
+        const theta = 2 * Math.PI * u;
+        const phi = Math.acos(2 * v - 1);
+        
+        // Randomize radius slightly to create a thick shell
+        const r = sphereRadius * Math.cbrt(Math.random() * 0.8 + 0.2); 
+
+        const x = r * Math.sin(phi) * Math.cos(theta);
+        const y = r * Math.sin(phi) * Math.sin(theta);
+        const z = r * Math.cos(phi);
+
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const isLarge = Math.random() > 0.95;
+        const baseSize = isLarge ? Math.random() * 2 + 2 : Math.random() * 1 + 0.5;
+        
+        particles.push({
+          x, y, z, 
+          ox: x, oy: y, oz: z, 
+          baseSize,
+          color,
+          // Subtler opacity for elegant ambient depth
+          alpha: Math.random() * 0.2 + 0.1,
+          currentAlpha: 0 // Start completely invisible
+        });
+      }
+    };
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+      
+      initParticles();
     };
     
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    const createParticle = (x, y) => {
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      particles.push({
-        x,
-        y,
-        // Random explosion velocity
-        vx: (Math.random() - 0.5) * 4,
-        vy: (Math.random() - 0.5) * 4,
-        life: 1, // Alpha transparency from 1 to 0
-        color,
-        size: Math.random() * 3 + 1.5 // Random size
-      });
-    };
-
     const handleMouseMove = (e) => {
-      // Spawn 3 particles per mouse movement
-      for (let i = 0; i < 3; i++) {
-        createParticle(e.clientX, e.clientY);
-      }
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+    
+    const handleMouseLeave = () => {
+      mouse.x = -1000;
+      mouse.y = -1000;
     };
 
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseleave', handleMouseLeave);
 
     const animate = () => {
-      // Clear canvas on every frame
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
       
+      // Removed automatic rotation; the globe is now stationary until interacted with
+      const sinR = Math.sin(rotation);
+      const cosR = Math.cos(rotation);
+      
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
         
-        // Move particle
-        p.x += p.vx;
-        p.y += p.vy;
+        // Rotate original 3D coordinates around Y axis
+        let rotX = p.ox * cosR - p.oz * sinR;
+        let rotZ = p.oz * cosR + p.ox * sinR;
+        let rotY = p.oy;
         
-        // Friction to slow them down smoothly
-        p.vx *= 0.95;
-        p.vy *= 0.95;
+        // Project to 2D to check mouse interaction
+        const scaleBase = perspective / (perspective + rotZ);
+        const screenX = centerX + rotX * scaleBase;
+        const screenY = centerY + rotY * scaleBase;
         
-        // Fade out
-        p.life -= 0.015;
+        const dx = mouse.x - screenX;
+        const dy = mouse.y - screenY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        let targetX = rotX;
+        let targetY = rotY;
+        let targetZ = rotZ;
+        let targetSize = p.baseSize;
+        let targetAlpha = 0;
 
-        // Remove if invisible
-        if (p.life <= 0) {
-          particles.splice(i, 1);
-          i--;
-          continue;
+        // 3D Magnetic Bulge & Reveal effect
+        if (dist < mouse.radius) {
+          const force = (mouse.radius - dist) / mouse.radius;
+          // Push particles outwards from mouse
+          targetX += (dx / dist) * force * -80;
+          targetY += (dy / dist) * force * -80;
+          targetZ += force * -100; 
+          targetSize += force * 3;
+          targetAlpha = force; // Target full opacity when near mouse
         }
 
-        // Draw particle
+        // Elegant, slow cinematic spring easing
+        p.x += (targetX - p.x) * 0.04;
+        p.y += (targetY - p.y) * 0.04;
+        p.z += (targetZ - p.z) * 0.04;
+        p.currentAlpha += (targetAlpha - p.currentAlpha) * 0.03;
+        
+        // Optimization: skip drawing entirely if invisible
+        if (p.currentAlpha < 0.01) continue;
+
+        // Final 2D projection
+        const scale = perspective / (perspective + p.z);
+        const finalX = centerX + p.x * scale;
+        const finalY = centerY + p.y * scale;
+        const finalSize = Math.max(0.1, targetSize * scale);
+        
+        // Don't draw if behind camera
+        if (p.z < -perspective) continue;
+
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.arc(finalX, finalY, finalSize, 0, Math.PI * 2);
+        
+        // Depth-based opacity
+        const depthAlpha = Math.max(0.1, Math.min(1, 1 - (p.z / sphereRadius)));
         ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.life;
+        
+        // Apply the revealing opacity
+        ctx.globalAlpha = Math.min(1, p.alpha * depthAlpha * p.currentAlpha * 2); 
+        
+        if (dist < mouse.radius) {
+          ctx.shadowBlur = 10 * scale;
+          ctx.shadowColor = p.color;
+        } else {
+          ctx.shadowBlur = 0;
+        }
+        
         ctx.fill();
       }
       
@@ -84,13 +172,15 @@ const CursorParticles = () => {
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none"
+      className="fixed inset-0 z-0 pointer-events-none w-full h-full"
+      style={{ width: '100vw', height: '100vh' }}
     />
   );
 };

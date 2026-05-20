@@ -1,39 +1,46 @@
-const projects = [
+export const projects = [
   {
-    title: "Agri AI",
+    title: "AgriAI",
+    category: "AI • Agriculture • Computer Vision",
     description:
-      "AI-powered agriculture assistant for crop monitoring and smart farming insights.",
+      "An intelligent agriculture platform using AI-powered crop analysis, disease detection, and smart farming assistance to improve productivity and decision-making.",
+
+    tech: [
+      "React",
+      "Python",
+      "TensorFlow",
+      "OpenCV",
+      "Flask",
+    ],
 
     image:
-      "https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1600&auto=format&fit=crop",
 
-    github: "#",
+    github:
+      "https://github.com/mohamedshaheemkp",
+
     live: "#",
   },
 
   {
-    title: "AI Chat Assistant",
+    title: "AI Portfolio",
+    category: "Creative Development • UI Engineering",
     description:
-      "Modern AI chatbot interface with responsive design and intelligent interaction.",
+      "A futuristic personal portfolio focused on immersive interactions, cinematic motion, and modern AI-inspired visual experiences.",
+
+    tech: [
+      "React",
+      "Tailwind",
+      "Framer Motion",
+      "Vite",
+    ],
 
     image:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop",
 
-    github: "#",
+    github:
+      "https://github.com/mohamedshaheemkp",
+
     live: "#",
   },
-
-  {
-    title: "Creative Design Showcase",
-    description:
-      "Collection of posters, branding, and logo design projects with modern aesthetics.",
-
-    image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
-
-    github: "#",
-    live: "#",
-  },
-]
-
-export default projects
+];

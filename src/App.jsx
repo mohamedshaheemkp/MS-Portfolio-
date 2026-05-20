@@ -6,13 +6,12 @@ import Projects from "./sections/Projects"
 import SmoothScroll from "./components/SmoothScroll"
 import ScrollProgress from "./components/ScrollProgress"
 import DesignShowcase from "./sections/DesignShowcase"
-import Particles from "./components/Particles"
+import Contact from "./sections/Contact"
 import CursorParticles from "./components/CursorParticles"
 
 function App() {
   return (
     <main className="relative bg-[#050816] text-white overflow-x-hidden min-h-screen">
-      <Particles />
       <CursorParticles />
       <SmoothScroll />
       <ScrollProgress />
@@ -22,6 +21,7 @@ function App() {
       <Skills />
       <Projects />
       <DesignShowcase />
+      <Contact />
     </main>
   )
 }
