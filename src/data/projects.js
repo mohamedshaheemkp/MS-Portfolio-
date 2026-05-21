@@ -1,24 +1,21 @@
+import agriDash from "../assets/agri-dash.png";
+import agriLive from "../assets/agri-live.png";
+import heroImage from "../assets/hero.png";
+
 export const projects = [
   {
     title: "AgriAI",
     category: "AI • Agriculture • Computer Vision",
-    description:
-      "An intelligent agriculture platform using AI-powered crop analysis, disease detection, and smart farming assistance to improve productivity and decision-making.",
+    description: "AgriAI is an intelligent agriculture platform...",
+    tech: ["YOLOv9", "PyTorch", "OpenCV", "React + Vite", "Python", "TensorFlow", "FastAPI"],
 
-    tech: [
-      "React",
-      "Python",
-      "TensorFlow",
-      "OpenCV",
-      "Flask",
+    // Replace the unsplash links with your imported images
+    images: [
+      agriDash,
+      agriLive,
     ],
 
-    image:
-      "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1600&auto=format&fit=crop",
-
-    github:
-      "https://github.com/mohamedshaheemkp",
-
+    github: "https://github.com/mohamedshaheemkp",
     live: "#",
   },
 
@@ -35,8 +32,9 @@ export const projects = [
       "Vite",
     ],
 
-    image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop",
+    images: [
+      heroImage
+    ],
 
     github:
       "https://github.com/mohamedshaheemkp",

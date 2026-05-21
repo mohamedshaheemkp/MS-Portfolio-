@@ -1,26 +1,40 @@
+import brand1 from "../assets/brand 1.png";
+import brand2 from "../assets/brand 2.png";
+import brand3 from "../assets/brand 3.jpg";
+import brand4 from "../assets/brand 4.png";
+
+import logo1 from "../assets/logo 1.jpg";
+import logo2 from "../assets/logo 2.svg";
+import logo3 from "../assets/logo 3.PNG";
+
+import poster1 from "../assets/poster 1.jpg";
+import poster2 from "../assets/poster 2.jpg";
+import poster3 from "../assets/poster 3.jpg";
+import poster4 from "../assets/poster 4.jpg";
+import poster5 from "../assets/poster 5.png";
+import poster6 from "../assets/poster 6.png";
+
+import heroImage from "../assets/hero.png";
+
 const designs = [
   {
     title: "Modern Poster Design",
-    image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
+    image: [poster1, poster2, poster3, poster4, poster5, poster6],
   },
 
   {
     title: "Creative Branding",
-    image:
-      "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=1200&auto=format&fit=crop",
+    image: [brand1, brand2, brand3, brand4],
   },
 
   {
     title: "Futuristic UI Design",
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+    image: [heroImage],
   },
 
   {
     title: "Logo Design Collection",
-    image:
-      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1200&auto=format&fit=crop",
+    image: [logo1, logo2, logo3],
   },
 ]
 

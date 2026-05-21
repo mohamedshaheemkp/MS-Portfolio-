@@ -6,7 +6,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative py-24 px-6 overflow-hidden"
+      className="relative py-32 px-6 overflow-hidden"
     >
       {/* Background */}
       <div className="absolute inset-0 -z-10">
@@ -20,7 +20,7 @@ export default function Contact() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
@@ -43,7 +43,7 @@ export default function Contact() {
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
             className="space-y-6"
           >
@@ -129,7 +129,7 @@ export default function Contact() {
           <motion.form
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
             className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl space-y-6"
           >

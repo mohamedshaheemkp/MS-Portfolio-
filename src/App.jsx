@@ -8,6 +8,7 @@ import ScrollProgress from "./components/ScrollProgress"
 import DesignShowcase from "./sections/DesignShowcase"
 import Contact from "./sections/Contact"
 import CursorParticles from "./components/CursorParticles"
+import Footer from "./sections/Footer";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Projects />
       <DesignShowcase />
       <Contact />
+      <Footer />
     </main>
   )
 }

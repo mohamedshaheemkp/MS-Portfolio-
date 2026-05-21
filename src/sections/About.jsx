@@ -8,9 +8,9 @@ const About = () => {
 
         {/* Section Title */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true }}
           className="text-center mb-20"
         >
@@ -31,9 +31,9 @@ const About = () => {
 
           {/* Left Content */}
           <motion.div
-            initial={{ opacity: 0, x: -60 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
           >
 
@@ -59,9 +59,9 @@ const About = () => {
 
           {/* Right Cards */}
           <motion.div
-            initial={{ opacity: 0, x: 60 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
             className="grid sm:grid-cols-2 gap-6"
           >
@@ -70,7 +70,7 @@ const About = () => {
             <div className="bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl p-8 hover:border-cyan-400/40 transition duration-300">
 
               <h3 className="text-4xl font-black text-cyan-400">
-                10+
+                7+
               </h3>
 
               <p className="text-gray-300 mt-3">

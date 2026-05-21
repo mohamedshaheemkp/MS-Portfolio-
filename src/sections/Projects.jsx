@@ -1,6 +1,58 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "../data/projects";
+import { useState, useEffect } from "react";
+
+const ProjectImageCarousel = ({ images, title }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (!images || images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [images]);
+
+  return (
+    <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-[0_0_80px_rgba(34,211,238,0.08)] bg-[#050505]">
+      {/* Desktop Glass Container Header */}
+      <div className="absolute top-0 left-0 w-full flex items-center gap-2 px-4 py-3 bg-white/5 border-b border-white/10 z-20 backdrop-blur-md">
+        <div className="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
+        <div className="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+      </div>
+
+      <div className="relative w-full h-[500px] md:h-[600px] lg:h-[750px] group/image pt-12">
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={currentIndex}
+            src={images[currentIndex]}
+            alt={`${title} screenshot`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover/image:scale-[1.03] brightness-75 contrast-110 saturate-[0.85]"
+          />
+        </AnimatePresence>
+        
+        {/* Cinematic Tone & Green Glow */}
+        <div className="absolute inset-0 bg-green-500/10 mix-blend-overlay pointer-events-none z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none z-10"></div>
+      </div>
+      
+      {/* Carousel Indicators */}
+      {images && images.length > 1 && (
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+          {images.map((_, i) => (
+            <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === currentIndex ? "w-6 bg-cyan-400" : "w-1.5 bg-white/30"}`} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default function Projects() {
   return (
@@ -11,9 +63,9 @@ export default function Projects() {
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true }}
           className="mb-24"
         >
@@ -26,96 +78,81 @@ export default function Projects() {
           </h2>
         </motion.div>
 
-        {/* Projects */}
-        <div className="space-y-40">
+        <div className="space-y-48">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 60 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
-              className={`grid lg:grid-cols-2 gap-16 items-center ${
-                index % 2 !== 0 ? "lg:grid-flow-col-dense" : ""
-              }`}
+              className="flex flex-col gap-12"
             >
-              {/* Image */}
-              <div
-                className={`relative group ${
-                  index % 2 !== 0 ? "lg:col-start-2" : ""
-                }`}
-              >
-                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-700"></div>
-
-                <div className="relative overflow-hidden rounded-3xl border border-white/10">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-[500px] object-cover transition duration-700 group-hover:scale-105"
-                  />
-                </div>
+              {/* Massive Image Container */}
+              <div className="relative group w-full">
+                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition duration-1000"></div>
+                <ProjectImageCarousel images={project.images} title={project.title} />
               </div>
 
-              {/* Content */}
-              <div
-                className={`space-y-8 ${
-                  index % 2 !== 0 ? "lg:col-start-1 lg:row-start-1" : ""
-                }`}
-              >
-                <div>
-                  <p className="text-cyan-400 uppercase tracking-[0.3em] text-sm mb-4">
+              {/* Showcase Details Layout */}
+              <div className="flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-16 pt-6">
+                
+                {/* Title Section */}
+                <div className="lg:w-5/12">
+                  <p className="text-cyan-400 uppercase tracking-[0.4em] text-sm mb-5 font-medium">
                     {project.category}
                   </p>
-
-                  <h3 className="text-white text-4xl md:text-5xl font-bold mb-6">
+                  <h3 className="text-white text-5xl md:text-6xl font-bold tracking-tight">
                     {project.title}
                   </h3>
+                </div>
 
-                  <p className="text-gray-400 text-lg leading-relaxed">
+                {/* Description & Links */}
+                <div className="lg:w-7/12 space-y-10">
+                  <p className="text-gray-400 text-xl leading-relaxed">
                     {project.description}
                   </p>
-                </div>
 
-                {/* Tech */}
-                <div className="flex flex-wrap gap-3">
-                  {project.tech.map((item) => (
-                    <span
-                      key={item}
-                      className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-sm"
+                  {/* Tech Stack */}
+                  <div className="flex flex-wrap gap-4">
+                    {project.tech.map((item) => (
+                      <span
+                        key={item}
+                        className="px-6 py-2.5 rounded-full bg-white/5 border border-white/10 text-gray-300 text-sm font-medium tracking-wide"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Showcase Buttons */}
+                  <div className="flex flex-wrap gap-10 pt-4">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group flex items-center gap-3 text-gray-300 hover:text-white transition text-lg font-medium"
                     >
-                      {item}
-                    </span>
-                  ))}
+                      GitHub
+                      <ArrowUpRight
+                        size={20}
+                        className="group-hover:translate-x-1 group-hover:-translate-y-1 transition text-white"
+                      />
+                    </a>
+
+                    <a
+                      href={project.live}
+                      className="group flex items-center gap-3 text-cyan-400 text-lg font-medium"
+                    >
+                      Live Preview
+                      <ArrowUpRight
+                        size={20}
+                        className="group-hover:translate-x-1 group-hover:-translate-y-1 transition"
+                      />
+                    </a>
+                  </div>
                 </div>
 
-                {/* Buttons */}
-                <div className="flex gap-6 pt-4">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group flex items-center gap-2 text-white"
-                  >
-                    GitHub
-
-                    <ArrowUpRight
-                      size={18}
-                      className="group-hover:translate-x-1 group-hover:-translate-y-1 transition"
-                    />
-                  </a>
-
-                  <a
-                    href={project.live}
-                    className="group flex items-center gap-2 text-cyan-400"
-                  >
-                    Live Preview
-
-                    <ArrowUpRight
-                      size={18}
-                      className="group-hover:translate-x-1 group-hover:-translate-y-1 transition"
-                    />
-                  </a>
-                </div>
               </div>
             </motion.div>
           ))}
