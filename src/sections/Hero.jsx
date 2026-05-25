@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ArrowDownRight, Download } from "lucide-react";
 import heroImage from "../assets/hero.webp";
@@ -9,6 +9,20 @@ export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [typing, setTyping] = useState(true);
+
+  // Mouse tracking for spotlight effect
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 500, damping: 50 });
+  const springY = useSpring(mouseY, { stiffness: 500, damping: 50 });
+
+  function handleMouseMove({ currentTarget, clientX, clientY }) {
+    const { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  const spotlightMask = useMotionTemplate`radial-gradient(circle 400px at ${springX}px ${springY}px, black, transparent)`;
 
   useEffect(() => {
     const current = roles[roleIndex];
@@ -31,10 +45,38 @@ export default function Hero() {
   }, [displayed, typing, roleIndex]);
 
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden flex flex-col justify-between pt-36 pb-16 px-6 md:px-12 lg:px-20">
+    <section 
+      id="home" 
+      className="relative min-h-screen overflow-hidden flex flex-col justify-between pt-36 pb-16 px-6 md:px-12 lg:px-20 group"
+      onMouseMove={handleMouseMove}
+    >
+
+      {/* Hero Image Background with Spotlight Cursor Animation */}
+      <div className="absolute inset-0 z-0 pointer-events-none bg-black">
+        {/* Dimmed base image */}
+        <img
+          src={heroImage}
+          alt=""
+          className="w-full h-full object-cover object-top opacity-15"
+          style={{ filter: 'grayscale(70%)' }}
+        />
+        {/* Spotlight revealed image */}
+        <motion.div 
+          className="absolute inset-0"
+          style={{ WebkitMaskImage: spotlightMask, maskImage: spotlightMask }}
+        >
+          <img
+            src={heroImage}
+            alt=""
+            className="w-full h-full object-cover object-top opacity-50"
+            style={{ filter: 'grayscale(10%) contrast(1.1)' }}
+          />
+          <div className="absolute inset-0 mix-blend-overlay" style={{ background: 'linear-gradient(135deg, rgba(232,255,0,0.4) 0%, transparent 60%, rgba(0,229,255,0.3) 100%)' }} />
+        </motion.div>
+      </div>
 
       {/* BG gradient blobs */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none z-0">
         <div className="glow-pulse absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full"
           style={{ background: 'radial-gradient(circle, rgba(232,255,0,0.06) 0%, transparent 70%)' }} />
         <div className="glow-pulse absolute bottom-[10%] left-[-10%] w-[600px] h-[600px] rounded-full"
@@ -91,16 +133,16 @@ export default function Hero() {
           </span>
         </motion.div>
 
-        {/* Two-column lower section */}
-        <div className="grid md:grid-cols-2 gap-12 items-end">
+        {/* Lower section */}
+        <div className="max-w-2xl relative z-10">
 
-          {/* Left: description + CTA */}
+          {/* description + CTA */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            <p className="text-base leading-relaxed mb-8 max-w-md" style={{ color: 'var(--muted2)', fontFamily: 'var(--font-sans)' }}>
+            <p className="text-base md:text-lg leading-relaxed mb-8" style={{ color: 'var(--muted2)', fontFamily: 'var(--font-sans)' }}>
               Crafting intelligent systems and immersive digital experiences at the intersection of AI engineering and creative design. Kerala → Everywhere.
             </p>
 
@@ -116,37 +158,14 @@ export default function Hero() {
               </a>
 
               <a href="/resume.pdf" download
-                className="flex items-center gap-2 px-6 py-3 font-sans font-semibold text-sm transition-all duration-300"
-                style={{ border: '1px solid var(--border-hover)', color: 'var(--text)', borderRadius: '2px', background: 'transparent' }}
+                className="flex items-center gap-2 px-6 py-3 font-sans font-semibold text-sm transition-all duration-300 backdrop-blur-sm"
+                style={{ border: '1px solid var(--border-hover)', color: 'var(--text)', borderRadius: '2px', background: 'rgba(255,255,255,0.03)' }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-hover)'; e.currentTarget.style.color = 'var(--text)'; }}
               >
                 <Download size={16} />
                 Resume
               </a>
-            </div>
-          </motion.div>
-
-          {/* Right: hero image + tag */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="relative"
-          >
-            <div className="relative overflow-hidden" style={{ borderRadius: '2px', height: '320px', maxWidth: '420px', marginLeft: 'auto' }}>
-              <img
-                src={heroImage}
-                alt="Mohamed Shaheem"
-                className="w-full h-full object-cover object-top"
-                style={{ filter: 'grayscale(20%) contrast(1.05)' }}
-              />
-              {/* Accent overlay */}
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(232,255,0,0.08) 0%, transparent 60%, rgba(0,229,255,0.06) 100%)' }} />
-              {/* Corner tag */}
-              <div className="absolute top-4 left-4 font-mono text-xs px-3 py-1" style={{ background: 'var(--accent)', color: '#000', borderRadius: '2px' }}>
-                © 2026
-              </div>
             </div>
           </motion.div>
         </div>
