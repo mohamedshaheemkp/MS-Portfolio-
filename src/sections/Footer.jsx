@@ -1,82 +1,112 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { Link } from "react-scroll";
+
+const navLinks = [
+  { name: "About", to: "about" },
+  { name: "Skills", to: "skills" },
+  { name: "Projects", to: "projects" },
+  { name: "Designs", to: "designs" },
+  { name: "Contact", to: "contact" },
+];
+
+const marqueeItems = ["AI Engineering", "Creative Development", "Brand Identity", "Computer Vision", "UI Design", "Motion", "React", "Python", "FastAPI", "Poster Design"];
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-white/10 py-20 px-6 bg-black overflow-hidden">
-      {/* Glow */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-cyan-500/10 blur-[120px] rounded-full"></div>
+    <footer className="relative overflow-hidden" style={{ borderTop: '1px solid var(--border)', background: 'var(--surface)' }}>
+
+      {/* Scrolling marquee */}
+      <div className="py-6 overflow-hidden" style={{ borderBottom: '1px solid var(--border)' }}>
+        <div className="animate-marquee">
+          {[...marqueeItems, ...marqueeItems].map((item, i) => (
+            <span key={i} className="flex items-center gap-8 mx-8">
+              <span className="font-display font-black text-2xl italic whitespace-nowrap"
+                style={{ color: i % 4 === 0 ? 'var(--accent)' : 'var(--border-hover)' }}>
+                {item}
+              </span>
+              <span style={{ color: 'var(--border-hover)', fontSize: '20px' }}>✦</span>
+            </span>
+          ))}
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto">
+      {/* Main footer content */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-20">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: "easeOut",
-          }}
           viewport={{ once: true }}
-          className="flex flex-col lg:flex-row justify-between gap-16"
+          transition={{ duration: 0.8 }}
+          className="grid lg:grid-cols-[2fr_1fr_1fr] gap-16"
         >
-          {/* Left */}
-          <div className="max-w-2xl">
-            <p className="text-cyan-400 uppercase tracking-[0.35em] text-sm mb-6">
-              Mohamed Shaheem
-            </p>
-
-            <h2 className="text-white text-4xl md:text-5xl font-bold leading-tight">
-              Building intelligent digital experiences with AI and modern development.
+          {/* Brand */}
+          <div>
+            <h2 className="font-display font-black leading-[0.9] mb-6"
+              style={{ fontSize: 'clamp(3rem, 5vw, 4rem)', color: 'var(--text)' }}>
+              MS<span style={{ color: 'var(--accent)' }}>.</span>
             </h2>
-
-            <p className="text-gray-400 mt-8 text-lg leading-relaxed">
-              Focused on creating immersive web experiences,
-              AI-powered systems, and visually refined digital products.
+            <p className="text-sm leading-relaxed mb-8 max-w-sm" style={{ color: 'var(--muted)', fontFamily: 'var(--font-sans)' }}>
+              AI Engineer & Creative Technologist from Kerala. Building intelligent, beautiful digital experiences.
             </p>
+            <div className="flex gap-4">
+              {[
+                { icon: FaGithub, href: "https://github.com/mohamedshaheemkp" },
+                { icon: FaLinkedin, href: "https://www.linkedin.com/in/mohamed-shaheem-91a895331" },
+                { icon: FaInstagram, href: "https://instagram.com/mhd_shm__" },
+              ].map(({ icon: Icon, href }) => (
+                <a key={href} href={href} target="_blank" rel="noreferrer"
+                  className="p-2 transition-all duration-200"
+                  style={{ color: 'var(--muted)', border: '1px solid var(--border)', borderRadius: '2px' }}
+                  onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent)'; e.currentTarget.style.borderColor = 'var(--accent)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = 'var(--muted)'; e.currentTarget.style.borderColor = 'var(--border)'; }}>
+                  <Icon size={18} />
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* Right */}
-          <div className="flex flex-col justify-between">
-            {/* Links */}
-            <div className="flex gap-6">
-              <a
-                href="https://github.com/mohamedshaheemkp"
-                target="_blank"
-                rel="noreferrer"
-                className="text-gray-300 hover:text-cyan-400 transition"
-              >
-                <FaGithub size={22} />
-              </a>
+          {/* Navigation */}
+          <div>
+            <p className="font-mono text-xs tracking-widest uppercase mb-6" style={{ color: 'var(--muted)' }}>Navigation</p>
+            <ul className="space-y-3">
+              {navLinks.map(link => (
+                <li key={link.to}>
+                  <Link to={link.to} smooth duration={800} offset={-80} className="font-sans text-sm cursor-pointer transition-all duration-200"
+                    style={{ color: 'var(--muted2)' }}
+                    onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'var(--muted2)'}>
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-              <a
-                href="https://www.linkedin.com/in/mohamed-shaheem-91a895331"
-                target="_blank"
-                rel="noreferrer"
-                className="text-gray-300 hover:text-cyan-400 transition"
-              >
-                <FaLinkedin size={22} />
-              </a>
-
-              <a
-                href="https://instagram.com/mhd_shm__"
-                target="_blank"
-                rel="noreferrer"
-                className="text-gray-300 hover:text-cyan-400 transition"
-              >
-                <FaInstagram size={22} />
-              </a>
-            </div>
-
-            {/* Bottom */}
-            <div className="mt-16">
-              <p className="text-gray-500 text-sm">
-                © 2026 Mohamed Shaheem. Crafted with React,
-                Tailwind, and Framer Motion.
-              </p>
-            </div>
+          {/* Contact */}
+          <div>
+            <p className="font-mono text-xs tracking-widest uppercase mb-6" style={{ color: 'var(--muted)' }}>Get in touch</p>
+            <a href="mailto:mohamedshaheemkp74@gmail.com"
+              className="font-sans text-sm block mb-3 transition-colors duration-200"
+              style={{ color: 'var(--muted2)' }}
+              onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
+              onMouseLeave={e => e.currentTarget.style.color = 'var(--muted2)'}>
+              mohamedshaheemkp74@gmail.com
+            </a>
+            <p className="font-mono text-xs" style={{ color: 'var(--muted)' }}>Kerala, India</p>
           </div>
         </motion.div>
+
+        {/* Bottom bar */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-16 pt-8"
+          style={{ borderTop: '1px solid var(--border)' }}>
+          <p className="font-mono text-xs" style={{ color: 'var(--muted)' }}>
+            © 2026 Mohamed Shaheem. All rights reserved.
+          </p>
+          <p className="font-mono text-xs" style={{ color: 'var(--muted)' }}>
+            Built with React · Tailwind · Framer Motion
+          </p>
+        </div>
       </div>
     </footer>
   );

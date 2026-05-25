@@ -2,72 +2,121 @@ import { motion } from "framer-motion"
 
 const capabilities = [
   {
+    num: "01",
     name: "AI & Machine Learning",
-    description: "Developing intelligent models using Python, R, and modern AI frameworks.",
+    description: "Intelligent models, computer vision, and data pipelines using modern AI frameworks.",
+    tags: ["Python", "TensorFlow", "PyTorch", "YOLOv9", "OpenCV"],
   },
   {
+    num: "02",
     name: "Frontend Engineering",
-    description: "Crafting immersive, interactive web experiences with React and modern UI libraries.",
+    description: "Immersive, interactive web experiences with React and motion-rich UI libraries.",
+    tags: ["React", "Tailwind", "Framer Motion", "Vite", "TypeScript"],
   },
   {
+    num: "03",
     name: "Backend & Data",
-    description: "Architecting scalable systems and managing complex databases with Java and SQL.",
+    description: "Scalable APIs and database architecture with Python and Java backends.",
+    tags: ["FastAPI", "Java", "SQL", "REST APIs", "Docker"],
   },
   {
+    num: "04",
     name: "Brand Identity",
-    description: "Creating unique, memorable logos and cohesive visual branding for modern products.",
+    description: "Unique, memorable logos and cohesive visual systems for modern products.",
+    tags: ["Illustrator", "Photoshop", "Figma", "Typography"],
   },
   {
+    num: "05",
     name: "Visual Communication",
-    description: "Designing high-impact posters and digital marketing materials that tell a compelling story.",
+    description: "High-impact poster and digital marketing design that commands attention.",
+    tags: ["Poster Design", "Color Theory", "Editorial", "Print"],
   },
   {
+    num: "06",
     name: "Creative Direction",
-    description: "Fusing technology with aesthetics to deliver premium, cinematic digital products.",
-  }
-];
+    description: "Fusing technology with aesthetics to deliver premium digital products.",
+    tags: ["UI/UX", "Prototyping", "Motion Design", "Creative Strategy"],
+  },
+]
 
 const Skills = () => {
   return (
-    <section id="skills" className="relative z-10 py-32 px-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-          className="text-center mb-24"
-        >
-          <p className="text-cyan-400 uppercase tracking-[0.4em] text-sm mb-6 font-medium">
-            Capabilities
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold max-w-3xl mx-auto leading-tight text-white">
-            Building intelligent systems through AI, design, and development.
-          </h2>
-        </motion.div>
+    <section id="skills" className="relative py-40 px-6 md:px-12 lg:px-20 overflow-hidden">
 
-        {/* Capabilities Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {capabilities.map((capability, index) => (
+      {/* Section label */}
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="flex items-center gap-4 mb-20"
+      >
+        <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--accent)' }}>02</span>
+        <div className="w-12 h-px" style={{ background: 'var(--accent)' }} />
+        <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--muted)' }}>Capabilities</span>
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto">
+
+        {/* Header */}
+        <div className="overflow-hidden mb-20">
+          <motion.h2
+            initial={{ y: 80, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display font-black leading-[0.92] max-w-3xl"
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', color: 'var(--text)' }}
+          >
+            What I bring to<br />
+            <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>the table.</span>
+          </motion.h2>
+        </div>
+
+        {/* Capabilities — horizontal ruled list */}
+        <div style={{ borderTop: '1px solid var(--border)' }}>
+          {capabilities.map((cap, index) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
+              key={cap.num}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.8,
-                ease: "easeOut",
-                delay: index * 0.1
-              }}
               viewport={{ once: true }}
-              className="group bg-white/[0.03] border border-white/10 backdrop-blur-xl rounded-3xl p-10 cursor-pointer transition duration-500 hover:-translate-y-1 hover:border-cyan-400/30"
+              transition={{ duration: 0.6, delay: index * 0.08 }}
+              className="group relative flex flex-col md:flex-row md:items-center gap-6 md:gap-12 py-8 cursor-default transition-all duration-300"
+              style={{ borderBottom: '1px solid var(--border)' }}
+              onMouseEnter={e => e.currentTarget.style.paddingLeft = '16px'}
+              onMouseLeave={e => e.currentTarget.style.paddingLeft = '0'}
             >
-              <h3 className="text-2xl font-bold text-white group-hover:text-cyan-400 transition duration-300 mb-5">
-                {capability.name}
+              {/* Hover accent bar */}
+              <div className="absolute left-0 top-0 w-0 h-full transition-all duration-500 group-hover:w-0.5"
+                style={{ background: 'var(--accent)' }} />
+
+              {/* Number */}
+              <span className="font-mono text-xs w-8 flex-shrink-0 transition-colors duration-300"
+                style={{ color: 'var(--muted)' }}>
+                {cap.num}
+              </span>
+
+              {/* Name */}
+              <h3 className="font-display font-bold text-xl md:text-2xl md:w-64 flex-shrink-0 transition-all duration-300 group-hover:italic"
+                style={{ color: 'var(--text)' }}>
+                {cap.name}
               </h3>
-              <p className="text-gray-400 leading-relaxed text-base">
-                {capability.description}
+
+              {/* Description */}
+              <p className="flex-1 text-sm leading-relaxed" style={{ color: 'var(--muted2)', fontFamily: 'var(--font-sans)' }}>
+                {cap.description}
               </p>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 md:w-72 md:justify-end">
+                {cap.tags.map(tag => (
+                  <span key={tag} className="font-mono text-xs px-2.5 py-1 transition-all duration-300 group-hover:border-yellow-400/40"
+                    style={{ border: '1px solid var(--border)', color: 'var(--muted)', borderRadius: '2px' }}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>

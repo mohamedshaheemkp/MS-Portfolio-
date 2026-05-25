@@ -1,16 +1,63 @@
-# React + Vite
+# MS Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern personal portfolio website built with React, Vite, Tailwind CSS, and Framer Motion.
 
-Currently, two official plugins are available:
+It showcases AI development, creative UX/UI design, and interactive frontend experiences with a working EmailJS contact form.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Hero section with animated background and resume CTA
+- About section with stat cards and personal summary
+- Projects section with portfolio entries and placeholder live/demo links
+- Contact form powered by EmailJS
+- Smooth scrolling, cursor effects, and scroll progress indicator
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech stack
 
-## Expanding the ESLint configuration
+- React 19
+- Vite
+- Tailwind CSS
+- Framer Motion
+- EmailJS (`@emailjs/browser`)
+- React Icons
+- React Intersection Observer
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Local setup
+
+```bash
+npm install
+npm run dev
+```
+
+Open the URL shown in the terminal to view the app locally.
+
+## EmailJS contact form
+
+This project uses EmailJS for the contact form in `src/sections/Contact.jsx`.
+
+1. Sign up at [emailjs.com](https://www.emailjs.com/)
+2. Create a service and a template
+3. Add the following values to a local `.env` file:
+
+```env
+VITE_EMAILJS_SERVICE_ID=YOUR_SERVICE_ID
+VITE_EMAILJS_TEMPLATE_ID=YOUR_TEMPLATE_ID
+VITE_EMAILJS_PUBLIC_KEY=YOUR_PUBLIC_KEY
+```
+
+4. Restart the Vite server after updating `.env`
+
+> Note: `.env` is ignored by Git, but `.env.example` is included as a reference.
+
+## Scripts
+
+- `npm run dev` — start development server
+- `npm run build` — build production assets
+- `npm run preview` — preview the production build locally
+- `npm run lint` — run ESLint on the project
+
+## Notes
+
+Images and project files are located under `src/assets` and `src/data`.
+
+Replace placeholder `live` links in `src/data/projects.js` with deployed URLs when ready.

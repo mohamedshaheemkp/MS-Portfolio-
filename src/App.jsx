@@ -8,23 +8,27 @@ import ScrollProgress from "./components/ScrollProgress"
 import DesignShowcase from "./sections/DesignShowcase"
 import Contact from "./sections/Contact"
 import CursorParticles from "./components/CursorParticles"
-import Footer from "./sections/Footer";
+import Footer from "./sections/Footer"
+import PageLoader from "./components/PageLoader"
 
 function App() {
   return (
-    <main className="relative bg-[#050816] text-white overflow-x-hidden min-h-screen">
-      <CursorParticles />
-      <SmoothScroll />
-      <ScrollProgress />
-      <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <DesignShowcase />
-      <Contact />
-      <Footer />
-    </main>
+    <>
+      <PageLoader />
+      <main className="relative overflow-x-hidden min-h-screen" style={{ background: 'var(--bg)', color: 'var(--text)' }}>
+        <CursorParticles />
+        <SmoothScroll />
+        <ScrollProgress />
+        <Navbar />
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <DesignShowcase />
+        <Contact />
+        <Footer />
+      </main>
+    </>
   )
 }
 

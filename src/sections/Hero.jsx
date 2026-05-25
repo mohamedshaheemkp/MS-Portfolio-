@@ -1,90 +1,168 @@
 import { motion } from "framer-motion";
-import { ArrowDownRight } from "lucide-react";
-import heroImage from "../assets/hero.png";
+import { useEffect, useState } from "react";
+import { ArrowDownRight, Download } from "lucide-react";
+import heroImage from "../assets/hero.webp";
+
+const roles = ["AI Engineer", "Creative Technologist", "Graphic Designer", "ML Developer"];
 
 export default function Hero() {
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [displayed, setDisplayed] = useState("");
+  const [typing, setTyping] = useState(true);
+
+  useEffect(() => {
+    const current = roles[roleIndex];
+    let timeout;
+    if (typing) {
+      if (displayed.length < current.length) {
+        timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 60);
+      } else {
+        timeout = setTimeout(() => setTyping(false), 1800);
+      }
+    } else {
+      if (displayed.length > 0) {
+        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 35);
+      } else {
+        setRoleIndex((i) => (i + 1) % roles.length);
+        setTyping(true);
+      }
+    }
+    return () => clearTimeout(timeout);
+  }, [displayed, typing, roleIndex]);
+
   return (
-    <section
-      id="home"
-      className="relative min-h-screen overflow-hidden flex items-center"
-    >
-      {/* BACKGROUND IMAGE */}
-      <div className="absolute inset-0">
-        <img
-          src={heroImage}
-          alt="Mohamed Shaheem"
-          className="w-full h-full object-cover"
-        />
+    <section id="home" className="relative min-h-screen overflow-hidden flex flex-col justify-between pt-36 pb-16 px-6 md:px-12 lg:px-20">
+
+      {/* BG gradient blobs */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="glow-pulse absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(232,255,0,0.06) 0%, transparent 70%)' }} />
+        <div className="glow-pulse absolute bottom-[10%] left-[-10%] w-[600px] h-[600px] rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(0,229,255,0.04) 0%, transparent 70%)', animationDelay: '2s' }} />
       </div>
 
-      {/* DARK OVERLAY */}
-      <div className="absolute inset-0 bg-black/60"></div>
+      {/* Top meta row */}
+      <motion.div
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.2 }}
+        className="flex items-center justify-between mb-16 relative z-10"
+      >
+        <span className="font-mono text-xs tracking-[0.25em] uppercase" style={{ color: 'var(--muted)' }}>
+          Based in Kerala, India
+        </span>
+        <span className="font-mono text-xs tracking-[0.25em] uppercase" style={{ color: 'var(--muted)' }}>
+          Available for work
+          <span className="inline-block w-2 h-2 rounded-full ml-2 align-middle" style={{ background: '#4ade80' }} />
+        </span>
+      </motion.div>
 
-      {/* CYAN GLOW */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 blur-[140px] rounded-full"></div>
+      {/* Main content */}
+      <div className="relative z-10 flex-1 flex flex-col justify-center">
 
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-blue-500/10 blur-[140px] rounded-full"></div>
-      </div>
+        {/* Giant editorial heading */}
+        <div className="overflow-hidden mb-6">
+          <motion.h1
+            initial={{ y: 120, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            className="font-display font-black leading-[0.88] tracking-tight"
+            style={{
+              fontSize: 'clamp(3.5rem, 10vw, 9rem)',
+              color: 'var(--text)'
+            }}
+          >
+            Mohamed
+            <br />
+            <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>Shaheem</span>
+          </motion.h1>
+        </div>
 
-      {/* CONTENT */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
+        {/* Typewriter role */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-4xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="flex items-center gap-3 mb-10"
         >
-          {/* Small Intro */}
-          <p className="text-cyan-400 uppercase tracking-[0.35em] text-sm mb-8">
-            AI Developer • Creative Technologist
-          </p>
-
-          {/* Main Heading */}
-          <h1 className="text-white font-bold leading-[0.9] tracking-tight text-[3.5rem] sm:text-[5rem] lg:text-[7rem]">
-            Building
-            <br />
-
-            <span className="text-cyan-400">
-              intelligent
-            </span>
-
-            <br />
-            digital
-            <br />
-            experiences.
-          </h1>
-
-          {/* Description */}
-          <p className="text-gray-300 text-lg leading-relaxed mt-10 max-w-2xl">
-            I create AI-powered applications and Designs.
-          </p>
-
-          {/* Buttons */}
-          <div className="flex flex-wrap gap-6 mt-12">
-            <a
-              href="#projects"
-              className="px-8 py-4 rounded-2xl bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition"
-            >
-              Explore Work
-            </a>
-
-            <a
-              href="#contact"
-              className="group flex items-center gap-3 text-white"
-            >
-              Contact Me
-
-              <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-cyan-500 group-hover:border-cyan-500 transition">
-                <ArrowDownRight className="group-hover:text-black transition" />
-              </div>
-            </a>
-          </div>
+          <span className="font-mono text-sm md:text-base" style={{ color: 'var(--muted2)' }}>→</span>
+          <span className="font-mono text-sm md:text-base" style={{ color: 'var(--accent2)' }}>
+            {displayed}<span className="blink">_</span>
+          </span>
         </motion.div>
+
+        {/* Two-column lower section */}
+        <div className="grid md:grid-cols-2 gap-12 items-end">
+
+          {/* Left: description + CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            <p className="text-base leading-relaxed mb-8 max-w-md" style={{ color: 'var(--muted2)', fontFamily: 'var(--font-sans)' }}>
+              Crafting intelligent systems and immersive digital experiences at the intersection of AI engineering and creative design. Kerala → Everywhere.
+            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <a href="#projects"
+                className="group flex items-center gap-2 px-6 py-3 font-sans font-semibold text-sm transition-all duration-300"
+                style={{ background: 'var(--accent)', color: '#000', borderRadius: '2px' }}
+                onMouseEnter={e => e.currentTarget.style.background = '#fff'}
+                onMouseLeave={e => e.currentTarget.style.background = 'var(--accent)'}
+              >
+                View Work
+                <ArrowDownRight size={16} />
+              </a>
+
+              <a href="/resume.pdf" download
+                className="flex items-center gap-2 px-6 py-3 font-sans font-semibold text-sm transition-all duration-300"
+                style={{ border: '1px solid var(--border-hover)', color: 'var(--text)', borderRadius: '2px', background: 'transparent' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-hover)'; e.currentTarget.style.color = 'var(--text)'; }}
+              >
+                <Download size={16} />
+                Resume
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Right: hero image + tag */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="relative"
+          >
+            <div className="relative overflow-hidden" style={{ borderRadius: '2px', height: '320px', maxWidth: '420px', marginLeft: 'auto' }}>
+              <img
+                src={heroImage}
+                alt="Mohamed Shaheem"
+                className="w-full h-full object-cover object-top"
+                style={{ filter: 'grayscale(20%) contrast(1.05)' }}
+              />
+              {/* Accent overlay */}
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(232,255,0,0.08) 0%, transparent 60%, rgba(0,229,255,0.06) 100%)' }} />
+              {/* Corner tag */}
+              <div className="absolute top-4 left-4 font-mono text-xs px-3 py-1" style={{ background: 'var(--accent)', color: '#000', borderRadius: '2px' }}>
+                © 2026
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
 
-      {/* BOTTOM FADE */}
-      <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black to-transparent z-20 pointer-events-none"></div>
+      {/* Bottom scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+        className="relative z-10 flex items-center gap-4 mt-12"
+      >
+        <div className="w-8 h-px" style={{ background: 'var(--muted)' }} />
+        <span className="font-mono text-xs tracking-widest uppercase" style={{ color: 'var(--muted)' }}>Scroll to explore</span>
+        <div className="flex-1 h-px" style={{ background: 'var(--border)' }} />
+      </motion.div>
     </section>
   );
 }

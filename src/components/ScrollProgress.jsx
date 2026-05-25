@@ -1,15 +1,10 @@
 import { motion, useScroll } from "framer-motion"
 
 const ScrollProgress = () => {
-
   const { scrollYProgress } = useScroll()
-
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-cyan-400 origin-left z-[100]"
-      style={{
-        scaleX: scrollYProgress
-      }}
+      style={{ scaleX: scrollYProgress, background: '#e8ff00', height: '2px', position: 'fixed', top: 0, left: 0, right: 0, transformOrigin: 'left', zIndex: 9998 }}
     />
   )
 }

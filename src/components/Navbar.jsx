@@ -11,105 +11,97 @@ const navLinks = [
 ]
 
 const Navbar = () => {
-
   const [menuOpen, setMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] md:w-auto z-50 px-6 py-3 md:py-4 rounded-full border border-white/10 bg-black/30 backdrop-blur-xl shadow-[0_0_40px_rgba(0,0,0,0.3)] transition-all duration-300">
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+        style={{
+          padding: scrolled ? '14px 32px' : '22px 32px',
+          background: scrolled ? 'rgba(8,8,8,0.92)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(20px)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : 'none',
+        }}
+      >
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          {/* Logo */}
+          <Link to="home" smooth duration={800} className="cursor-pointer">
+            <span className="font-display font-black text-xl tracking-tight" style={{ color: 'var(--text)' }}>
+              MS<span style={{ color: 'var(--accent)' }}>.</span>
+            </span>
+          </Link>
 
-      <div className="flex items-center justify-between gap-8 md:gap-16">
-
-        {/* Logo */}
-        <Link
-          to="home"
-          smooth={true}
-          duration={800}
-          className="cursor-pointer inline-block transition-transform duration-300 hover:scale-105"
-        >
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-            <span className="text-cyan-400">S</span>haheem
-          </h1>
-        </Link>
-
-        {/* Desktop Nav */}
-        <ul className="hidden md:flex items-center gap-10 text-sm text-gray-300">
-
-          {navLinks.map((link, index) => (
-
-            <li key={index}>
-
-              <Link
-                to={link.to}
-                smooth={true}
-                duration={800}
-                spy={true}
-                offset={-100}
-                activeClass="!text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] underline decoration-cyan-400/50 underline-offset-[6px]"
-                className="inline-block cursor-pointer text-gray-300 hover:text-cyan-400 transition-all duration-300 hover:scale-105"
-              >
-                {link.name}
-              </Link>
-
-            </li>
-
-          ))}
-
-        </ul>
-
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-3xl text-white transition-transform duration-300 hover:scale-105"
-        >
-          {menuOpen ? <HiX /> : <HiMenuAlt3 />}
-        </button>
-
-      </div>
-
-      {/* Mobile Menu */}
-      {menuOpen && (
-
-        <div className="absolute top-full left-0 w-full mt-4 md:hidden bg-black/90 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
-
-          <ul className="flex flex-col items-center gap-8 py-10 text-gray-300">
-
-            {navLinks.map((link, index) => (
-
-              <li key={index}>
-
+          {/* Desktop links */}
+          <ul className="hidden md:flex items-center gap-10">
+            {navLinks.map((link) => (
+              <li key={link.to}>
                 <Link
                   to={link.to}
-                  smooth={true}
-                  duration={800}
-                  spy={true}
-                  offset={-100}
+                  smooth duration={800} spy offset={-80}
+                  activeClass="active-nav"
+                  className="font-sans text-sm tracking-wide cursor-pointer transition-all duration-300 relative group"
+                  style={{ color: 'var(--muted2)', fontWeight: 500 }}
+                >
+                  {link.name}
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-px transition-all duration-300 group-hover:w-full"
+                    style={{ background: 'var(--accent)' }} />
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* CTA */}
+          <a href="#contact"
+            className="hidden md:inline-flex items-center gap-2 font-sans text-sm font-semibold px-5 py-2 transition-all duration-300"
+            style={{ border: '1px solid var(--border-hover)', color: 'var(--text)', borderRadius: '2px' }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'var(--accent)'; e.currentTarget.style.color = '#000'; e.currentTarget.style.borderColor = 'var(--accent)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--text)'; e.currentTarget.style.borderColor = 'var(--border-hover)'; }}
+          >
+            Hire Me
+          </a>
+
+          {/* Mobile toggle */}
+          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-2xl" style={{ color: 'var(--text)' }}>
+            {menuOpen ? <HiX /> : <HiMenuAlt3 />}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="fixed inset-0 z-40 flex flex-col justify-center items-center"
+          style={{ background: 'rgba(8,8,8,0.97)', backdropFilter: 'blur(20px)' }}>
+          <button onClick={() => setMenuOpen(false)} className="absolute top-6 right-8 text-2xl" style={{ color: 'var(--muted)' }}>
+            <HiX />
+          </button>
+          <ul className="flex flex-col items-center gap-10">
+            {navLinks.map((link) => (
+              <li key={link.to}>
+                <Link
+                  to={link.to} smooth duration={800} offset={-80}
                   onClick={() => setMenuOpen(false)}
-                  activeClass="!text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] underline decoration-cyan-400/50 underline-offset-[6px]"
-                  className="inline-block cursor-pointer text-gray-300 hover:text-cyan-400 transition-all duration-300 hover:scale-105 text-lg"
+                  className="font-display font-bold text-4xl cursor-pointer transition-all duration-300 hover:italic"
+                  style={{ color: 'var(--text)' }}
                 >
                   {link.name}
                 </Link>
-
               </li>
-
             ))}
-
           </ul>
-
         </div>
-
       )}
 
-    </nav>
+      <style>{`
+        .active-nav { color: var(--accent) !important; }
+      `}</style>
+    </>
   )
 }
 
