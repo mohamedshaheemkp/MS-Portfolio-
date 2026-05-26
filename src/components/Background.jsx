@@ -42,9 +42,9 @@ export default function Background() {
         <div className="absolute top-[30%] left-[20%] w-[45vw] h-[45vw] rounded-full bg-[#e8ff00]/[0.025] blur-[120px] animate-drift-yellow" />
       </div>
 
-      {/* LAYER 4: Noise Texture overlay */}
+      {/* LAYER 4: Noise Texture overlay (GPU-accelerated organic shimmer) */}
       <div 
-        className="absolute inset-0 w-full h-full opacity-[0.02] mix-blend-overlay"
+        className="absolute -inset-[2.5%] w-[105%] h-[105%] opacity-[0.035] mix-blend-overlay pointer-events-none animate-noise"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`
         }}

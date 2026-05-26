@@ -8,6 +8,7 @@ import ScrollProgress from "./components/ScrollProgress"
 import DesignShowcase from "./sections/DesignShowcase"
 import Contact from "./sections/Contact"
 import CursorParticles from "./components/CursorParticles"
+import CustomCursor from "./components/CustomCursor"
 import Footer from "./sections/Footer"
 import PageLoader from "./components/PageLoader"
 import Background from "./components/Background"
@@ -19,6 +20,7 @@ function App() {
       <Background />
       <main className="relative overflow-x-hidden min-h-screen" style={{ background: 'var(--bg)', color: 'var(--text)' }}>
         <CursorParticles />
+        <CustomCursor />
         <SmoothScroll />
         <ScrollProgress />
         <Navbar />

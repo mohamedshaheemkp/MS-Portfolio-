@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion"
+import ScrollReveal from "../components/ScrollReveal"
 import { useState, useEffect, useRef, useCallback } from "react"
 import designs from "../data/designs"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
@@ -37,11 +38,7 @@ const DesignCard = ({ design, index, height, onOpen }) => {
   }, [images.length])
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 80 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
+    <ScrollReveal delay={index * 0.08} distance={60} duration={0.8}
       className="relative group overflow-hidden cursor-zoom-in w-full bg-white/[0.02] border border-white/[0.08] rounded-2xl hover:scale-[1.02] hover:-translate-y-1.5 hover:border-cyan-400/20 hover:shadow-2xl transition-all duration-700"
       onClick={() => onOpen({ images, startIndex: currentIndex })}
     >
@@ -84,7 +81,7 @@ const DesignCard = ({ design, index, height, onOpen }) => {
           </div>
         )}
       </div>
-    </motion.div>
+    </ScrollReveal>
   )
 }
 
@@ -160,34 +157,24 @@ const DesignShowcase = () => {
     <section id="designs" className="relative py-40 px-6 md:px-12 lg:px-20 overflow-hidden bg-black">
 
       {/* Section label */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="flex items-center gap-4 mb-20"
-      >
+      <ScrollReveal direction="left" distance={30} duration={0.7} className="flex items-center gap-4 mb-20">
         <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--accent)' }}>04</span>
         <div className="w-12 h-px" style={{ background: 'var(--accent)' }} />
         <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--muted)' }}>Creative Direction</span>
-      </motion.div>
+      </ScrollReveal>
 
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
-        <div className="overflow-hidden mb-24">
-          <motion.h2
-            initial={{ opacity: 0, y: 80 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        <ScrollReveal distance={80} duration={1} className="mb-24">
+          <h2
             className="font-display font-black leading-[0.92]"
             style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', color: 'var(--text)' }}
           >
             Creative Direction &<br />
             <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>Visual Experiments.</span>
-          </motion.h2>
-        </div>
+          </h2>
+        </ScrollReveal>
 
         {/* True Staggered Asymmetrical Masonry Columns */}
         <div className="grid md:grid-cols-2 gap-8 items-start">

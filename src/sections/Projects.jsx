@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import ScrollReveal from "../components/ScrollReveal";
 import { ArrowUpRight, Activity, Terminal, Layers } from "lucide-react";
 import { projects } from "../data/projects";
 import { useState, useEffect } from "react";
@@ -178,46 +179,30 @@ export default function Projects() {
       <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-[#e8ff00]/[0.015] blur-[180px] pointer-events-none" />
 
       {/* Section label */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="flex items-center gap-4 mb-20"
-      >
+      <ScrollReveal direction="left" distance={30} duration={0.7} className="flex items-center gap-4 mb-20">
         <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--accent)' }}>03</span>
         <div className="w-12 h-px" style={{ background: 'var(--accent)' }} />
         <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--muted)' }}>Selected Work</span>
-      </motion.div>
+      </ScrollReveal>
 
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
-        <div className="overflow-hidden mb-28">
-          <motion.h2
-            initial={{ opacity: 0, y: 80 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        <ScrollReveal distance={80} duration={1} className="mb-28">
+          <h2
             className="font-display font-black leading-[0.92]"
             style={{ fontSize: 'clamp(2.5rem, 7vw, 6.5rem)', color: 'var(--text)' }}
           >
             Things I've<br />
             <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>actually built.</span>
-          </motion.h2>
-        </div>
+          </h2>
+        </ScrollReveal>
 
         {/* Alternate rhythm layout rows */}
         <div className="space-y-32">
           
           {/* ================= PROJECT 1 (AgriAI) ================= */}
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl p-8 md:p-12 lg:p-16 hover:scale-[1.02] hover:-translate-y-2 transition-all duration-700 group cursor-pointer overflow-hidden shadow-2xl hover:shadow-[0_20px_50px_rgba(232,255,0,0.04)]"
-          >
+          <ScrollReveal distance={60} duration={0.9} className="relative bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl p-8 md:p-12 lg:p-16 hover:scale-[1.02] hover:-translate-y-2 transition-all duration-700 group cursor-pointer overflow-hidden shadow-2xl hover:shadow-[0_20px_50px_rgba(232,255,0,0.04)]">
             {/* Custom subtle noise texture */}
             <div 
               className="absolute inset-0 opacity-[0.02] pointer-events-none"
@@ -332,17 +317,11 @@ export default function Projects() {
               </div>
 
             </div>
-          </motion.div>
+          </ScrollReveal>
 
 
           {/* ================= PROJECT 2 (AI Portfolio) ================= */}
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl p-8 md:p-12 lg:p-16 hover:scale-[1.02] hover:-translate-y-2 transition-all duration-700 group cursor-pointer overflow-hidden shadow-2xl hover:shadow-[0_20px_50px_rgba(0,229,255,0.04)]"
-          >
+          <ScrollReveal delay={0.05} distance={60} duration={0.9} className="relative bg-white/[0.03] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl p-8 md:p-12 lg:p-16 hover:scale-[1.02] hover:-translate-y-2 transition-all duration-700 group cursor-pointer overflow-hidden shadow-2xl hover:shadow-[0_20px_50px_rgba(0,229,255,0.04)]">
             {/* Custom subtle noise texture */}
             <div 
               className="absolute inset-0 opacity-[0.02] pointer-events-none"
@@ -445,7 +424,7 @@ export default function Projects() {
               </div>
 
             </div>
-          </motion.div>
+          </ScrollReveal>
 
         </div>
       </div>

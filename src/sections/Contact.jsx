@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import ScrollReveal from "../components/ScrollReveal";
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
@@ -34,28 +35,16 @@ export default function Contact() {
       <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[400px] bg-purple-600/[0.015] blur-[140px] rounded-full pointer-events-none" />
 
       {/* Section label */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="flex items-center gap-4 mb-20"
-      >
+      <ScrollReveal direction="left" distance={30} duration={0.7} className="flex items-center gap-4 mb-20">
         <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--accent)' }}>05</span>
         <div className="w-12 h-px" style={{ background: 'var(--accent)' }} />
         <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--muted)' }}>Contact</span>
-      </motion.div>
+      </ScrollReveal>
 
       <div className="max-w-7xl mx-auto grid lg:grid-cols-[1fr_1.1fr] gap-20 lg:gap-24 items-center relative z-10">
 
         {/* Left Column: Cinematic Statement & Socials */}
-        <motion.div
-          initial={{ opacity: 0, y: 80 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col items-start text-left"
-        >
+        <ScrollReveal distance={80} duration={0.9} className="flex flex-col items-start text-left">
           <span className="font-mono text-xs tracking-widest text-[#6b6860] uppercase block mb-6">
             // DIRECT CHANNEL
           </span>
@@ -95,16 +84,10 @@ export default function Contact() {
               </a>
             ))}
           </div>
-        </motion.div>
+        </ScrollReveal>
 
         {/* Right Column: Minimal Glass Form */}
-        <motion.div
-          initial={{ opacity: 0, y: 80 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-          className="bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden group hover:border-white/15 transition-all duration-500 w-full"
-        >
+        <ScrollReveal delay={0.2} distance={80} direction="right" duration={0.9} className="bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden group hover:border-white/15 transition-all duration-500 w-full">
           {/* Subtle noise texture overlay */}
           <div 
             className="absolute inset-0 opacity-[0.02] pointer-events-none"
@@ -173,7 +156,7 @@ export default function Contact() {
               <FiSend size={14} />
             </button>
           </form>
-        </motion.div>
+        </ScrollReveal>
       </div>
 
       {/* Bottom Soft transition */}

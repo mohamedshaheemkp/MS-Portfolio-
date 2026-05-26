@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import ScrollReveal from "../components/ScrollReveal";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { Link } from "react-scroll";
 
@@ -33,13 +34,7 @@ export default function Footer() {
 
       {/* Main footer content */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="grid lg:grid-cols-[2fr_1fr_1fr] gap-16"
-        >
+        <ScrollReveal distance={50} duration={0.9} className="grid lg:grid-cols-[2fr_1fr_1fr] gap-16">
           {/* Brand */}
           <div>
             <h2 className="font-display font-black leading-[0.9] mb-6"
@@ -95,7 +90,7 @@ export default function Footer() {
             </a>
             <p className="font-mono text-xs" style={{ color: 'var(--muted)' }}>Kerala, India</p>
           </div>
-        </motion.div>
+        </ScrollReveal>
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mt-16 pt-8"
