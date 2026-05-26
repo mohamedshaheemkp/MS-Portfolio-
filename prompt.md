@@ -1,5 +1,15 @@
 
+====================================================
+ADD NOISE OVERLAY
+====================================================
 
+Create a subtle animated grain texture overlay across entire website.
+
+Opacity:
+0.03 to 0.05
+
+Blend:
+soft-light
 ====================================================
 SCROLL ANIMATION SYSTEM
 ====================================================
