@@ -1,20 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --bg: #080808;
-  --surface: #0f0f0f;
-  --surface2: #161616;
+  --bg: #050505;
+  --surface: #0c0c0c;
+  --surface2: #121212;
   --border: rgba(255,255,255,0.07);
-  --border-hover: rgba(255,255,255,0.15);
-  --accent: #e8ff00;
-  --accent2: #00e5ff;
-  --text: #f0ede8;
-  --muted: #6b6860;
-  --muted2: #9b9892;
-  --font-display: 'Playfair Display', Georgia, serif;
+  --border-hover: rgba(255,255,255,0.12);
+  --accent: #00f0ff;
+  --accent2: #0066ff;
+  --accent3: #a855f7;
+  --text: #F5F5F5;
+  --muted: #A1A1AA;
+  --muted2: #e2e8f0;
+  --font-display: 'Space Grotesk', sans-serif;
   --font-mono: 'DM Mono', 'Courier New', monospace;
-  --font-sans: 'Syne', sans-serif;
+  --font-sans: 'Inter', sans-serif;
 }
 
 html { scroll-behavior: smooth; }
@@ -72,16 +73,49 @@ body::before {
   width: max-content;
 }
 
-/* Grain shimmer */
+/* Grain shimmer with GPU-accelerated translate3d */
 @keyframes particleFloat {
-  0% { transform: translateY(0px); opacity: 0; }
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
   10% { opacity: 1; }
-  100% { transform: translateY(-120vh); opacity: 0; }
+  100% { transform: translate3d(0, -120vh, 0); opacity: 0; }
 }
 .animate-particle {
   animation-name: particleFloat;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+/* GPU-Accelerated drifting glows */
+@keyframes driftCyan {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(4vw, -3vh, 0) scale(1.05); }
+  66% { transform: translate3d(-2vw, 2vh, 0) scale(0.95); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes driftPurple {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(-5vw, 4vh, 0) scale(0.9); }
+  66% { transform: translate3d(3vw, -3vh, 0) scale(1.1); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes driftYellow {
+  0% { transform: translate3d(0, 0, 0) scale(0.9); }
+  33% { transform: translate3d(3vw, 5vh, 0) scale(1.1); }
+  66% { transform: translate3d(-4vw, -4vh, 0) scale(0.9); }
+  100% { transform: translate3d(0, 0, 0) scale(0.9); }
+}
+.animate-drift-cyan {
+  animation: driftCyan 25s ease-in-out infinite;
+  will-change: transform;
+}
+.animate-drift-purple {
+  animation: driftPurple 30s ease-in-out infinite;
+  will-change: transform;
+}
+.animate-drift-yellow {
+  animation: driftYellow 22s ease-in-out infinite;
+  will-change: transform;
 }
 
 /* Glow pulse */

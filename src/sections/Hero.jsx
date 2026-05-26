@@ -1,187 +1,198 @@
-import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
-import { useEffect, useState } from "react";
-import { ArrowDownRight, Download } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowDownRight, Download, Code, Palette, Zap } from "lucide-react";
 import heroImage from "../assets/hero.webp";
 
-const roles = ["AI Engineer", "Creative Technologist", "Graphic Designer", "ML Developer"];
-
 export default function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [displayed, setDisplayed] = useState("");
-  const [typing, setTyping] = useState(true);
-
-  // Mouse tracking for spotlight effect
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 500, damping: 50 });
-  const springY = useSpring(mouseY, { stiffness: 500, damping: 50 });
-
-  function handleMouseMove({ currentTarget, clientX, clientY }) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
-
-  const spotlightMask = useMotionTemplate`radial-gradient(circle 400px at ${springX}px ${springY}px, black, transparent)`;
-
-  useEffect(() => {
-    const current = roles[roleIndex];
-    let timeout;
-    if (typing) {
-      if (displayed.length < current.length) {
-        timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 60);
-      } else {
-        timeout = setTimeout(() => setTyping(false), 1800);
-      }
-    } else {
-      if (displayed.length > 0) {
-        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 35);
-      } else {
-        setRoleIndex((i) => (i + 1) % roles.length);
-        setTyping(true);
-      }
-    }
-    return () => clearTimeout(timeout);
-  }, [displayed, typing, roleIndex]);
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
+  const y2 = useTransform(scrollY, [0, 1000], [0, -100]);
 
   return (
     <section 
       id="home" 
-      className="relative min-h-screen overflow-hidden flex flex-col justify-between pt-36 pb-16 px-6 md:px-12 lg:px-20 group"
-      onMouseMove={handleMouseMove}
+      className="relative min-h-screen overflow-hidden flex items-center pt-32 pb-16 px-6 md:px-12 lg:px-20 bg-[#0a0a0a]"
     >
-
-      {/* Hero Image Background with Spotlight Cursor Animation */}
-      <div className="absolute inset-0 z-0 pointer-events-none bg-black">
-        {/* Dimmed base image */}
-        <img
-          src={heroImage}
-          alt=""
-          className="w-full h-full object-cover object-top opacity-15"
-          style={{ filter: 'grayscale(70%)' }}
-        />
-        {/* Spotlight revealed image */}
-        <motion.div 
-          className="absolute inset-0"
-          style={{ WebkitMaskImage: spotlightMask, maskImage: spotlightMask }}
+      {/* Background Giant Typography */}
+      <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
+        <motion.h1 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+          className="text-[18vw] font-black text-white/[0.03] tracking-tight leading-none"
         >
-          <img
-            src={heroImage}
-            alt=""
-            className="w-full h-full object-cover object-top opacity-50"
-            style={{ filter: 'grayscale(10%) contrast(1.1)' }}
-          />
-          <div className="absolute inset-0 mix-blend-overlay" style={{ background: 'linear-gradient(135deg, rgba(232,255,0,0.4) 0%, transparent 60%, rgba(0,229,255,0.3) 100%)' }} />
-        </motion.div>
+          CREATE
+        </motion.h1>
       </div>
 
-      {/* BG gradient blobs */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="glow-pulse absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(232,255,0,0.06) 0%, transparent 70%)' }} />
-        <div className="glow-pulse absolute bottom-[10%] left-[-10%] w-[600px] h-[600px] rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(0,229,255,0.04) 0%, transparent 70%)', animationDelay: '2s' }} />
-      </div>
+      <div className="container mx-auto relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+          
+          {/* LEFT SIDE: Typography & CTA */}
+          <div className="flex flex-col justify-center">
+            {/* Small Label */}
+            <motion.div
+              initial={{ opacity: 0, y: 80 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+              className="mb-8"
+            >
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-xs font-mono text-zinc-300 uppercase tracking-widest shadow-xl">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)] animate-pulse" />
+                Available for work
+              </span>
+            </motion.div>
 
-      {/* Top meta row */}
-      <motion.div
-        initial={{ opacity: 0, y: -16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-        className="flex items-center justify-between mb-16 relative z-10"
-      >
-        <span className="font-mono text-xs tracking-[0.25em] uppercase" style={{ color: 'var(--muted)' }}>
-          Based in Kerala, India
-        </span>
-        <span className="font-mono text-xs tracking-[0.25em] uppercase" style={{ color: 'var(--muted)' }}>
-          Available for work
-          <span className="inline-block w-2 h-2 rounded-full ml-2 align-middle" style={{ background: '#4ade80' }} />
-        </span>
-      </motion.div>
+            {/* Huge Heading */}
+            <div className="mb-6 relative z-20">
+              <div className="overflow-hidden mb-2">
+                <motion.h1 
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+                  className="text-5xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[1.1] text-white"
+                >
+                  Creative
+                </motion.h1>
+              </div>
+              <div className="overflow-hidden mb-2">
+                <motion.h1 
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+                  className="text-5xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[1.1]"
+                >
+                  <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
+                    AI Engineer
+                  </span>
+                </motion.h1>
+              </div>
+              <div className="overflow-hidden">
+                <motion.h1 
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+                  className="text-5xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[1.1] text-white"
+                >
+                  <span className="text-zinc-500 font-normal italic pr-4">&</span>
+                  Graphic Designer
+                </motion.h1>
+              </div>
+            </div>
 
-      {/* Main content */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center">
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 80 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+              className="text-lg md:text-xl text-zinc-400 max-w-xl mb-12 font-light leading-relaxed"
+            >
+              Building futuristic digital experiences at the intersection of artificial intelligence and premium creative design.
+            </motion.p>
 
-        {/* Giant editorial heading */}
-        <div className="overflow-hidden mb-6">
-          <motion.h1
-            initial={{ y: 120, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="font-display font-black leading-[0.88] tracking-tight"
-            style={{
-              fontSize: 'clamp(3.5rem, 10vw, 9rem)',
-              color: 'var(--text)'
-            }}
-          >
-            Mohamed
-            <br />
-            <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>Shaheem</span>
-          </motion.h1>
-        </div>
-
-        {/* Typewriter role */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-          className="flex items-center gap-3 mb-10"
-        >
-          <span className="font-mono text-sm md:text-base" style={{ color: 'var(--muted2)' }}>→</span>
-          <span className="font-mono text-sm md:text-base" style={{ color: 'var(--accent2)' }}>
-            {displayed}<span className="blink">_</span>
-          </span>
-        </motion.div>
-
-        {/* Lower section */}
-        <div className="max-w-2xl relative z-10">
-
-          {/* description + CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            <p className="text-base md:text-lg leading-relaxed mb-8" style={{ color: 'var(--muted2)', fontFamily: 'var(--font-sans)' }}>
-              Crafting intelligent systems and immersive digital experiences at the intersection of AI engineering and creative design. Kerala → Everywhere.
-            </p>
-
-            <div className="flex flex-wrap gap-4">
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 80 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
+              className="flex flex-wrap items-center gap-4"
+            >
               <a href="#projects"
-                className="group flex items-center gap-2 px-6 py-3 font-sans font-semibold text-sm transition-all duration-300"
-                style={{ background: 'var(--accent)', color: '#000', borderRadius: '2px' }}
-                onMouseEnter={e => e.currentTarget.style.background = '#fff'}
-                onMouseLeave={e => e.currentTarget.style.background = 'var(--accent)'}
+                className="group flex items-center gap-2 px-8 py-4 rounded-full bg-white text-black font-medium hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
               >
-                View Work
-                <ArrowDownRight size={16} />
+                View Selected Work
+                <ArrowDownRight size={18} className="group-hover:rotate-[-45deg] transition-transform duration-300" />
               </a>
 
               <a href="/resume.pdf" download
-                className="flex items-center gap-2 px-6 py-3 font-sans font-semibold text-sm transition-all duration-300 backdrop-blur-sm"
-                style={{ border: '1px solid var(--border-hover)', color: 'var(--text)', borderRadius: '2px', background: 'rgba(255,255,255,0.03)' }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.color = 'var(--accent)'; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-hover)'; e.currentTarget.style.color = 'var(--text)'; }}
+                className="flex items-center gap-2 px-8 py-4 rounded-full border border-white/20 text-white backdrop-blur-lg hover:bg-white/10 transition-colors duration-300"
               >
-                <Download size={16} />
-                Resume
+                <Download size={18} />
+                Download Résumé
               </a>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
+
+          {/* RIGHT SIDE: Floating Visuals */}
+          <div className="relative h-[450px] lg:h-[600px] w-full flex items-center justify-center lg:justify-end mt-12 lg:mt-0">
+            
+            {/* Radial Glow Behind Image */}
+            <div className="absolute w-[80%] max-w-[500px] aspect-square bg-cyan-500/20 blur-[120px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0" />
+
+            {/* Main Floating Image */}
+            <motion.div
+              initial={{ opacity: 0, y: 80 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.7 }}
+              style={{ y: y1 }}
+              className="relative z-10 w-full max-w-[320px] lg:max-w-[400px] aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-zinc-900"
+            >
+              <img
+                src={heroImage}
+                alt="Mohamed Shaheem"
+                className="w-full h-full object-cover"
+                style={{ filter: 'grayscale(10%) contrast(1.1)' }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-transparent to-transparent opacity-80" />
+            </motion.div>
+
+            {/* Glass Floating Card 1: Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 80 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.8 }}
+              style={{ y: y2 }}
+              className="absolute top-[10%] lg:top-[15%] right-0 lg:-left-[5%] backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-5 shadow-2xl z-20 group hover:bg-white/10 transition-colors duration-300 w-48"
+              whileHover={{ scale: 1.05, rotate: -2 }}
+            >
+              <div className="flex items-center gap-4 mb-2">
+                <div className="p-3 bg-cyan-500/20 rounded-2xl text-cyan-400">
+                  <Code size={24} />
+                </div>
+                <div>
+                  <p className="text-xs text-zinc-400 font-medium">AI Systems Built</p>
+                  <h3 className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">12+</h3>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Glass Floating Card 2: Design */}
+            <motion.div
+              initial={{ opacity: 0, y: 80 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.9 }}
+              style={{ y: y1 }}
+              className="absolute bottom-[20%] lg:bottom-[25%] left-0 lg:-right-[5%] backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-5 shadow-2xl z-20 group hover:bg-white/10 transition-colors duration-300 w-48"
+              whileHover={{ scale: 1.05, rotate: 2 }}
+            >
+              <div className="flex items-center gap-4 mb-2">
+                <div className="p-3 bg-purple-500/20 rounded-2xl text-purple-400">
+                  <Palette size={24} />
+                </div>
+                <div>
+                  <p className="text-xs text-zinc-400 font-medium">Design Projects</p>
+                  <h3 className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors">40+</h3>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Glass Floating Card 3: Performance */}
+            <motion.div
+              initial={{ opacity: 0, y: 80 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 1 }}
+              className="absolute bottom-[5%] left-[20%] lg:left-[5%] backdrop-blur-xl bg-white/5 border border-white/10 rounded-full py-3 px-6 shadow-2xl z-20 flex items-center gap-3 hover:bg-white/10 transition-colors duration-300"
+              whileHover={{ scale: 1.05, y: -5 }}
+            >
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              <span className="text-sm font-medium text-zinc-300">99.9% Performant</span>
+            </motion.div>
+
+          </div>
         </div>
       </div>
 
-      {/* Bottom scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
-        className="relative z-10 flex items-center gap-4 mt-12"
-      >
-        <div className="w-8 h-px" style={{ background: 'var(--muted)' }} />
-        <span className="font-mono text-xs tracking-widest uppercase" style={{ color: 'var(--muted)' }}>Scroll to explore</span>
-        <div className="flex-1 h-px" style={{ background: 'var(--border)' }} />
-      </motion.div>
+      {/* Bottom Soft transition */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-black pointer-events-none z-10" />
     </section>
   );
 }

@@ -26,7 +26,7 @@ const LazyImage = ({ src, alt, className, style }) => {
   )
 }
 
-const DesignCard = ({ design, index, onOpen }) => {
+const DesignCard = ({ design, index, height, onOpen }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const images = Array.isArray(design.image) ? design.image : [design.image]
 
@@ -36,56 +36,53 @@ const DesignCard = ({ design, index, onOpen }) => {
     return () => clearInterval(interval)
   }, [images.length])
 
-  const isLarge = index === 0 || index === 3
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 80 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.7, delay: index * 0.1 }}
-      className={`relative group overflow-hidden cursor-zoom-in ${isLarge ? 'md:col-span-2' : ''}`}
-      style={{ border: '1px solid var(--border)', borderRadius: '2px' }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
+      className="relative group overflow-hidden cursor-zoom-in w-full bg-white/[0.02] border border-white/[0.08] rounded-2xl hover:scale-[1.02] hover:-translate-y-1.5 hover:border-cyan-400/20 hover:shadow-2xl transition-all duration-700"
       onClick={() => onOpen({ images, startIndex: currentIndex })}
     >
-      <div className="relative overflow-hidden" style={{ height: isLarge ? '480px' : '340px' }}>
+      <div className="relative overflow-hidden w-full" style={{ height }}>
         <AnimatePresence mode="wait">
           <motion.div key={currentIndex} className="absolute inset-0"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}>
             <LazyImage src={images[currentIndex]} alt={`${design.title} ${currentIndex + 1}`}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+              style={{ filter: 'saturate(0.95) contrast(1.02)' }}
             />
           </motion.div>
         </AnimatePresence>
 
-        {/* Overlay */}
-        <div className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-          style={{ background: 'linear-gradient(to top, rgba(8,8,8,0.85) 0%, rgba(8,8,8,0.2) 50%, transparent 100%)' }} />
+        {/* Dynamic Dark Gradient Overlay */}
+        <div className="absolute inset-0 transition-opacity duration-300 opacity-60 group-hover:opacity-85 pointer-events-none"
+          style={{ background: 'linear-gradient(to top, rgba(5,5,5,0.9) 0%, rgba(5,5,5,0.1) 60%, transparent 100%)' }} />
 
-        {/* Info on hover */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-          <h3 className="font-display font-bold text-xl mb-1" style={{ color: 'var(--text)' }}>{design.title}</h3>
-          <p className="font-mono text-xs" style={{ color: 'var(--accent)' }}>
-            {images.length} image{images.length > 1 ? 's' : ''} · Click to expand
+        {/* Info on hover / always visible at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+          <span className="font-mono text-[9px] tracking-widest text-[#6b6860] uppercase block mb-1">
+            // {design.title.split(' ')[0]} EXPERIMENT
+          </span>
+          <h3 className="font-display font-black text-xl md:text-2xl mb-1 text-white group-hover:italic transition-all duration-300">
+            {design.title}
+          </h3>
+          <p className="font-mono text-[10px] text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {images.length} view{images.length > 1 ? 's' : ''} · Click to expand
           </p>
         </div>
 
-        {/* Carousel dots */}
+        {/* Carousel dots indicator inside card */}
         {images.length > 1 && (
-          <div className="absolute top-4 right-4 flex gap-1">
+          <div className="absolute top-4 right-4 flex gap-1 z-20">
             {images.map((_, i) => (
               <div key={i} className="transition-all duration-300"
-                style={{ width: i === currentIndex ? '20px' : '5px', height: '3px', borderRadius: '1px', background: i === currentIndex ? 'var(--accent)' : 'rgba(255,255,255,0.3)' }} />
+                style={{ width: i === currentIndex ? '18px' : '5px', height: '3px', borderRadius: '1px', background: i === currentIndex ? 'var(--accent)' : 'rgba(255,255,255,0.2)' }} />
             ))}
           </div>
         )}
-
-        {/* Category badge */}
-        <div className="absolute top-4 left-4 font-mono text-xs px-3 py-1"
-          style={{ background: 'rgba(8,8,8,0.7)', color: 'var(--muted2)', borderRadius: '2px', backdropFilter: 'blur(10px)' }}>
-          {design.title.split(' ')[0]}
-        </div>
       </div>
     </motion.div>
   )
@@ -160,7 +157,7 @@ const DesignShowcase = () => {
   const [lightbox, setLightbox] = useState(null)
 
   return (
-    <section id="designs" className="relative py-40 px-6 md:px-12 lg:px-20">
+    <section id="designs" className="relative py-40 px-6 md:px-12 lg:px-20 overflow-hidden bg-black">
 
       {/* Section label */}
       <motion.div
@@ -172,28 +169,61 @@ const DesignShowcase = () => {
       >
         <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--accent)' }}>04</span>
         <div className="w-12 h-px" style={{ background: 'var(--accent)' }} />
-        <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--muted)' }}>Design Work</span>
+        <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--muted)' }}>Creative Direction</span>
       </motion.div>
 
       <div className="max-w-7xl mx-auto">
-        <div className="overflow-hidden mb-16">
+        
+        {/* Header */}
+        <div className="overflow-hidden mb-24">
           <motion.h2
-            initial={{ y: 80, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="font-display font-black leading-[0.92]"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', color: 'var(--text)' }}
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', color: 'var(--text)' }}
           >
-            Visual work that<br />
-            <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>speaks first.</span>
+            Creative Direction &<br />
+            <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>Visual Experiments.</span>
           </motion.h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4">
-          {designs.map((design, index) => (
-            <DesignCard key={index} design={design} index={index} onOpen={setLightbox} />
-          ))}
+        {/* True Staggered Asymmetrical Masonry Columns */}
+        <div className="grid md:grid-cols-2 gap-8 items-start">
+          
+          {/* Left Column */}
+          <div className="flex flex-col gap-8 w-full">
+            <DesignCard 
+              design={designs[0]} 
+              index={0} 
+              height="520px" 
+              onOpen={setLightbox} 
+            />
+            <DesignCard 
+              design={designs[2]} 
+              index={2} 
+              height="360px" 
+              onOpen={setLightbox} 
+            />
+          </div>
+
+          {/* Right Column (Staggered md:mt-16 to create height offsets) */}
+          <div className="flex flex-col gap-8 w-full md:mt-16">
+            <DesignCard 
+              design={designs[1]} 
+              index={1} 
+              height="380px" 
+              onOpen={setLightbox} 
+            />
+            <DesignCard 
+              design={designs[3]} 
+              index={3} 
+              height="480px" 
+              onOpen={setLightbox} 
+            />
+          </div>
+
         </div>
       </div>
 
@@ -202,6 +232,8 @@ const DesignShowcase = () => {
           <Lightbox images={lightbox.images} startIndex={lightbox.startIndex} onClose={() => setLightbox(null)} />
         )}
       </AnimatePresence>
+      {/* Bottom Soft transition */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-black pointer-events-none z-10" />
     </section>
   )
 }

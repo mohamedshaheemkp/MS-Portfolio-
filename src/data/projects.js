@@ -10,7 +10,7 @@ export const projects = [
       "AgriAI is an intelligent agriculture dashboard that combines YOLOv9 computer vision, real-time plant health monitoring, and automated disease detection to deliver actionable insights for modern farmers.",
     tech: ["YOLOv9", "PyTorch", "OpenCV", "React + Vite", "Python", "TensorFlow", "FastAPI"],
     images: [agriDash, agriLive],
-    github: "https://github.com/mohamedshaheemkp",
+    github: "https://github.com/mohamedshaheemkp/Agri-Ai.git",
     live: "#", // replace with the live AgriAI deployment URL when available
   },
 
@@ -21,7 +21,7 @@ export const projects = [
       "A futuristic personal portfolio built with React, Tailwind, and Framer Motion, focused on immersive interactions, cinematic motion, and polished AI-inspired visuals.",
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
     images: [heroImage],
-    github: "https://github.com/mohamedshaheemkp/MS-Portfolio",
+    github: "https://github.com/mohamedshaheemkp/MS-Portfolio-.git",
     live: "#", // replace with the portfolio deployment URL (Vercel/Netlify/etc.)
   },
 ];

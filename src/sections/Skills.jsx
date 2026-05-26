@@ -23,7 +23,7 @@ const capabilities = [
     num: "04",
     name: "Brand Identity",
     description: "Unique, memorable logos and cohesive visual systems for modern products.",
-    tags: ["Illustrator", "Photoshop", "Figma", "Typography"],
+    tags: ["Illustrator", "Photoshop", "Typography"],
   },
   {
     num: "05",
@@ -31,12 +31,7 @@ const capabilities = [
     description: "High-impact poster and digital marketing design that commands attention.",
     tags: ["Poster Design", "Color Theory", "Editorial", "Print"],
   },
-  {
-    num: "06",
-    name: "Creative Direction",
-    description: "Fusing technology with aesthetics to deliver premium digital products.",
-    tags: ["UI/UX", "Prototyping", "Motion Design", "Creative Strategy"],
-  },
+  
 ]
 
 const Skills = () => {
@@ -61,10 +56,10 @@ const Skills = () => {
         {/* Header */}
         <div className="overflow-hidden mb-20">
           <motion.h2
-            initial={{ y: 80, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="font-display font-black leading-[0.92] max-w-3xl"
             style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', color: 'var(--text)' }}
           >
@@ -78,10 +73,10 @@ const Skills = () => {
           {capabilities.map((cap, index) => (
             <motion.div
               key={cap.num}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 80 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.08 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
               className="group relative flex flex-col md:flex-row md:items-center gap-6 md:gap-12 py-8 cursor-default transition-all duration-300"
               style={{ borderBottom: '1px solid var(--border)' }}
               onMouseEnter={e => e.currentTarget.style.paddingLeft = '16px'}
@@ -121,6 +116,8 @@ const Skills = () => {
           ))}
         </div>
       </div>
+      {/* Bottom Soft transition */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-black pointer-events-none z-10" />
     </section>
   )
 }
