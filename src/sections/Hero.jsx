@@ -123,7 +123,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.7 }}
-              style={{ y: y1 }}
+              style={{ y: y1, willChange: "transform" }}
               className="relative z-10 w-full max-w-[320px] lg:max-w-[400px] aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-zinc-900"
             >
               <img
@@ -140,7 +140,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.8 }}
-              style={{ y: y2 }}
+              style={{ y: y2, willChange: "transform" }}
               className="absolute top-[10%] lg:top-[15%] right-0 lg:-left-[5%] backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-5 shadow-2xl z-20 group hover:bg-white/10 transition-colors duration-300 w-48"
               whileHover={{ scale: 1.05, rotate: -2 }}
             >
@@ -160,7 +160,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.9 }}
-              style={{ y: y1 }}
+              style={{ y: y1, willChange: "transform" }}
               className="absolute bottom-[20%] lg:bottom-[25%] left-0 lg:-right-[5%] backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-5 shadow-2xl z-20 group hover:bg-white/10 transition-colors duration-300 w-48"
               whileHover={{ scale: 1.05, rotate: 2 }}
             >

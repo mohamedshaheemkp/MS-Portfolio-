@@ -64,12 +64,12 @@ export default function Contact() {
             Let's build<br />
             something<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-[#a855f7] italic font-display">
-              futuristic.
+              Unique.
             </span>
           </h2>
 
           <p className="text-base md:text-lg leading-relaxed text-[#9b9892] mb-12 font-sans max-w-lg">
-            Open to AI projects, creative visual development, UI architecture, and anything that pushes standard design grids. Based in Kerala, working globally.
+            Open to AI projects, creative visual Designs, UI architecture, and anything that pushes standard design grids. Based in Kerala, working globally.
           </p>
 
           <div className="space-y-4 mb-12 w-full border-t border-b border-white/5 py-8">

@@ -104,7 +104,7 @@ export default function Footer() {
             © 2026 Mohamed Shaheem. All rights reserved.
           </p>
           <p className="font-mono text-xs" style={{ color: 'var(--muted)' }}>
-            Built with React · Tailwind · Framer Motion
+            Built with Unique set of mind 😎
           </p>
         </div>
       </div>

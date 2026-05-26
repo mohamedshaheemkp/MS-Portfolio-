@@ -71,6 +71,7 @@ body::before {
   animation: marquee 22s linear infinite;
   display: flex;
   width: max-content;
+  will-change: transform;
 }
 
 /* Grain shimmer with GPU-accelerated translate3d */
