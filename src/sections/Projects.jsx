@@ -5,6 +5,7 @@ import { ArrowUpRight, Activity, Terminal, Layers, ShieldAlert, Cpu } from "luci
 import { projects } from "../data/projects";
 import { useState, useEffect, useRef } from "react";
 import Magnetic from "../components/Magnetic";
+import { Link } from "react-router-dom";
 
 // Interactive 3D Tilt Card wrapper for immersive visual experience
 const ProjectCard = ({ children, index }) => {
@@ -194,6 +195,7 @@ const AgriDashboardMockup = ({ project, accuracy, inferenceTime }) => {
               <img
                 src={project.images[0]}
                 alt="AgriAI stream"
+                loading="lazy"
                 className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
               />
               
@@ -217,6 +219,7 @@ const AgriDashboardMockup = ({ project, accuracy, inferenceTime }) => {
               <img
                 src={project.images[1]}
                 alt="AgriAI Analysis"
+                loading="lazy"
                 className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-black/80 flex flex-col justify-between p-5 font-mono text-[9px] text-[#9b9892] overflow-y-auto">
@@ -473,7 +476,7 @@ export default function Projects() {
                   </div>
 
                   <p className="text-base leading-relaxed text-[#9b9892] mb-8 font-sans">
-                    AgriAI is an intelligent agriculture dashboard that combines YOLOv9 computer vision, real-time plant health monitoring, and automated disease detection to deliver actionable insights for modern farmers.
+                    Designed and developed an AI-powered crop disease detection system using YOLOv9 and PyTorch, enabling real-time leaf analysis via live camera feed. Integrated a FastAPI backend with a React dashboard to surface actionable plant health insights — reducing manual inspection time for farmers by delivering instant, high-confidence disease alerts.
                   </p>
 
                   {/* Feature Pills */}
@@ -636,7 +639,7 @@ export default function Projects() {
                   </h3>
 
                   <p className="text-base leading-relaxed text-[#9b9892] mb-8 font-sans">
-                    A personal creative playground designed to push boundaries in UI engineering. Synthesizing glassmorphism, responsive grid asymmetry, and advanced Framer Motion physics, it serves as an immersive personal showcase of high-end developer experiences.
+                    Engineered a cinematic personal portfolio from the ground up using React, Tailwind, and Framer Motion — focused on immersive micro-interactions, scroll-linked parallax depth, and a premium AI-studio aesthetic. Every animation, transition, and layout decision was crafted intentionally to communicate creative and technical identity.
                   </p>
 
                   {/* Feature Pills */}
@@ -674,6 +677,113 @@ export default function Projects() {
                     </Magnetic>
                   </div>
 
+                </div>
+
+              </div>
+            </ProjectCard>
+          </ScrollReveal>
+
+
+          {/* ================= PROJECT 3 (Smart Folder Organizer) ================= */}
+          <ScrollReveal variant="scale" delay={0.1} distance={50} duration={1.0}>
+            <ProjectCard index={2}>
+              <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center relative z-10">
+
+                {/* Left Column (Text, Info, Features) */}
+                <div className="lg:col-span-5 flex flex-col items-start text-left">
+                  <span className="font-mono text-xs tracking-widest block mb-4" style={{ color: '#a855f7' }}>
+                    03 / AUTOMATION &amp; PYTHON
+                  </span>
+
+                  <h3 className="font-display font-black leading-tight text-4xl md:text-6xl text-white mb-6 transition-all duration-600 group-hover:-skew-x-6 inline-block origin-left">
+                    Smart Folder<br />Organizer
+                  </h3>
+
+                  <p className="text-base leading-relaxed text-[#9b9892] mb-8 font-sans">
+                    Built an intelligent file management system in Python that monitors directories in real time using Watchdog and automatically categorizes files into structured folders based on type and custom rules. Solved recursive organization loops and large-directory performance — resulting in a stable, zero-intervention automation tool that eliminates manual file sorting entirely.
+                  </p>
+
+                  {/* Feature Pills */}
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {["Auto File Sorting", "Real-Time Monitoring", "Duplicate Handling", "Custom Rules Engine"].map((f) => (
+                      <span key={f} className="font-mono text-[10px] px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[#9b9892]">
+                        {f}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Tech Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-8">
+                    {projects[2].tech.map((t) => (
+                      <span key={t} className="font-mono text-[10px] px-2.5 py-1 border border-white/10 rounded-sm text-[#f0ede8] bg-white/[0.02]">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-6 items-center pt-2 relative z-20">
+                    <Magnetic strength={0.3}>
+                      <a href={projects[2].github} target="_blank" rel="noreferrer" className="group flex items-center gap-1.5 font-sans font-bold text-xs uppercase tracking-wider text-[#9b9892] hover:text-white transition-all duration-600">
+                        GitHub
+                        <ArrowUpRight size={14} className="transition-transform duration-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </a>
+                    </Magnetic>
+
+                    <Magnetic strength={0.3}>
+                      <Link to="/projects/smart-folder-organizer" className="group flex items-center gap-1.5 font-sans font-bold text-xs uppercase tracking-wider text-purple-400 hover:brightness-110 transition-all duration-600">
+                        Case Study 
+                        <ArrowUpRight size={14} className="transition-transform duration-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </Link>
+                    </Magnetic>
+                  </div>
+                </div>
+
+                {/* Right Column — Terminal Mockup */}
+                <div className="lg:col-span-7 relative flex justify-center items-center">
+                  <div className="relative w-full rounded-2xl border border-white/[0.08] overflow-hidden bg-black/60 shadow-2xl" style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}>
+                    {/* Browser Chrome */}
+                    <div className="flex items-center gap-1.5 px-4 py-3 bg-[#0d0d0d] border-b border-white/5">
+                      <div className="flex gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+                      </div>
+                      <div className="flex-1 text-center font-mono text-[9px] text-[#6b6860] max-w-[220px] mx-auto bg-white/5 py-0.5 rounded border border-white/5">
+                        smart-organizer — python
+                      </div>
+                    </div>
+                    {/* Terminal Body */}
+                    <div className="p-5 font-mono text-[11px] space-y-1.5 bg-[#0a0a0a] min-h-[260px]">
+                      <p><span className="text-[#6b6860]">$</span> <span className="text-[#a855f7]">python</span> <span className="text-white">organizer.py</span></p>
+                      <p className="text-emerald-400">✓ Watchdog monitor started on <span className="text-white">/Downloads</span></p>
+                      <p className="text-[#9b9892]">→ Detected: <span className="text-cyan-400">invoice_march.pdf</span></p>
+                      <p className="text-[#9b9892]">→ Moving to <span className="text-[#a855f7]">Documents/Invoices/</span></p>
+                      <p className="text-[#9b9892]">→ Detected: <span className="text-cyan-400">profile_photo.png</span></p>
+                      <p className="text-[#9b9892]">→ Moving to <span className="text-[#a855f7]">Images/Photos/</span></p>
+                      <p className="text-[#9b9892]">→ Detected: <span className="text-cyan-400">project_backup.zip</span></p>
+                      <p className="text-[#9b9892]">→ Moving to <span className="text-[#a855f7]">Archives/</span></p>
+                      <p className="text-emerald-400 mt-2">✓ Duplicate check passed — 3 files organized</p>
+                      <motion.p
+                        animate={{ opacity: [1, 0, 1] }}
+                        transition={{ duration: 1.1, repeat: Infinity }}
+                        className="text-[#a855f7] font-bold"
+                      >
+                        ▋ Monitoring for new files...
+                      </motion.p>
+                    </div>
+                  </div>
+
+                  {/* Floating stat card */}
+                  <motion.div
+                    animate={{ y: [-4, 4, -4] }}
+                    transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+                    className="absolute -top-5 -right-5 hidden lg:block bg-black/90 backdrop-blur-md border border-white/15 rounded-xl p-4 shadow-2xl z-20"
+                  >
+                    <div className="font-mono text-[8px] text-[#6b6860] uppercase mb-0.5">FILES SORTED</div>
+                    <div className="font-display font-black text-xl" style={{ color: '#a855f7' }}>∞</div>
+                    <div className="font-mono text-[8px] text-emerald-400 mt-0.5">Zero manual effort</div>
+                  </motion.div>
                 </div>
 
               </div>

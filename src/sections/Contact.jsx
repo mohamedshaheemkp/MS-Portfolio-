@@ -101,15 +101,30 @@ export default function Contact() {
           </div>
 
           {/* Social Icons - Asymmetrical Glass Buttons */}
-          <div className="flex gap-4">
+          <div className="flex gap-4 mb-8">
             {socials.map(({ icon: Icon, href, label }) => (
               <a key={label} href={href} target="_blank" rel="noreferrer"
+                aria-label={label}
                 className="group relative flex items-center justify-center p-3.5 bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-2xl hover:scale-105 hover:border-cyan-500/30 hover:shadow-[0_0_25px_rgba(0,240,255,0.12)] transition-all duration-300 w-12 h-12 text-[#A1A1AA] hover:text-[#00f0ff]"
               >
                 <Icon size={18} />
               </a>
             ))}
           </div>
+
+          {/* Download Resume CTA */}
+          <a
+            href="/resume.pdf"
+            download
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl text-sm font-semibold text-white hover:bg-white hover:text-black hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(0,240,255,0.25)] transition-all duration-500 font-sans tracking-wide"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download Resume
+          </a>
         </ScrollReveal>
 
         {/* Right Column: Upgraded Immersive Form Card Container */}

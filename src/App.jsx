@@ -1,3 +1,4 @@
+import { Routes, Route } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import Hero from "./sections/Hero"
 import About from "./sections/About"
@@ -13,8 +14,10 @@ import Footer from "./sections/Footer"
 import PageLoader from "./components/PageLoader"
 import Background from "./components/Background"
 import { SpeedInsights } from "@vercel/speed-insights/react"
+// I HAVE TEMPORARILY COMMENTED THIS OUT TO ISOLATE THE BUG
+// import SmartFolderPage from "./pages/SmartFolderPage"
 
-function App() {
+function HomePage() {
   return (
     <>
       <PageLoader />
@@ -33,6 +36,17 @@ function App() {
         <Contact />
         <Footer />
       </main>
+    </>
+  )
+}
+
+function App() {
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        {/* <Route path="/projects/smart-folder-organizer" element={<SmartFolderPage />} /> */}
+      </Routes>
       <SpeedInsights />
     </>
   )

@@ -114,7 +114,12 @@ const Navbar = () => {
           </div>
 
           {/* Mobile toggle */}
-          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-2xl cursor-pointer" style={{ color: 'var(--text)' }}>
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            className="md:hidden text-2xl cursor-pointer"
+            style={{ color: 'var(--text)' }}
+          >
             {menuOpen ? <HiX /> : <HiMenuAlt3 />}
           </button>
         </div>
@@ -131,7 +136,12 @@ const Navbar = () => {
             className="fixed inset-0 z-40 flex flex-col justify-center items-center"
             style={{ background: 'rgba(5,5,5,0.98)', backdropFilter: 'blur(20px)' }}
           >
-            <button onClick={() => setMenuOpen(false)} className="absolute top-6 right-8 text-2xl cursor-pointer" style={{ color: 'var(--muted)' }}>
+            <button
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close menu"
+              className="absolute top-6 right-8 text-2xl cursor-pointer"
+              style={{ color: 'var(--muted)' }}
+            >
               <HiX />
             </button>
             <ul className="flex flex-col items-center gap-10">

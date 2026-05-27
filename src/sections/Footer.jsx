@@ -49,12 +49,13 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               {[
-                { icon: FaGithub, href: "https://github.com/mohamedshaheemkp" },
-                { icon: FaLinkedin, href: "https://www.linkedin.com/in/mohamed-shaheem-91a895331" },
-                { icon: FaInstagram, href: "https://instagram.com/mhd_shm__" },
-              ].map(({ icon: Icon, href }) => (
+                { icon: FaGithub, href: "https://github.com/mohamedshaheemkp", label: "Visit GitHub profile" },
+                { icon: FaLinkedin, href: "https://www.linkedin.com/in/mohamed-shaheem-91a895331", label: "Visit LinkedIn profile" },
+                { icon: FaInstagram, href: "https://instagram.com/mhd_shm__", label: "Visit Instagram profile" },
+              ].map(({ icon: Icon, href, label }) => (
                 <Magnetic key={href} strength={0.4}>
                   <a href={href} target="_blank" rel="noreferrer"
+                    aria-label={label}
                     className="p-2 transition-all duration-500 block"
                     style={{ color: 'var(--muted)', border: '1px solid var(--border)', borderRadius: '2px' }}
                     onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent)'; e.currentTarget.style.borderColor = 'var(--accent)'; }}

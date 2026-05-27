@@ -23,6 +23,7 @@ const LazyImage = ({ src, alt, className, style }) => {
   return (
     <img ref={imgRef} alt={alt}
       onLoad={() => setLoaded(true)}
+      loading="lazy"
       className={className}
       style={{ ...style, opacity: loaded ? 1 : 0, transition: 'opacity 0.6s ease' }}
     />
