@@ -22,6 +22,6 @@ export const projects = [
     tech: ["React", "Tailwind", "Framer Motion", "Vite"],
     images: [heroImage],
     github: "https://github.com/mohamedshaheemkp/MS-Portfolio-.git",
-    live: "#", // replace with the portfolio deployment URL (Vercel/Netlify/etc.)
+    live: "https://ms-portfolio-fawn.vercel.app/",
   },
 ];

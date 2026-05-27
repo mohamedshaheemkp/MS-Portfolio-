@@ -121,16 +121,16 @@ const DesignCard = ({ design, index, height, onOpen }) => {
             </motion.div>
           </AnimatePresence>
 
-          {/* Dynamic Dark Gradient Overlay */}
-          <div className="absolute inset-0 transition-opacity duration-300 opacity-60 group-hover:opacity-75 pointer-events-none z-10"
-            style={{ background: 'linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.2) 65%, transparent 100%)' }} />
+          {/* Dynamic Dark Gradient Overlay — subtle, lets image breathe */}
+          <div className="absolute inset-0 transition-opacity duration-300 opacity-40 group-hover:opacity-55 pointer-events-none z-10"
+            style={{ background: 'linear-gradient(to top, rgba(5,5,5,0.75) 0%, rgba(5,5,5,0.08) 55%, transparent 100%)' }} />
 
           {/* Editorial slide-up motion-blurred metadata panel */}
           <motion.div 
             initial={false}
             animate={{ y: hovered ? 0 : 25 }}
             transition={{ type: "spring", stiffness: 220, damping: 24 }}
-            className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-20 transition-all duration-500 bg-gradient-to-t from-black/85 via-black/45 to-transparent backdrop-blur-[12px]"
+            className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-20 transition-all duration-500 bg-gradient-to-t from-black/50 via-black/20 to-transparent backdrop-blur-[4px]"
             style={{ transform: "translateZ(45px)" }}
           >
             <span className="font-mono text-[9px] tracking-[0.2em] uppercase block mb-1.5" style={{ color: isCool ? 'var(--accent)' : 'var(--accent3)' }}>

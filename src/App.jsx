@@ -12,6 +12,7 @@ import CustomCursor from "./components/CustomCursor"
 import Footer from "./sections/Footer"
 import PageLoader from "./components/PageLoader"
 import Background from "./components/Background"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Contact />
         <Footer />
       </main>
+      <SpeedInsights />
     </>
   )
 }
