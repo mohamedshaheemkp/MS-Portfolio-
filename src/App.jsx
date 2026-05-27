@@ -14,8 +14,11 @@ import Footer from "./sections/Footer"
 import PageLoader from "./components/PageLoader"
 import Background from "./components/Background"
 import { SpeedInsights } from "@vercel/speed-insights/react"
-// I HAVE TEMPORARILY COMMENTED THIS OUT TO ISOLATE THE BUG
-// import SmartFolderPage from "./pages/SmartFolderPage"
+
+// Case Study Pages
+import SmartFolderPage from "./pages/SmartFolderPage"
+import AgriAIPage from "./pages/AgriAIPage"
+import PortfolioPage from "./pages/PortfolioPage"
 
 function HomePage() {
   return (
@@ -45,7 +48,9 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        {/* <Route path="/projects/smart-folder-organizer" element={<SmartFolderPage />} /> */}
+        <Route path="/projects/smart-folder-organizer" element={<SmartFolderPage />} />
+        <Route path="/projects/agri-ai" element={<AgriAIPage />} />
+        <Route path="/projects/ai-portfolio" element={<PortfolioPage />} />
       </Routes>
       <SpeedInsights />
     </>

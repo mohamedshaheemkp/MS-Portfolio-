@@ -1,21 +1,20 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FiArrowLeft, FiGithub, FiFolder, FiZap, FiShield, FiDatabase, FiServer, FiSettings, FiExternalLink } from "react-icons/fi";
+import { FiArrowLeft, FiGithub, FiDatabase, FiSearch, FiActivity, FiZap, FiShield, FiSettings } from "react-icons/fi";
 import { projects } from "../data/projects";
 import ProjectTimeline from "../components/ProjectTimeline";
 
-export default function SmartFolderPage() {
-  const project = projects.find(p => p.id === "smart-folder-organizer");
+export default function AgriAIPage() {
+  const project = projects.find(p => p.id === "agri-ai");
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-purple-500/30">
+    <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-emerald-500/30">
       
-      {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors text-sm font-bold uppercase tracking-wider">
@@ -27,13 +26,12 @@ export default function SmartFolderPage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <section className="pt-40 pb-20 px-6 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-purple-500/20 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <span className="px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-mono uppercase tracking-widest mb-6 inline-block">
+            <span className="px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono uppercase tracking-widest mb-6 inline-block">
               {project.category} Case Study
             </span>
             <h1 className="text-5xl md:text-7xl font-display font-black mb-6 leading-tight">
@@ -46,7 +44,6 @@ export default function SmartFolderPage() {
         </div>
       </section>
 
-      {/* Stats / Overview */}
       <section className="py-12 border-y border-white/5 bg-white/[0.01]">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/5">
           {project.metrics.map((m, i) => (
@@ -64,13 +61,12 @@ export default function SmartFolderPage() {
         </div>
       </section>
 
-      {/* The Challenge & Solution */}
       <section className="py-24 px-6 max-w-5xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16">
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <h3 className="text-2xl font-display font-bold mb-6 text-purple-400">The Challenge</h3>
+            <h3 className="text-2xl font-display font-bold mb-6 text-emerald-400">The Challenge</h3>
             <p className="text-zinc-400 leading-relaxed">
-              Every developer's Downloads folder becomes a graveyard of unsorted files. Manually organizing them wastes hours and never stays clean. Polling a directory constantly consumes CPU cycles, and recursive loops often crash simple automation scripts.
+              Manual crop inspection is slow, prone to human error, and completely unscalable for massive commercial farms. By the time visual symptoms are noticed by the human eye, diseases have often spread too far to save the yield.
             </p>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
@@ -82,33 +78,32 @@ export default function SmartFolderPage() {
         </div>
       </section>
 
-      {/* Terminal Mockup Visual */}
       <section className="py-12 px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="rounded-2xl border border-white/10 bg-[#0a0a0a] shadow-2xl overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-3 bg-[#111] border-b border-white/5">
-              <div className="w-3 h-3 rounded-full bg-red-500" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500" />
-              <div className="w-3 h-3 rounded-full bg-green-500" />
-              <div className="ml-4 font-mono text-xs text-zinc-500">watcher.py — Smart Folder Organizer</div>
+        <div className="max-w-5xl mx-auto">
+          <div className="relative w-full aspect-video rounded-2xl border border-white/[0.08] overflow-hidden bg-black/60 shadow-2xl z-10 group">
+            <img src={project.images[0]} alt="AgriAI stream" loading="lazy" className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700" />
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute top-4 right-4 flex items-center gap-2 bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-[10px] font-mono text-emerald-400">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                <span>REC CAM_04 // LIVE INFERENCE</span>
+              </div>
             </div>
-            <div className="p-6 font-mono text-sm space-y-2">
-              <div className="text-green-400">$ python watcher.py --daemon</div>
-              <div className="text-zinc-400">[INFO] Initializing Watchdog Observer...</div>
-              <div className="text-zinc-400">[INFO] Monitoring: /Users/admin/Downloads</div>
-              <div className="text-purple-400 mt-4">[EVENT] File created: report_final_v2.pdf</div>
-              <div className="text-cyan-400">↳ Moving to: /Documents/Reports/</div>
-              <div className="text-purple-400 mt-2">[EVENT] File created: background.png</div>
-              <div className="text-cyan-400">↳ Moving to: /Pictures/Assets/</div>
-              <motion.div animate={{ opacity: [1, 0, 1] }} transition={{ repeat: Infinity, duration: 1 }} className="text-purple-500 mt-4">
-                ▋
-              </motion.div>
+            
+            <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end pointer-events-none">
+              <div className="bg-black/80 backdrop-blur-md border border-white/10 rounded-xl p-4 max-w-[250px]">
+                <div className="font-mono text-[9px] text-[#6b6860] uppercase mb-1 flex items-center gap-2"><FiSearch size={12} className="text-emerald-400"/> YOLOv9 SCANNER</div>
+                <div className="space-y-2 mt-3">
+                  <div className="flex justify-between text-[10px]"><span className="text-zinc-400">Accuracy</span><span className="text-white">98.4%</span></div>
+                  <div className="h-1 bg-white/10 rounded overflow-hidden"><div className="h-full bg-emerald-400 w-[98.4%]" /></div>
+                  <div className="flex justify-between text-[10px]"><span className="text-zinc-400">Latency</span><span className="text-white">12ms</span></div>
+                  <div className="h-1 bg-white/10 rounded overflow-hidden"><div className="h-full bg-cyan-400 w-[20%]" /></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Architecture & Features Grid */}
       <section className="py-24 px-6 bg-black">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -119,7 +114,7 @@ export default function SmartFolderPage() {
           <div className="grid md:grid-cols-3 gap-6">
             {project.features.map((f, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-white/[0.02] border border-white/5 p-8 rounded-2xl">
-                <div className="w-12 h-12 bg-purple-500/10 text-purple-400 flex items-center justify-center rounded-xl mb-6">
+                <div className="w-12 h-12 bg-emerald-500/10 text-emerald-400 flex items-center justify-center rounded-xl mb-6">
                   {i === 0 ? <FiZap size={24} /> : i === 1 ? <FiShield size={24} /> : <FiSettings size={24} />}
                 </div>
                 <h4 className="text-xl font-bold mb-3">{f.title}</h4>
@@ -130,7 +125,6 @@ export default function SmartFolderPage() {
         </div>
       </section>
 
-      {/* Timeline */}
       <section className="py-24 px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-display font-bold mb-4">Development Timeline</h2>
@@ -138,14 +132,13 @@ export default function SmartFolderPage() {
         <ProjectTimeline steps={project.timeline} />
       </section>
 
-      {/* Results */}
-      <section className="py-24 px-6 bg-purple-900/10 border-t border-purple-500/20">
+      <section className="py-24 px-6 bg-emerald-900/10 border-t border-emerald-500/20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-display font-bold mb-6 text-white">The Results</h2>
-          <p className="text-xl text-purple-200/70 leading-relaxed mb-12">
+          <p className="text-xl text-emerald-200/70 leading-relaxed mb-12">
             {project.results}
           </p>
-          <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-500 text-white px-8 py-4 rounded-xl font-bold transition-all hover:scale-105 active:scale-95">
+          <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-xl font-bold transition-all hover:scale-105 active:scale-95">
             <FiGithub size={20} /> Explore the Code repository
           </a>
         </div>
