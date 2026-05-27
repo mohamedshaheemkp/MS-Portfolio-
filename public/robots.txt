@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ms-portfolio-fawn.vercel.app/sitemap.xml
