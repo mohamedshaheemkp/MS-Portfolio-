@@ -1,8 +1,10 @@
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion"
 import ScrollReveal from "../components/ScrollReveal"
+import Parallax from "../components/Parallax"
 import { useState, useEffect, useRef, useCallback } from "react"
 import designs from "../data/designs"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
+import Magnetic from "../components/Magnetic"
 
 const LazyImage = ({ src, alt, className, style }) => {
   const [loaded, setLoaded] = useState(false)
@@ -28,6 +30,7 @@ const LazyImage = ({ src, alt, className, style }) => {
 }
 
 const DesignCard = ({ design, index, height, onOpen }) => {
+  const cardRef = useRef(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const images = Array.isArray(design.image) ? design.image : [design.image]
 
@@ -37,50 +40,122 @@ const DesignCard = ({ design, index, height, onOpen }) => {
     return () => clearInterval(interval)
   }, [images.length])
 
+  // 3D Tilt Coordinates
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [8, -8]), { stiffness: 120, damping: 20 })
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-8, 8]), { stiffness: 120, damping: 20 })
+
+  // Interactive Glow spotlight coordinates
+  const glowX = useSpring(useTransform(x, [-0.5, 0.5], ["0%", "100%"]), { stiffness: 120, damping: 20 })
+  const glowY = useSpring(useTransform(y, [-0.5, 0.5], ["0%", "100%"]), { stiffness: 120, damping: 20 })
+
+  const [hovered, setHovered] = useState(false)
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return
+    const { clientX, clientY } = e
+    const { left, top, width, height } = cardRef.current.getBoundingClientRect()
+    const relativeX = (clientX - left) / width - 0.5
+    const relativeY = (clientY - top) / height - 0.5
+    
+    x.set(relativeX)
+    y.set(relativeY)
+  }
+
+  const handleMouseLeave = () => {
+    x.set(0)
+    y.set(0)
+    setHovered(false)
+  }
+
+  const isCool = index % 2 === 0
+  const glowColor = isCool ? "rgba(0, 240, 255, 0.22)" : "rgba(236, 72, 153, 0.22)"
+
   return (
-    <ScrollReveal delay={index * 0.08} distance={60} duration={0.8}
-      className="relative group overflow-hidden cursor-zoom-in w-full bg-white/[0.02] border border-white/[0.08] rounded-2xl hover:scale-[1.02] hover:-translate-y-1.5 hover:border-cyan-400/20 hover:shadow-2xl transition-all duration-700"
-      onClick={() => onOpen({ images, startIndex: currentIndex })}
-    >
-      <div className="relative overflow-hidden w-full" style={{ height }}>
-        <AnimatePresence mode="wait">
-          <motion.div key={currentIndex} className="absolute inset-0"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}>
-            <LazyImage src={images[currentIndex]} alt={`${design.title} ${currentIndex + 1}`}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-              style={{ filter: 'saturate(0.95) contrast(1.02)' }}
-            />
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Dynamic Dark Gradient Overlay */}
-        <div className="absolute inset-0 transition-opacity duration-300 opacity-60 group-hover:opacity-85 pointer-events-none"
-          style={{ background: 'linear-gradient(to top, rgba(5,5,5,0.9) 0%, rgba(5,5,5,0.1) 60%, transparent 100%)' }} />
-
-        {/* Info on hover / always visible at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-          <span className="font-mono text-[9px] tracking-widest text-[#6b6860] uppercase block mb-1">
-            // {design.title.split(' ')[0]} EXPERIMENT
-          </span>
-          <h3 className="font-display font-black text-xl md:text-2xl mb-1 text-white group-hover:italic transition-all duration-300">
-            {design.title}
-          </h3>
-          <p className="font-mono text-[10px] text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            {images.length} view{images.length > 1 ? 's' : ''} · Click to expand
-          </p>
-        </div>
-
-        {/* Carousel dots indicator inside card */}
-        {images.length > 1 && (
-          <div className="absolute top-4 right-4 flex gap-1 z-20">
-            {images.map((_, i) => (
-              <div key={i} className="transition-all duration-300"
-                style={{ width: i === currentIndex ? '18px' : '5px', height: '3px', borderRadius: '1px', background: i === currentIndex ? 'var(--accent)' : 'rgba(255,255,255,0.2)' }} />
-            ))}
-          </div>
+    <ScrollReveal variant="scale" delay={index * 0.08} distance={40} duration={0.9}>
+      <motion.div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={handleMouseLeave}
+        whileHover={{ y: -10, scale: 1.025 }}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+          perspective: 1200,
+          borderColor: hovered ? isCool ? "rgba(0, 240, 255, 0.2)" : "rgba(236, 72, 153, 0.2)" : "rgba(255, 255, 255, 0.08)",
+          boxShadow: hovered 
+            ? `0 30px 65px -15px rgba(0,0,0,0.85), 0 0 35px -5px ${glowColor}`
+            : "0 20px 45px -25px rgba(0,0,0,0.7)",
+          willChange: "transform, border-color, box-shadow"
+        }}
+        className="relative group overflow-hidden cursor-zoom-in w-full bg-white/[0.02] border rounded-2xl transition-colors duration-700"
+        onClick={() => onOpen({ images, startIndex: currentIndex })}
+      >
+        {/* Spot light overlay */}
+        {hovered && (
+          <motion.div
+            className="absolute inset-0 pointer-events-none z-10 opacity-30 transition-opacity duration-300"
+            style={{
+              background: `radial-gradient(circle 350px at ${glowX.get()} ${glowY.get()}, ${isCool ? 'rgba(0,240,255,0.06)' : 'rgba(236,72,153,0.06)'}, transparent 80%)`,
+            }}
+          />
         )}
-      </div>
+
+        <div className="relative overflow-hidden w-full" style={{ height }}>
+          <AnimatePresence mode="wait">
+            <motion.div key={currentIndex} className="absolute inset-0"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              style={{ transform: "translateZ(15px)" }}>
+              <LazyImage src={images[currentIndex]} alt={`${design.title} ${currentIndex + 1}`}
+                className="w-full h-full object-cover transition-all duration-700"
+                style={{ 
+                  filter: hovered ? 'url(#liquid-distortion) saturate(1.05) contrast(1.05) scale(1.04)' : 'saturate(0.95) contrast(1.02) scale(1)',
+                  willChange: "filter, transform"
+                }}
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Dynamic Dark Gradient Overlay */}
+          <div className="absolute inset-0 transition-opacity duration-300 opacity-60 group-hover:opacity-75 pointer-events-none z-10"
+            style={{ background: 'linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.2) 65%, transparent 100%)' }} />
+
+          {/* Editorial slide-up motion-blurred metadata panel */}
+          <motion.div 
+            initial={false}
+            animate={{ y: hovered ? 0 : 25 }}
+            transition={{ type: "spring", stiffness: 220, damping: 24 }}
+            className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-20 transition-all duration-500 bg-gradient-to-t from-black/85 via-black/45 to-transparent backdrop-blur-[12px]"
+            style={{ transform: "translateZ(45px)" }}
+          >
+            <span className="font-mono text-[9px] tracking-[0.2em] uppercase block mb-1.5" style={{ color: isCool ? 'var(--accent)' : 'var(--accent3)' }}>
+              // {design.title.split(' ')[0]} EXPERIMENT
+            </span>
+            <h3 className="font-display font-black text-xl md:text-2xl mb-1 text-white transition-all duration-500 group-hover:-skew-x-8 inline-block origin-left">
+              {design.title}
+            </h3>
+            <p className="font-mono text-[9px] text-[#6b6860] opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              {images.length} view{images.length > 1 ? 's' : ''} · Click to expand specs
+            </p>
+          </motion.div>
+
+          {/* Carousel dots indicator inside card */}
+          {images.length > 1 && (
+            <div className="absolute top-4 right-4 flex gap-1 z-20">
+              {images.map((_, i) => (
+                <div key={i} className="transition-all duration-300"
+                  style={{ width: i === currentIndex ? '18px' : '5px', height: '3px', borderRadius: '1px', background: i === currentIndex ? 'var(--accent)' : 'rgba(255,255,255,0.2)' }} />
+              ))}
+            </div>
+          )}
+        </div>
+      </motion.div>
     </ScrollReveal>
   )
 }
@@ -109,12 +184,16 @@ const Lightbox = ({ images, startIndex, onClose }) => {
       style={{ background: 'rgba(4,4,4,0.97)', backdropFilter: 'blur(20px)' }}
       onClick={onClose}
     >
-      <button onClick={onClose} className="absolute top-6 right-6 p-2 transition-all duration-200"
-        style={{ border: '1px solid var(--border)', borderRadius: '2px', color: 'var(--muted)' }}
-        onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent)'; e.currentTarget.style.borderColor = 'var(--accent)'; }}
-        onMouseLeave={e => { e.currentTarget.style.color = 'var(--muted)'; e.currentTarget.style.borderColor = 'var(--border)'; }}>
-        <X size={20} />
-      </button>
+      <div className="absolute top-6 right-6 z-20">
+        <Magnetic strength={0.45}>
+          <button onClick={onClose} className="p-2 transition-all duration-500 cursor-pointer"
+            style={{ border: '1px solid var(--border)', borderRadius: '2px', color: 'var(--muted)' }}
+            onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent)'; e.currentTarget.style.borderColor = 'var(--accent)'; }}
+            onMouseLeave={e => { e.currentTarget.style.color = 'var(--muted)'; e.currentTarget.style.borderColor = 'var(--border)'; }}>
+            <X size={20} />
+          </button>
+        </Magnetic>
+      </div>
 
       <span className="absolute top-7 left-1/2 -translate-x-1/2 font-mono text-xs" style={{ color: 'var(--muted)' }}>
         {index + 1} / {images.length}
@@ -130,20 +209,28 @@ const Lightbox = ({ images, startIndex, onClose }) => {
 
       {images.length > 1 && (
         <>
-          <button onClick={e => { e.stopPropagation(); prev() }}
-            className="absolute left-4 p-3 transition-all duration-200"
-            style={{ border: '1px solid var(--border)', borderRadius: '2px', color: 'var(--muted)' }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--accent)'}
-            onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}>
-            <ChevronLeft size={24} />
-          </button>
-          <button onClick={e => { e.stopPropagation(); next() }}
-            className="absolute right-4 p-3 transition-all duration-200"
-            style={{ border: '1px solid var(--border)', borderRadius: '2px', color: 'var(--muted)' }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--accent)'}
-            onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}>
-            <ChevronRight size={24} />
-          </button>
+          <div className="absolute left-4 z-20">
+            <Magnetic strength={0.4}>
+              <button onClick={e => { e.stopPropagation(); prev() }}
+                className="p-3 transition-all duration-500 cursor-pointer"
+                style={{ border: '1px solid var(--border)', borderRadius: '2px', color: 'var(--muted)' }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--accent)'}
+                onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}>
+                <ChevronLeft size={24} />
+              </button>
+            </Magnetic>
+          </div>
+          <div className="absolute right-4 z-20">
+            <Magnetic strength={0.4}>
+              <button onClick={e => { e.stopPropagation(); next() }}
+                className="p-3 transition-all duration-500 cursor-pointer"
+                style={{ border: '1px solid var(--border)', borderRadius: '2px', color: 'var(--muted)' }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--accent)'}
+                onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}>
+                <ChevronRight size={24} />
+              </button>
+            </Magnetic>
+          </div>
         </>
       )}
     </motion.div>
@@ -156,6 +243,20 @@ const DesignShowcase = () => {
   return (
     <section id="designs" className="relative py-40 px-6 md:px-12 lg:px-20 overflow-hidden bg-black">
 
+      {/* Hidden SVG displacement map filter for high-fidelity liquid distortion */}
+      <svg className="absolute w-0 h-0 pointer-events-none select-none">
+        <defs>
+          <filter id="liquid-distortion">
+            <feTurbulence type="fractalNoise" baseFrequency="0.04 0.04" numOctaves="2" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+      </svg>
+
+      {/* Background radial glows with scrolling parallax */}
+      <Parallax speed={-0.12} className="absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full bg-cyan-500/[0.015] blur-[150px] pointer-events-none" />
+      <Parallax speed={0.08} className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] rounded-full bg-purple-500/[0.012] blur-[180px] pointer-events-none" />
+
       {/* Section label */}
       <ScrollReveal direction="left" distance={30} duration={0.7} className="flex items-center gap-4 mb-20">
         <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--accent)' }}>04</span>
@@ -165,8 +266,8 @@ const DesignShowcase = () => {
 
       <div className="max-w-7xl mx-auto">
         
-        {/* Header */}
-        <ScrollReveal distance={80} duration={1} className="mb-24">
+        {/* Header with skew reveal */}
+        <ScrollReveal variant="skew" distance={100} duration={1.1} className="mb-24">
           <h2
             className="font-display font-black leading-[0.92]"
             style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', color: 'var(--text)' }}
@@ -219,8 +320,14 @@ const DesignShowcase = () => {
           <Lightbox images={lightbox.images} startIndex={lightbox.startIndex} onClose={() => setLightbox(null)} />
         )}
       </AnimatePresence>
-      {/* Bottom Soft transition */}
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-black pointer-events-none z-10" />
+      {/* Bottom Soft transition & Glow Divider */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-black backdrop-blur-[2px] pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-px w-full overflow-hidden pointer-events-none z-20">
+        <div 
+          className="h-px w-[65%] mx-auto bg-gradient-to-r from-transparent via-[#a855f7]/25 to-transparent" 
+          style={{ boxShadow: "0 0 10px rgba(168, 85, 247, 0.4)" }}
+        />
+      </div>
     </section>
   )
 }

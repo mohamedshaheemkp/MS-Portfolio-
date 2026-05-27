@@ -9,7 +9,7 @@ export const projects = [
     description:
       "AgriAI is an intelligent agriculture dashboard that combines YOLOv9 computer vision, real-time plant health monitoring, and automated disease detection to deliver actionable insights for modern farmers.",
     tech: ["YOLOv9", "PyTorch", "OpenCV", "React + Vite", "Python", "TensorFlow", "FastAPI"],
-    images: [agriDash, agriLive],
+    images: [agriLive, agriDash],
     github: "https://github.com/mohamedshaheemkp/Agri-Ai.git",
     live: "#", // replace with the live AgriAI deployment URL when available
   },

@@ -13,6 +13,8 @@ import { motion, useInView } from "framer-motion";
  *  - once: boolean — animate only once (default true)
  *  - className: string — extra class names
  *  - as: string — HTML tag to render (default "div")
+ *  - variant: "fade" | "blur" | "scale" | "skew" - visual effect style (default "fade")
+ *  - blurAmount: number - starting blur radius in px (default 12)
  */
 export default function ScrollReveal({
   children,
@@ -23,6 +25,8 @@ export default function ScrollReveal({
   once = true,
   className = "",
   as: Tag = "div",
+  variant = "fade",
+  blurAmount = 12,
   ...props
 }) {
   const ref = useRef(null);
@@ -33,21 +37,58 @@ export default function ScrollReveal({
     down:  { y: -distance, x: 0 },
     left:  { x: distance,  y: 0 },
     right: { x: -distance, y: 0 },
+    none:  { x: 0,         y: 0 }
   };
 
-  const initial = {
-    opacity: 0,
-    filter: "blur(8px)",
-    scale: 0.97,
-    ...directionOffsets[direction],
-  };
+  let initial = {};
+  let animate = {};
 
-  const animate = isInView
-    ? { opacity: 1, y: 0, x: 0, filter: "blur(0px)", scale: 1 }
-    : initial;
+  if (variant === "blur") {
+    initial = {
+      opacity: 0,
+      filter: `blur(${blurAmount}px)`,
+      scale: 0.96,
+      ...directionOffsets[direction],
+    };
+    animate = isInView
+      ? { opacity: 1, filter: "blur(0px)", scale: 1, y: 0, x: 0 }
+      : initial;
+  } else if (variant === "scale") {
+    initial = {
+      opacity: 0,
+      scale: 0.82,
+      rotate: -1.5,
+      ...directionOffsets[direction],
+    };
+    animate = isInView
+      ? { opacity: 1, scale: 1, rotate: 0, y: 0, x: 0 }
+      : initial;
+  } else if (variant === "skew") {
+    initial = {
+      opacity: 0,
+      skewY: 6,
+      ...directionOffsets[direction],
+    };
+    animate = isInView
+      ? { opacity: 1, skewY: 0, y: 0, x: 0 }
+      : initial;
+  } else {
+    // default: "fade"
+    initial = {
+      opacity: 0,
+      filter: "blur(8px)",
+      scale: 0.97,
+      ...directionOffsets[direction],
+    };
+    animate = isInView
+      ? { opacity: 1, y: 0, x: 0, filter: "blur(0px)", scale: 1 }
+      : initial;
+  }
+
+  const MotionComponent = motion[Tag] || motion.div;
 
   return (
-    <motion.div
+    <MotionComponent
       ref={ref}
       initial={initial}
       animate={animate}
@@ -60,7 +101,7 @@ export default function ScrollReveal({
       {...props}
     >
       {children}
-    </motion.div>
+    </MotionComponent>
   );
 }
 
@@ -77,6 +118,8 @@ export function ScrollRevealGroup({
   direction = "up",
   distance = 50,
   duration = 0.8,
+  variant = "fade",
+  blurAmount = 12,
 }) {
   return (
     <div className={className}>
@@ -88,11 +131,13 @@ export function ScrollRevealGroup({
               direction={direction}
               distance={distance}
               duration={duration}
+              variant={variant}
+              blurAmount={blurAmount}
             >
               {child}
             </ScrollReveal>
           ))
-        : <ScrollReveal direction={direction} distance={distance} duration={duration}>{children}</ScrollReveal>
+        : <ScrollReveal direction={direction} distance={distance} duration={duration} variant={variant} blurAmount={blurAmount}>{children}</ScrollReveal>
       }
     </div>
   );

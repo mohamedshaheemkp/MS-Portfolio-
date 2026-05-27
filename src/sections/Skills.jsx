@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion"
 import ScrollReveal from "../components/ScrollReveal"
+import Parallax from "../components/Parallax"
 import { useState } from "react"
 import { Cpu, Layout, Database, Sparkles, Feather } from "lucide-react"
 
@@ -52,8 +53,34 @@ const Skills = () => {
   return (
     <section id="skills" className="relative py-40 px-6 md:px-12 lg:px-20 overflow-hidden bg-[#050505]">
       
+      {/* Background Micro-Data Neural Particles */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        {[...Array(14)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              y: ["0vh", "100vh"],
+              x: ["0vw", `${(i % 3 - 1) * 8}vw`],
+              opacity: [0, 0.25, 0]
+            }}
+            transition={{
+              duration: 16 + i * 3,
+              repeat: Infinity,
+              ease: "linear",
+              delay: i * 1.2
+            }}
+            className="absolute w-[3px] h-[3px] rounded-full bg-cyan-400/25"
+            style={{
+              top: "-5%",
+              left: `${10 + i * 6.5}%`,
+              filter: "blur(0.8px)"
+            }}
+          />
+        ))}
+      </div>
+
       {/* Subtle Background Lighting Accent */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-cyan-500/[0.015] blur-[120px] rounded-full pointer-events-none" />
+      <Parallax speed={-0.12} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-cyan-500/[0.015] blur-[120px] rounded-full pointer-events-none" />
 
       {/* Section label */}
       <ScrollReveal direction="left" distance={30} duration={0.7} className="flex items-center gap-4 mb-20">
@@ -62,10 +89,10 @@ const Skills = () => {
         <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--muted)' }}>Capabilities</span>
       </ScrollReveal>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto relative z-10">
 
         {/* Header */}
-        <ScrollReveal distance={80} duration={1} className="mb-20">
+        <ScrollReveal variant="skew" distance={100} duration={1.1} className="mb-20">
           <h2
             className="font-display font-black leading-[0.92] max-w-3xl"
             style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', color: 'var(--text)' }}
@@ -80,132 +107,184 @@ const Skills = () => {
           {capabilities.map((cap, index) => {
             const Icon = cap.icon;
             const isHovered = activeRow === index;
+            const rowColor = index % 2 === 0 ? "rgba(0, 240, 255, 0.012)" : "rgba(168, 85, 247, 0.012)";
+            const accentColor = index % 2 === 0 ? "var(--accent)" : "var(--accent3)";
 
             return (
-              <div
+              <ScrollReveal
                 key={cap.num}
-                className="group relative flex flex-col py-10 px-4 md:px-8 cursor-pointer transition-all duration-500 border-b border-white/10 overflow-hidden"
-                style={{
-                  background: isHovered ? "rgba(0, 240, 255, 0.015)" : "transparent",
-                  willChange: "background, padding"
-                }}
-                onMouseEnter={() => setActiveRow(index)}
-                onMouseLeave={() => setActiveRow(null)}
+                variant="blur"
+                delay={index * 0.08}
+                distance={40}
+                duration={0.8}
               >
-                {/* Glowing Left Indicator Line */}
-                <div 
-                  className="absolute left-0 top-0 h-full w-0.5 transition-all duration-500"
-                  style={{ 
-                    background: 'var(--accent)', 
-                    opacity: isHovered ? 1 : 0,
-                    boxShadow: isHovered ? "0 0 15px rgba(0, 240, 255, 0.8)" : "none"
-                  }} 
-                />
+                <div
+                  className="group relative flex flex-col py-12 px-4 md:px-8 cursor-pointer transition-all duration-500 border-b border-white/10 overflow-hidden"
+                  style={{
+                    background: isHovered ? rowColor : "transparent",
+                    willChange: "background, padding"
+                  }}
+                  onMouseEnter={() => setActiveRow(index)}
+                  onMouseLeave={() => setActiveRow(null)}
+                >
+                  {/* Glowing Left Indicator Line */}
+                  <div 
+                    className="absolute left-0 top-0 h-full w-0.5 transition-all duration-500"
+                    style={{ 
+                      background: accentColor, 
+                      opacity: isHovered ? 1 : 0,
+                      boxShadow: isHovered ? `0 0 15px ${accentColor}` : "none"
+                    }} 
+                  />
 
-                {/* Animated Neural SVG Network Paths behind active row */}
-                <AnimatePresence>
-                  {isHovered && (
-                    <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.12] z-0" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                      <motion.path
-                        d="M 50 60 Q 300 20, 550 70 T 1000 50 L 1200 60"
-                        fill="none"
-                        stroke="var(--accent)"
-                        strokeWidth="1.2"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 1.2, ease: "easeOut" }}
-                      />
-                      <motion.path
-                        d="M 100 80 C 400 110, 700 10, 1100 70"
-                        fill="none"
-                        stroke="var(--accent3)"
-                        strokeWidth="0.8"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 1.6, ease: "easeOut", delay: 0.1 }}
-                      />
-                      <motion.circle cx="550" cy="70" r="3.5" fill="var(--accent)" animate={{ scale: [1, 1.8, 1], opacity: [0.7, 1, 0.7] }} transition={{ repeat: Infinity, duration: 2 }} />
-                      <motion.circle cx="1000" cy="50" r="2.5" fill="var(--accent)" animate={{ scale: [1, 2, 1], opacity: [0.5, 0.9, 0.5] }} transition={{ repeat: Infinity, duration: 2.5, delay: 0.5 }} />
-                    </svg>
-                  )}
-                </AnimatePresence>
+                  {/* Animated Neural SVG Network Paths behind active row */}
+                  <AnimatePresence>
+                    {isHovered && (
+                      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.16] z-0" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                        {/* Main central spine */}
+                        <motion.path
+                          d="M 50 60 Q 300 20, 600 60 T 1150 60"
+                          fill="none"
+                          stroke={accentColor}
+                          strokeWidth="1.5"
+                          initial={{ pathLength: 0 }}
+                          animate={{ pathLength: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 1.2, ease: "easeOut" }}
+                        />
+                        {/* Branch 1 */}
+                        <motion.path
+                          d="M 250 48 Q 450 95, 750 35"
+                          fill="none"
+                          stroke="var(--accent3)"
+                          strokeWidth="0.8"
+                          initial={{ pathLength: 0 }}
+                          animate={{ pathLength: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 1.5, ease: "easeOut", delay: 0.15 }}
+                        />
+                        {/* Branch 2 */}
+                        <motion.path
+                          d="M 600 60 Q 800 100, 1000 30"
+                          fill="none"
+                          stroke={accentColor}
+                          strokeWidth="0.8"
+                          strokeDasharray="4 4"
+                          initial={{ pathLength: 0 }}
+                          animate={{ pathLength: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 1.8, ease: "easeOut", delay: 0.25 }}
+                        />
 
-                {/* Main Content Layout */}
-                <div className="grid lg:grid-cols-12 gap-6 items-center relative z-10">
-                  
-                  {/* Left Side: Number, Icon, Name */}
-                  <div className="lg:col-span-5 flex items-center gap-6">
-                    <span className="font-mono text-xs text-zinc-600 group-hover:text-cyan-400 transition-colors duration-500">
-                      {cap.num}
-                    </span>
-                    <div 
-                      className="p-3 bg-white/[0.02] border border-white/5 rounded-2xl text-zinc-500 transition-all duration-500"
-                      style={{
-                        color: isHovered ? "var(--accent)" : "",
-                        borderColor: isHovered ? "rgba(0, 240, 255, 0.2)" : "",
-                        boxShadow: isHovered ? "0 0 20px rgba(0, 240, 255, 0.08)" : "none"
-                      }}
-                    >
-                      <Icon size={20} />
-                    </div>
-                    <h3 className="font-display font-bold text-xl md:text-2xl text-[#F5F5F5] group-hover:italic group-hover:text-white transition-all duration-500">
-                      {cap.name}
-                    </h3>
-                  </div>
+                        {/* Moving signal nodes traversing the branches */}
+                        <motion.circle cx="50" cy="60" r="3" fill={accentColor}
+                          animate={{
+                            cx: [50, 300, 600, 1150],
+                            cy: [60, 32, 60, 60],
+                            opacity: [0, 1, 1, 0]
+                          }}
+                          transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
+                        />
+                        <motion.circle cx="250" cy="48" r="2.5" fill="var(--accent3)"
+                          animate={{
+                            cx: [250, 450, 750],
+                            cy: [48, 72, 35],
+                            opacity: [0, 1, 1, 0]
+                          }}
+                          transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut", delay: 0.5 }}
+                        />
 
-                  {/* Middle: Short Description */}
-                  <div className="lg:col-span-4">
-                    <p className="text-sm text-zinc-400 group-hover:text-zinc-300 font-sans leading-relaxed transition-colors duration-500">
-                      {cap.description}
-                    </p>
-                  </div>
+                        {/* Pulsing junction nodes */}
+                        <motion.circle cx="250" cy="48" r="4" fill={accentColor} animate={{ scale: [1, 1.8, 1], opacity: [0.5, 0.9, 0.5] }} transition={{ repeat: Infinity, duration: 2 }} />
+                        <motion.circle cx="600" cy="60" r="5" fill="var(--accent3)" animate={{ scale: [1, 2, 1], opacity: [0.4, 0.8, 0.4] }} transition={{ repeat: Infinity, duration: 2.5, delay: 0.5 }} />
+                        <motion.circle cx="750" cy="35" r="3.5" fill={accentColor} animate={{ scale: [1, 1.6, 1], opacity: [0.6, 1, 0.6] }} transition={{ repeat: Infinity, duration: 1.8, delay: 0.2 }} />
+                      </svg>
+                    )}
+                  </AnimatePresence>
 
-                  {/* Right Side: Interactive Skill Chips */}
-                  <div className="lg:col-span-3 flex flex-wrap gap-1.5 lg:justify-end">
-                    {cap.tags.map(tag => (
-                      <span 
-                        key={tag} 
-                        className="font-mono text-[10px] px-3 py-1 border border-white/5 rounded-lg bg-white/[0.01] text-zinc-500 transition-all duration-500"
+                  {/* Main Content Layout */}
+                  <div className="grid lg:grid-cols-12 gap-6 items-center relative z-10">
+                    
+                    {/* Left Side: Number, Icon, Name */}
+                    <div className="lg:col-span-5 flex items-center gap-6">
+                      <span className="font-mono text-xs text-[#6b6860] group-hover:text-cyan-400 transition-colors duration-500">
+                        {cap.num}
+                      </span>
+                      <div 
+                        className="p-3 bg-white/[0.02] border border-white/5 rounded-2xl text-zinc-500 transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-1"
                         style={{
-                          borderColor: isHovered ? "rgba(0, 240, 255, 0.15)" : "",
-                          color: isHovered ? "var(--text)" : "",
-                          background: isHovered ? "rgba(0, 240, 255, 0.02)" : ""
+                          color: isHovered ? accentColor : "",
+                          borderColor: isHovered ? "rgba(255, 255, 255, 0.15)" : "",
+                          boxShadow: isHovered ? `0 0 20px ${accentColor}18` : "none"
                         }}
                       >
-                        {tag}
-                      </span>
-                    ))}
+                        <Icon size={20} />
+                      </div>
+                      <h3 className="font-display font-bold text-xl md:text-2xl text-[#F5F5F5] transition-all duration-500 group-hover:text-white group-hover:-skew-x-8 inline-block origin-left">
+                        {cap.name}
+                      </h3>
+                    </div>
+
+                    {/* Middle: Short Description */}
+                    <div className="lg:col-span-4">
+                      <p className="text-sm text-zinc-400 group-hover:text-zinc-300 font-sans leading-relaxed transition-colors duration-500">
+                        {cap.description}
+                      </p>
+                    </div>
+
+                    {/* Right Side: Interactive Skill Chips with active state glow */}
+                    <div className="lg:col-span-3 flex flex-wrap gap-1.5 lg:justify-end">
+                      {cap.tags.map((tag) => (
+                        <motion.span 
+                          key={tag}
+                          whileHover={{ scale: 1.15, y: -2 }}
+                          className="font-mono text-[10px] px-3 py-1 border rounded-lg transition-all duration-500 relative z-10"
+                          style={{
+                            borderColor: isHovered ? `rgba(255, 255, 255, 0.15)` : "rgba(255, 255, 255, 0.08)",
+                            color: isHovered ? "var(--text)" : "var(--muted)",
+                            background: isHovered ? `rgba(255,255,255,0.03)` : "rgba(255, 255, 255, 0.01)",
+                            boxShadow: isHovered ? `0 0 10px ${accentColor}15` : "none"
+                          }}
+                        >
+                          {tag}
+                        </motion.span>
+                      ))}
+                    </div>
+
                   </div>
 
+                  {/* Expanding Extra Details Panel on Hover */}
+                  <motion.div
+                    initial={false}
+                    animate={{ 
+                      height: isHovered ? "auto" : 0,
+                      opacity: isHovered ? 1 : 0,
+                      marginTop: isHovered ? 18 : 0
+                    }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className="overflow-hidden pl-16 relative z-10"
+                  >
+                    <p className="text-xs font-sans tracking-wide max-w-2xl" style={{ color: `${accentColor}d0` }}>
+                      // {cap.details}
+                    </p>
+                  </motion.div>
+
                 </div>
-
-                {/* Expanding Extra Details Panel on Hover */}
-                <motion.div
-                  initial={false}
-                  animate={{ 
-                    height: isHovered ? "auto" : 0,
-                    opacity: isHovered ? 1 : 0,
-                    marginTop: isHovered ? 16 : 0
-                  }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="overflow-hidden pl-16 relative z-10"
-                >
-                  <p className="text-xs font-sans text-cyan-400/80 tracking-wide max-w-2xl">
-                    // {cap.details}
-                  </p>
-                </motion.div>
-
-              </div>
+              </ScrollReveal>
             )
           })}
         </div>
 
       </div>
 
-      {/* Bottom Soft transition */}
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-black pointer-events-none z-10" />
+      {/* Bottom Soft transition & Glow Divider */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-black backdrop-blur-[2px] pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-px w-full overflow-hidden pointer-events-none z-20">
+        <div 
+          className="h-px w-[65%] mx-auto bg-gradient-to-r from-transparent via-[#e8ff00]/25 to-transparent" 
+          style={{ boxShadow: "0 0 10px rgba(232, 255, 0, 0.4)" }}
+        />
+      </div>
     </section>
   )
 }
