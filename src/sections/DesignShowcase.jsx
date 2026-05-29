@@ -131,10 +131,9 @@ const DesignShowcase = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-xs md:text-sm text-zinc-400 font-light leading-relaxed px-4"
             >
-              {activeDesign.title === "Modern Poster Design" ? "Crafting visual identities, experimental typography layouts, and contemporary graphic design assets."
-               : activeDesign.title === "Creative Branding" ? "Helping brands find a distinctive visual language that truly stands out."
-               : activeDesign.title === "UI Motion Study" ? "Interactive application mockups, cinematic digital pipelines, and motion prototypes."
-               : "Exploring abstract geometries, dynamic lighting depths, and computational virtual spaces."}
+              {activeDesign.title === "Poster Designs" ? "Crafting visual identities, experimental typography layouts, and contemporary graphic design assets."
+               : activeDesign.title === "Branding" ? "Helping brands find a distinctive visual language that truly stands out."
+               : "Designing minimalist, modern, and high-impact visual signatures, dynamic logos, and memorable brand marks."}
             </motion.p>
           </div>
 

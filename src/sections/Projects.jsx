@@ -126,19 +126,6 @@ function FolderShowcase() {
         style={{ background: glowColor, top: "50%", left: "50%", transform: "translate(-50%,-50%)" }}
       />
 
-      {/* Scanline label */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="flex items-center gap-3 relative z-10"
-      >
-        <div className="w-8 h-px bg-cyan-400/30" />
-        <span className="font-mono text-[9px] text-zinc-600 uppercase tracking-[0.35em]">
-          {folderOpen ? "select a project" : "click folder to explore"}
-        </span>
-        <div className="w-8 h-px bg-cyan-400/30" />
-      </motion.div>
 
       {/* ── THE FOLDER COMPONENT ── */}
       <div className="relative z-10">
@@ -212,14 +199,6 @@ export default function Projects() {
       <Parallax speed={-0.1} className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-cyan-500/[0.02] blur-[150px] pointer-events-none" />
       <Parallax speed={0.1} className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-purple-500/[0.02] blur-[180px] pointer-events-none" />
 
-      {/* Section Header */}
-      <div className="max-w-7xl mx-auto mb-16 relative z-20">
-        <ScrollReveal direction="up" distance={30} duration={0.7} className="flex items-center gap-4 mb-8">
-          <span className="font-mono text-xs tracking-[0.3em] uppercase text-cyan-400">03</span>
-          <div className="w-12 h-px bg-cyan-400/50" />
-          <span className="font-mono text-xs tracking-[0.3em] uppercase text-zinc-500">Case Studies</span>
-        </ScrollReveal>
-      </div>
 
       <div className="max-w-7xl mx-auto relative z-20">
 

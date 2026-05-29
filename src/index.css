@@ -194,10 +194,10 @@ body::before {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 
-  /* Subtle depth shadow, no neon glow */
-  text-shadow:
+  /* Subtle depth shadow, no neon glow - Commented out for performance testing */
+  /* text-shadow:
     0 0 15px rgba(255,255,255,.04),
-    0 10px 30px rgba(255,255,255,.02);
+    0 10px 30px rgba(255,255,255,.02); */
 }
 
 .hero-name::after {
@@ -311,4 +311,5 @@ body::before {
   transform-origin: left center;
   animation: heroScrollPulse 2.4s ease-in-out infinite;
 }
+
 

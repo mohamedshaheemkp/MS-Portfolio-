@@ -31,10 +31,9 @@ const Navbar = () => {
           paddingTop: scrolled ? '12px' : '24px',
           paddingBottom: scrolled ? '12px' : '24px',
           background: scrolled ? 'rgba(5,5,5,0.75)' : 'rgba(5,5,5,0)',
-          backdropFilter: scrolled ? 'blur(24px)' : 'blur(0px)',
+          backdropFilter: scrolled ? 'blur(8px)' : 'blur(0px)',
           borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(255,255,255,0)',
-          boxShadow: scrolled ? '0 10px 30px -10px rgba(0,0,0,0.6)' : 'none',
-          willChange: "padding, background, backdrop-filter, border-color, box-shadow"
+          boxShadow: scrolled ? '0 10px 30px -10px rgba(0,0,0,0.6)' : 'none'
         }}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -106,7 +105,7 @@ const Navbar = () => {
               <Link 
                 to="contact"
                 smooth duration={800} offset={-80}
-                className="inline-flex items-center gap-2 font-sans text-xs uppercase tracking-widest font-bold px-6 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl hover:bg-white text-white hover:text-black hover:border-cyan-400 hover:shadow-[0_0_25px_rgba(0,240,255,0.3)] transition-all duration-600 shadow-[0_0_20px_rgba(255,255,255,0.05)] cursor-pointer select-none"
+                className="inline-flex items-center gap-2 font-sans text-xs uppercase tracking-widest font-bold px-6 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white text-white hover:text-black hover:border-cyan-400 hover:shadow-[0_0_25px_rgba(0,240,255,0.3)] transition-all duration-600 shadow-[0_0_20px_rgba(255,255,255,0.05)] cursor-pointer select-none"
               >
                 Hello!
               </Link>
