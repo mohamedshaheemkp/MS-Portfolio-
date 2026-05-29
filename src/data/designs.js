@@ -17,7 +17,7 @@ import poster6 from "../assets/poster 6.webp";
 import heroImage from "../assets/hero.webp";
 import agriDash from "../assets/agri-dash.webp";
 import agriLive from "../assets/agri-live.webp";
-import cinem from "../assets/cinem.png";
+import cinem from "../assets/cinem.webp";
 
 const designs = [
   {
