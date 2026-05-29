@@ -22,7 +22,7 @@ export default function PortfolioPage() {
           </Link>
           <div className="flex items-center gap-4">
             <a href={project.live} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors text-sm font-bold uppercase">
-              <ExternalLink size={16} /> Live Site
+              <FiExternalLink size={16} /> Live Site
             </a>
             <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-white bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors text-sm font-bold">
               <FiGithub size={16} /> Source Code

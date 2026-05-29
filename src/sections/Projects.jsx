@@ -8,6 +8,7 @@ import Magnetic from "../components/Magnetic";
 import { Link } from "react-router-dom";
 import SpotlightCard from "../components/SpotlightCard";
 import AnimatedCounter from "../components/AnimatedCounter";
+import Folder from "../components/Folder";
 
 // ==============================================================================
 // MOCKUPS (Preserved from original for the Featured Cards)
@@ -153,6 +154,151 @@ const AgriDashboardMockup = ({ project, accuracy, inferenceTime }) => {
 };
 
 // ==============================================================================
+// AI PORTFOLIO MOCKUP
+// ==============================================================================
+
+const AIPortfolioMockup = ({ project }) => {
+  const [activeTab, setActiveTab] = useState("performance");
+  const [fps, setFps] = useState(60);
+  const [renderCount, setRenderCount] = useState(120);
+  const [springStiffness, setSpringStiffness] = useState(120);
+  const [logs, setLogs] = useState([
+    "[SYS] Starting VITE development server...",
+    "[SYS] HMR hot module reloading connected.",
+    "[SYS] Antigravity namesaked particle canvas ready."
+  ]);
+
+  useEffect(() => {
+    const logsPool = [
+      "Framer spring update: damping=20",
+      "Lenis virtual offset synced: 423px",
+      "Cursor particles generated: +8 nodes",
+      "Interactive button magnetic pull active",
+      "Antigravity ThreeJS canvas loaded",
+      "Active section viewport: Designs (04)",
+      "Lightbox state: null",
+      "HMR update: src/sections/Projects.jsx"
+    ];
+
+    const interval = setInterval(() => {
+      setLogs((prev) => {
+        const nextLogs = [...prev.slice(1)];
+        const randomLog = logsPool[Math.floor(Math.random() * logsPool.length)];
+        const timeStamp = new Date().toLocaleTimeString();
+        nextLogs.push(`[${timeStamp}] ${randomLog}`);
+        return nextLogs;
+      });
+      setFps(Math.floor(58 + Math.random() * 3));
+      setRenderCount(prev => Math.max(115, Math.min(130, prev + Math.floor(Math.random() * 5) - 2)));
+      setSpringStiffness(prev => Math.max(110, Math.min(130, prev + Math.floor(Math.random() * 5) - 2)));
+    }, 2800);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="relative w-full rounded-2xl border border-white/[0.08] overflow-hidden bg-black/60 shadow-2xl group-hover:shadow-[0_0_50px_rgba(0,240,255,0.07)] transition-all duration-500 z-10" style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}>
+      <div className="flex items-center gap-1.5 px-4 py-3 bg-[#0d0d0d] border-b border-white/5">
+        <div className="flex gap-1.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+        </div>
+        <div className="flex-1 text-center font-mono text-[9px] text-[#6b6860] max-w-[220px] mx-auto bg-white/5 py-0.5 rounded border border-white/5">
+          ms-portfolio-fawn.vercel.app
+        </div>
+        <div className="w-10" />
+      </div>
+
+      <div className="flex border-b border-white/5 bg-black/40 text-[10px] font-mono text-[#6b6860]">
+        <button onClick={(e) => { e.stopPropagation(); setActiveTab("performance") }} className={`px-4 py-2 border-r border-white/5 transition-all ${activeTab === "performance" ? "text-cyan-400 bg-white/[0.02]" : "hover:text-[#f0ede8]"}`}>// DIAGNOSTICS</button>
+        <button onClick={(e) => { e.stopPropagation(); setActiveTab("architecture") }} className={`px-4 py-2 border-r border-white/5 transition-all ${activeTab === "architecture" ? "text-cyan-400 bg-white/[0.02]" : "hover:text-[#f0ede8]"}`}>// NODE GRAPH</button>
+      </div>
+
+      <div className="relative aspect-video w-full overflow-hidden bg-[#0d0d0d]">
+        <motion.div animate={{ top: ["-5%", "105%", "-5%"] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }} className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00f0ff] to-transparent shadow-[0_0_15px_#00f0ff] z-20 pointer-events-none" />
+        <AnimatePresence mode="wait">
+          {activeTab === "performance" ? (
+            <motion.div key="performance" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full relative p-5 flex flex-col justify-between font-mono text-[9px] text-[#9b9892]">
+              <span className="text-cyan-400 font-bold mb-1 flex items-center gap-1.5">
+                <FiCpu size={12} className="text-cyan-400 animate-pulse" /> // CORE PHYSICS PERFORMANCE DIAGNOSTICS
+              </span>
+              
+              <div className="space-y-3 my-2 border-y border-white/5 py-3">
+                <div className="space-y-1">
+                  <div className="flex justify-between items-center text-[8px]">
+                    <span>ACTIVE PHYSICS SPRING NODES</span>
+                    <span className="text-white">{renderCount} NODES</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                    <motion.div animate={{ width: `${(renderCount / 150) * 100}%` }} transition={{ duration: 0.6 }} className="h-full bg-gradient-to-r from-cyan-500 to-purple-500" />
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex justify-between items-center text-[8px]">
+                    <span>SPRING ENGINE STIFFNESS</span>
+                    <span className="text-white">{springStiffness} VALUE</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                    <motion.div animate={{ width: `${(springStiffness / 150) * 100}%` }} transition={{ duration: 0.6 }} className="h-full bg-gradient-to-r from-purple-500 to-pink-500" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-2 text-[7px] font-sans">
+                <div className="bg-white/5 p-2 border border-white/5 rounded-lg flex flex-col justify-between">
+                  <span className="font-mono text-[#6b6860] block">RENDER FPS</span>
+                  <span className="text-white font-mono text-xs font-bold mt-1">{fps} FPS</span>
+                  <div className="h-1 bg-green-500/30 rounded mt-1 overflow-hidden"><div className="h-full bg-green-400 w-full" /></div>
+                </div>
+                <div className="bg-white/5 p-2 border border-white/5 rounded-lg flex flex-col justify-between">
+                  <span className="font-mono text-[#6b6860] block">LIGHTHOUSE</span>
+                  <span className="text-white font-mono text-xs font-bold mt-1">98 SCORE</span>
+                  <div className="h-1 bg-emerald-500/30 rounded mt-1 overflow-hidden"><div className="h-full bg-emerald-400 w-[98%]" /></div>
+                </div>
+                <div className="bg-white/5 p-2 border border-white/5 rounded-lg flex flex-col justify-between">
+                  <span className="font-mono text-[#6b6860] block">LOAD SPEED</span>
+                  <span className="text-white font-mono text-xs font-bold mt-1">&lt;0.8s</span>
+                  <div className="h-1 bg-cyan-500/30 rounded mt-1 overflow-hidden"><div className="h-full bg-cyan-400 w-[90%]" /></div>
+                </div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div key="architecture" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full h-full relative p-5 flex flex-col justify-between font-mono text-[9px] text-[#9b9892]">
+              <span className="text-cyan-400 font-bold mb-1 flex items-center gap-1.5">
+                <FiLayers size={12} className="text-cyan-400" /> // ORCHESTRATION LAYER CONNECTIONS
+              </span>
+              
+              <div className="flex-1 flex items-center justify-center relative my-3">
+                <div className="absolute inset-0 opacity-[0.03] bg-repeat bg-center" style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "12px 12px" }} />
+                
+                <div className="flex items-center gap-6 relative z-10 text-[8px]">
+                  <div className="p-1.5 bg-cyan-500/10 border border-cyan-500/30 rounded text-cyan-400">Lenis Scroll</div>
+                  <div className="w-6 h-px bg-cyan-500/50 relative"><div className="absolute w-1.5 h-1.5 rounded-full bg-cyan-400 -top-[3px] left-1/2 -translate-x-1/2 animate-ping" /></div>
+                  <div className="p-1.5 bg-purple-500/10 border border-purple-500/30 rounded text-purple-400">Spring physics</div>
+                  <div className="w-6 h-px bg-purple-500/50" />
+                  <div className="p-1.5 bg-pink-500/10 border border-pink-500/30 rounded text-pink-400">UI Canvas</div>
+                </div>
+              </div>
+              <span className="text-[7px] text-[#6b6860] uppercase tracking-wider block text-center mt-2">DOM TREE STABILITY CAPABILITY INDEX: 100% NOMINAL</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute bottom-3 left-3 bg-black/85 border border-white/10 rounded p-2.5 font-mono text-[8px] text-[#9b9892] max-w-[210px] backdrop-blur-md shadow-lg">
+          <span className="text-cyan-400 uppercase tracking-wider block mb-1 font-bold flex items-center gap-1">
+            <FiTerminal size={10} className="text-cyan-400" /> Web Console Output
+          </span>
+          <div className="space-y-0.5">
+            {logs.map((log, i) => <div key={i} className="truncate">{log}</div>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ==============================================================================
 // MAIN PROJECTS COMPONENT
 // ==============================================================================
 
@@ -163,6 +309,273 @@ export default function Projects() {
   const filteredProjects = projects.filter(p => activeCategory === "All" || p.category.includes(activeCategory));
   const featuredProjects = filteredProjects.filter(p => p.featured);
   const gridProjects = filteredProjects.filter(p => !p.featured);
+
+  const [activeProjectId, setActiveProjectId] = useState(null);
+  const [isFolderOpen, setIsFolderOpen] = useState(true);
+
+  // If a project is selected but no longer in the filtered featured list, reset to null
+  useEffect(() => {
+    if (activeProjectId !== null && !featuredProjects.some(p => p.id === activeProjectId)) {
+      setActiveProjectId(null);
+    }
+  }, [activeCategory, featuredProjects, activeProjectId]);
+
+  const folderColor = activeProjectId === "agri-ai" ? "#e8ff00"
+                    : activeProjectId === "smart-folder-organizer" ? "#a855f7"
+                    : activeProjectId === "ai-portfolio" ? "#00f0ff"
+                    : "#5227FF";
+
+  const getFolderPapers = () => {
+    if (activeProjectId === null) {
+      // List Mode: return selector cards for each featured project matching the filter
+      return featuredProjects.map((project, idx) => {
+        let borderClass = "border-emerald-500";
+        let techText = "VITE";
+        let techBg = "text-emerald-500 bg-emerald-500/10";
+        let selectBtnColor = "#10b981";
+        
+        if (project.id === "agri-ai") {
+          borderClass = "border-[#e8ff00]";
+          techText = "PYTORCH";
+          techBg = "text-yellow-600 bg-yellow-100";
+          selectBtnColor = "#b5c700";
+        } else if (project.id === "smart-folder-organizer") {
+          borderClass = "border-purple-500";
+          techText = "PYTHON";
+          techBg = "text-purple-600 bg-purple-500/10";
+          selectBtnColor = "#a855f7";
+        }
+        
+        return (
+          <div 
+            key={project.id}
+            onClick={(e) => { 
+              e.stopPropagation(); 
+              setActiveProjectId(project.id); 
+            }}
+            className={`w-full h-full p-4 flex flex-col justify-between text-black font-sans bg-white select-none text-left cursor-pointer hover:bg-zinc-50 transition-all duration-300 border-l-4 ${borderClass} shadow-[0_4px_12px_rgba(0,0,0,0.05)] rounded-r`}
+          >
+            <div className="flex justify-between items-start">
+              <span className="font-mono text-[7px] text-zinc-400">0{idx + 1} // {project.category.toUpperCase()}</span>
+              <span className={`font-mono text-[7px] px-1.5 py-0.5 rounded font-bold ${techBg}`}>
+                {techText}
+              </span>
+            </div>
+            <div>
+              <h4 className="font-display font-black text-[12px] text-zinc-950 leading-tight">{project.title}</h4>
+              <p className="text-[7.5px] text-zinc-500 mt-1 line-clamp-2 leading-relaxed">{project.subtitle}</p>
+            </div>
+            <div className="flex justify-between items-center text-[7px] font-mono text-zinc-400 pt-2 border-t border-black/5">
+              <span>Click to view case</span>
+              <span className="font-bold uppercase" style={{ color: selectBtnColor }}>[SELECT]</span>
+            </div>
+          </div>
+        );
+      });
+    }
+
+    // Detail Mode: find currently active project details
+    const project = projects.find(p => p.id === activeProjectId) || projects[0];
+
+    // Generic back button on Paper 1
+    const backBtn = (
+      <button 
+        onClick={(e) => {
+          e.stopPropagation();
+          setActiveProjectId(null);
+        }}
+        className="mb-2 text-zinc-500 hover:text-zinc-800 font-mono text-[8px] font-bold flex items-center gap-1 transition-colors bg-zinc-100 hover:bg-zinc-200 px-2 py-1 rounded w-max"
+      >
+        ← BACK TO LIST
+      </button>
+    );
+
+    // Generic Action buttons on Paper 3
+    const actionButtons = (
+      <div className="flex gap-2 items-center">
+        <Link 
+          to={`/projects/${project.id}`} 
+          onClick={(e) => e.stopPropagation()} 
+          className="flex-1"
+        >
+          <button className="w-full py-2 bg-black text-white hover:bg-zinc-800 transition-colors font-bold font-sans text-[8px] uppercase tracking-wider rounded flex items-center justify-center gap-1">
+            Case Study <FiArrowUpRight size={10} />
+          </button>
+        </Link>
+        <a 
+          href={project.github} 
+          target="_blank" 
+          rel="noreferrer" 
+          onClick={(e) => e.stopPropagation()} 
+          className="px-2.5 py-2 bg-zinc-100 hover:bg-zinc-200 text-black border border-zinc-200 rounded flex items-center justify-center transition-colors"
+        >
+          <FiCode size={11} />
+        </a>
+      </div>
+    );
+
+    if (project.id === "agri-ai") {
+      return [
+        // Paper 1: Tech Summary
+        <div key="1" className="w-full h-full p-4 flex flex-col justify-between text-black font-sans bg-[#f7f7f7] select-none text-left">
+          <div>
+            {backBtn}
+            <p className="text-[7px] font-bold tracking-wider text-zinc-500">// TECHNICAL SUMMARY</p>
+            <p className="text-[10px] font-black text-zinc-950">Crop Health Diagnostics</p>
+            <p className="text-[7.5px] text-zinc-600 mt-2 leading-relaxed">Real-time crop analysis using YOLOv9 and PyTorch, delivering edge inference leaf disease diagnostics.</p>
+          </div>
+          <div className="flex justify-between items-center border-t border-black/10 pt-2 text-[7px] font-mono text-zinc-500">
+            <span>Stack Overview</span>
+            <span className="text-zinc-700 font-bold">YOLOv9 // PyTorch</span>
+          </div>
+        </div>,
+        // Paper 2: YOLO Live Feed Mockup
+        <div key="2" className="w-full h-full p-4 flex flex-col justify-between text-black font-sans bg-[#fafafa] select-none text-left">
+          <div>
+            <p className="text-[7px] font-bold text-[#e8ff00] bg-black px-1.5 py-0.5 rounded w-max">// LIVE STATS</p>
+            <p className="text-[10px] font-black text-zinc-950">YOLOv9 Inference Feed</p>
+          </div>
+          <div className="space-y-1">
+            <div className="flex justify-between text-[7px] font-mono">
+              <span>GPU Core Load</span>
+              <span>78%</span>
+            </div>
+            <div className="h-1 bg-zinc-200 rounded-full overflow-hidden"><div className="h-full bg-cyan-400" style={{ width: '78%' }} /></div>
+            <div className="flex justify-between text-[7px] font-mono">
+              <span>Detection Accuracy</span>
+              <span>98.4%</span>
+            </div>
+            <div className="h-1 bg-zinc-200 rounded-full overflow-hidden"><div className="h-full bg-[#e8ff00]" style={{ width: '98.4%' }} /></div>
+          </div>
+        </div>,
+        // Paper 3: Core Indicators
+        <div key="3" className="w-full h-full p-4 flex flex-col justify-between text-black font-sans bg-white select-none text-left">
+          <div className="flex justify-between items-center">
+            <p className="text-[12px] font-black text-zinc-900 leading-none">AgriAI</p>
+            <span className="font-mono text-[7px] text-cyan-500 bg-cyan-500/10 px-1.5 py-0.5 rounded font-bold">AI // ACTIVE</span>
+          </div>
+          <div className="my-2 border-t border-b border-black/5 py-2">
+            <p className="text-[7px] text-zinc-400 font-mono">// METRICS SUMMARY</p>
+            <div className="grid grid-cols-2 gap-2 mt-1">
+              <div>
+                <span className="text-[9px] font-bold text-zinc-900">98.4%</span>
+                <span className="text-[6px] text-zinc-400 block font-mono">ACCURACY</span>
+              </div>
+              <div>
+                <span className="text-[9px] font-bold text-zinc-900">12ms</span>
+                <span className="text-[6px] text-zinc-400 block font-mono">INFERENCE</span>
+              </div>
+            </div>
+          </div>
+          {actionButtons}
+        </div>
+      ];
+    } else if (project.id === "smart-folder-organizer") {
+      return [
+        // Paper 1: Automation Pipeline
+        <div key="1" className="w-full h-full p-4 flex flex-col justify-between text-black font-sans bg-[#f7f7f7] select-none text-left">
+          <div>
+            {backBtn}
+            <p className="text-[7px] font-bold tracking-wider text-zinc-500">// AUTOMATION PIPELINE</p>
+            <p className="text-[10px] font-black text-zinc-950">Realtime File Router</p>
+            <p className="text-[7.5px] text-zinc-600 mt-2 leading-relaxed">Monitors drive activity, prevents FSEvent recursion, manages background sorting queues flawlessly.</p>
+          </div>
+          <div className="flex justify-between items-center border-t border-black/10 pt-2 text-[7px] font-mono text-zinc-500">
+            <span>Stack Overview</span>
+            <span className="text-zinc-700 font-bold">Python // Watchdog</span>
+          </div>
+        </div>,
+        // Paper 2: Active Rules
+        <div key="2" className="w-full h-full p-4 flex flex-col justify-between text-black font-sans bg-[#fafafa] select-none text-left">
+          <div>
+            <p className="text-[7px] font-bold text-purple-600 bg-purple-500/10 px-1.5 py-0.5 rounded w-max">// DIRECTORIES</p>
+            <p className="text-[10px] font-black text-zinc-950">Active Sorting Rules</p>
+          </div>
+          <div className="space-y-1 text-[6px] font-mono text-zinc-600 leading-tight">
+            <div>→ *.zip, *.rar → /Archives</div>
+            <div>→ *.pdf, *.docx → /Documents</div>
+            <div>→ *.png, *.jpg → /Images</div>
+            <div className="text-purple-600 font-bold">Active Thread: Running...</div>
+          </div>
+        </div>,
+        // Paper 3: Core Indicators
+        <div key="3" className="w-full h-full p-4 flex flex-col justify-between text-black font-sans bg-white select-none text-left">
+          <div className="flex justify-between items-center">
+            <p className="text-[12px] font-black text-zinc-900 leading-none">Smart Folder</p>
+            <span className="font-mono text-[7px] text-purple-500 bg-purple-500/10 px-1.5 py-0.5 rounded font-bold">PYTHON // IDLE</span>
+          </div>
+          <div className="my-2 border-t border-b border-black/5 py-2">
+            <p className="text-[7px] text-zinc-400 font-mono">// METRICS SUMMARY</p>
+            <div className="grid grid-cols-2 gap-2 mt-1">
+              <div>
+                <span className="text-[9px] font-bold text-zinc-900">10,000+</span>
+                <span className="text-[6px] text-zinc-400 block font-mono">FILES ROUTED</span>
+              </div>
+              <div>
+                <span className="text-[9px] font-bold text-zinc-900">&lt; 1s</span>
+                <span className="text-[6px] text-zinc-400 block font-mono">LATENCY</span>
+              </div>
+            </div>
+          </div>
+          {actionButtons}
+        </div>
+      ];
+    } else {
+      return [
+        // Paper 1: Performance Tuning
+        <div key="1" className="w-full h-full p-4 flex flex-col justify-between text-black font-sans bg-[#f7f7f7] select-none text-left">
+          <div>
+            {backBtn}
+            <p className="text-[7px] font-bold tracking-wider text-zinc-500">// PERFORMANCE TUNING</p>
+            <p className="text-[10px] font-black text-zinc-950">React 19 Scaffold</p>
+            <p className="text-[7.5px] text-zinc-600 mt-2 leading-relaxed">Vite Scaffolding with hardware accelerated graphics, custom spring physics, and Lenis smooth scrolls.</p>
+          </div>
+          <div className="flex justify-between items-center border-t border-black/10 pt-2 text-[7px] font-mono text-zinc-500">
+            <span>Stack Overview</span>
+            <span className="text-zinc-700 font-bold">Vite // Framer Motion</span>
+          </div>
+        </div>,
+        // Paper 2: Lighthouse Audit
+        <div key="2" className="w-full h-full p-4 flex flex-col justify-between text-black font-sans bg-[#fafafa] select-none text-left">
+          <div>
+            <p className="text-[7px] font-bold text-emerald-600 bg-emerald-500/10 px-1.5 py-0.5 rounded w-max">// LIGHTHOUSE</p>
+            <p className="text-[10px] font-black text-zinc-950">System Audit Metrics</p>
+          </div>
+          <div className="flex gap-4 items-center">
+            <div className="w-8 h-8 rounded-full border-2 border-emerald-500 flex items-center justify-center font-bold text-emerald-600 text-[10px]">
+              98
+            </div>
+            <div className="space-y-0.5 text-[6px] font-mono text-zinc-500 leading-tight">
+              <div>Performance: 98/100</div>
+              <div>Accessibility: 100/100</div>
+              <div>Best Practices: 100/100</div>
+            </div>
+          </div>
+        </div>,
+        // Paper 3: Core Indicators
+        <div key="3" className="w-full h-full p-4 flex flex-col justify-between text-black font-sans bg-white select-none text-left">
+          <div className="flex justify-between items-center">
+            <p className="text-[12px] font-black text-zinc-900 leading-none">AI Portfolio</p>
+            <span className="font-mono text-[7px] text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded font-bold">VITE // ACTIVE</span>
+          </div>
+          <div className="my-2 border-t border-b border-black/5 py-2">
+            <p className="text-[7px] text-zinc-400 font-mono">// METRICS SUMMARY</p>
+            <div className="grid grid-cols-2 gap-2 mt-1">
+              <div>
+                <span className="text-[9px] font-bold text-zinc-900">98</span>
+                <span className="text-[6px] text-zinc-400 block font-mono">LIGHTHOUSE</span>
+              </div>
+              <div>
+                <span className="text-[9px] font-bold text-zinc-900">&lt; 1s</span>
+                <span className="text-[6px] text-zinc-400 block font-mono">DOM_READY</span>
+              </div>
+            </div>
+          </div>
+          {actionButtons}
+        </div>
+      ];
+    }
+  };
 
   return (
     <section id="projects" className="relative py-32 px-6 md:px-12 lg:px-20 overflow-hidden bg-black min-h-screen">
@@ -215,86 +628,41 @@ export default function Projects() {
       <div className="max-w-7xl mx-auto relative z-20">
         
         <AnimatePresence mode="popLayout">
-          {/* ================= FEATURED PROJECTS ================= */}
+          {/* ================= VAULT SYSTEM BOARD ================= */}
           {featuredProjects.length > 0 && (
-            <motion.div 
+            <motion.div
               layout
-              className="space-y-32 mb-32"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.6 }}
+              className="flex flex-col justify-center items-center mb-32"
             >
-              {featuredProjects.map((project, index) => (
-                <motion.div 
-                  layout
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  key={project.id} 
-                  className={`flex flex-col ${index % 2 !== 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 lg:gap-20 items-center`}
-                >
-                  {/* Text Side */}
-                  <div className="w-full lg:w-5/12 flex flex-col items-start">
-                    <span className="font-mono text-xs tracking-widest block mb-4 text-purple-400 uppercase">
-                      {project.category} // FEATURED
-                    </span>
-                    <h3 className="font-display font-black leading-tight text-4xl md:text-5xl text-white mb-4">
-                      {project.title}
-                    </h3>
-                    <p className="text-zinc-400 leading-relaxed mb-8">
-                      {project.description}
-                    </p>
-                    
-                    {/* Live Metrics Overlay */}
-                    <div className="flex gap-6 mb-8 p-4 bg-white/[0.02] border border-white/5 rounded-xl w-full">
-                      {project.metrics.slice(0,2).map((m, i) => (
-                        <div key={i} className="flex flex-col">
-                          <span className="text-[10px] font-mono text-zinc-500 uppercase mb-1">{m.label}</span>
-                          <span className="font-display font-bold text-xl text-white">
-                            <AnimatedCounter value={m.value} suffix={m.suffix} />
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="flex gap-4">
-                      <Link to={`/projects/${project.id}`}>
-                        <Magnetic strength={0.3}>
-                          <button className="px-6 py-3 bg-white text-black font-bold font-sans text-xs uppercase tracking-wider rounded-lg hover:bg-cyan-400 transition-colors flex items-center gap-2">
-                            View Case Study <FiArrowUpRight size={14} />
-                          </button>
-                        </Magnetic>
-                      </Link>
-                      <a href={project.github} target="_blank" rel="noreferrer" className="px-4 py-3 bg-white/5 border border-white/10 text-white rounded-lg hover:bg-white/10 transition-colors flex items-center justify-center">
-                        <FiCode size={16} />
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Visual Side */}
-                  <div className="w-full lg:w-7/12 relative group perspective-[1000px]">
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                    
-                    <motion.div 
-                      whileHover={{ rotateY: index % 2 === 0 ? -5 : 5, rotateX: 5 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    >
-                      {project.id === "agri-ai" ? (
-                        <AgriDashboardMockup project={project} accuracy={98.4} inferenceTime={12} />
-                      ) : (
-                        <div className="relative w-full aspect-video rounded-2xl border border-white/10 bg-[#0a0a0a] overflow-hidden flex items-center justify-center shadow-2xl">
-                           <div className="absolute inset-0 opacity-[0.1] pointer-events-none" style={{ backgroundImage: `radial-gradient(circle, rgba(168, 85, 247, 0.4) 1px, transparent 1px)`, backgroundSize: '16px 16px' }} />
-                           <FiFolder size={64} className="text-purple-500/50 mb-4" />
-                           <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
-                             <div className="h-2 w-32 bg-white/10 rounded overflow-hidden">
-                                <motion.div animate={{ width: ["0%", "100%", "0%"] }} transition={{ duration: 4, repeat: Infinity }} className="h-full bg-purple-500" />
-                             </div>
-                             <span className="text-[9px] font-mono text-zinc-500">SYSTEM.AUTOMATION.RUNNING</span>
-                           </div>
-                        </div>
-                      )}
-                    </motion.div>
-                  </div>
-                </motion.div>
-              ))}
+              {/* Central Giant Interactive Folder Vault */}
+              <div className="flex justify-center items-center h-[520px] w-full relative">
+                
+                {/* Immersive background spotlights and dynamic glow */}
+                <div 
+                  className="absolute w-80 h-80 rounded-full blur-[150px] opacity-40 transition-all duration-[1000ms] pointer-events-none"
+                  style={{
+                    background: activeProjectId === "agri-ai" ? "rgba(232, 255, 0, 0.22)"
+                              : activeProjectId === "smart-folder-organizer" ? "rgba(168, 85, 247, 0.22)"
+                              : activeProjectId === "ai-portfolio" ? "rgba(0, 240, 255, 0.22)"
+                              : "rgba(82, 39, 255, 0.22)"
+                  }}
+                />
+                
+                <div className="relative z-10 flex items-center justify-center w-full" onClick={e => e.stopPropagation()}>
+                  <Folder
+                    color={folderColor}
+                    size={3.0}
+                    open={isFolderOpen}
+                    onClick={() => setIsFolderOpen(prev => !prev)}
+                    className="relative z-10 py-16"
+                    items={getFolderPapers()}
+                  />
+                </div>
+              </div>
             </motion.div>
           )}
 

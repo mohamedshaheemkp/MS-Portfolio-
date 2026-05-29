@@ -50,8 +50,10 @@ export default function Background() {
         }}
       />
 
-      {/* LAYER 5: Floating Space Particles (Hardware-Accelerated upward drift) */}
-      <div className="absolute inset-0 w-full h-full z-10 pointer-events-none overflow-hidden">
+
+
+      {/* LAYER 6: Floating Space Particles (Hardware-Accelerated upward drift) */}
+      <div className="absolute inset-0 w-full h-full z-20 pointer-events-none overflow-hidden">
         {backgroundParticles.map((_, index) => {
           const size = Math.random() * 2 + 0.8;
           const left = Math.random() * 100;

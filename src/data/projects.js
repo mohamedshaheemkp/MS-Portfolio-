@@ -73,7 +73,7 @@ export const projects = [
     images: [heroImage],
     github: "https://github.com/mohamedshaheemkp/MS-Portfolio-.git",
     live: "https://ms-portfolio-fawn.vercel.app/",
-    featured: false,
+    featured: true,
     metrics: [
       { label: "Lighthouse Score", value: "98", suffix: "" },
       { label: "Animation Nodes", value: "120", suffix: "+" },

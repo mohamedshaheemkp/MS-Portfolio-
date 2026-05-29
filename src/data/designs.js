@@ -15,26 +15,26 @@ import poster5 from "../assets/poster 5.webp";
 import poster6 from "../assets/poster 6.webp";
 
 import heroImage from "../assets/hero.webp";
+import agriDash from "../assets/agri-dash.webp";
+import agriLive from "../assets/agri-live.webp";
+import cinem from "../assets/cinem.png";
 
 const designs = [
   {
     title: "Modern Poster Design",
     image: [poster1, poster2, poster3, poster4, poster5, poster6],
   },
-
   {
     title: "Creative Branding",
     image: [brand1, brand2, brand3, brand4],
   },
-
   {
-    title: "Futuristic UI Design",
-    image: [heroImage],
+    title: "UI Motion Study",
+    image: [agriDash, agriLive, heroImage],
   },
-
   {
-    title: "Logo Design Collection",
-    image: [logo1, logo2, logo3],
+    title: "3D Exploration",
+    image: [cinem, logo1, logo2, logo3],
   },
 ]
 

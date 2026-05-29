@@ -3,6 +3,7 @@ import { Cpu, Layers, Terminal, BookOpen } from "lucide-react";
 import ScrollReveal from "../components/ScrollReveal";
 import Parallax from "../components/Parallax";
 import Magnetic from "../components/Magnetic";
+import MagnetLines from "../components/MagnetLines";
 
 export default function About() {
   return (
@@ -42,12 +43,30 @@ export default function About() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         
-        {/* ================= BLOCK 1: LARGE STATEMENT ================= */}
-        <div className="max-w-5xl mb-36">
+        {/* ================= BLOCK 1: LARGE STATEMENT + MAGNET LINES ================= */}
+        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-12 lg:gap-20 items-center mb-36 relative">
           <ScrollReveal variant="skew" distance={100} duration={1.1}>
             <h2 className="font-display font-black leading-[1.05] tracking-tight text-4xl md:text-6xl lg:text-[4.8rem] text-white">
               Converting <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-[#e8ff00] italic">Ideas </span> into  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e8ff00] to-violet-500 italic">Reality</span>.
             </h2>
+          </ScrollReveal>
+
+          {/* Right blank space vector diagnostic grid */}
+          <ScrollReveal variant="scale" delay={0.2} duration={1.2} className="flex justify-center lg:justify-end items-center relative pr-4">
+            <div className="absolute w-72 h-72 rounded-full bg-cyan-500/[0.04] blur-3xl pointer-events-none" />
+            <div className="absolute w-48 h-48 rounded-full bg-[#e8ff00]/[0.02] blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 bg-black rounded-3xl p-4">
+              <MagnetLines
+                rows={8}
+                columns={8}
+                containerSize="260px"
+                lineColor="rgba(0, 240, 255, 0.28)"
+                lineWidth="2px"
+                lineHeight="16px"
+                baseAngle={45}
+              />
+            </div>
           </ScrollReveal>
         </div>
 
@@ -80,6 +99,7 @@ export default function About() {
             className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent origin-center"
           />
         </div>
+
 
         {/* ================= BLOCK 3: EXPERIENCE TIMELINE ================= */}
         <div className="max-w-7xl mx-auto">

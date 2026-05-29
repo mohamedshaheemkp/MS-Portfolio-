@@ -179,7 +179,7 @@ const CursorParticles = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none w-full h-full"
+      className="fixed inset-0 z-[2] pointer-events-none w-full h-full"
       style={{ width: '100vw', height: '100vh' }}
     />
   );

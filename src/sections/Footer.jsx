@@ -19,7 +19,7 @@ export default function Footer() {
     <footer className="relative overflow-hidden" style={{ borderTop: '1px solid var(--border)', background: 'var(--surface)' }}>
 
       {/* Scrolling marquee */}
-      <div className="py-6 overflow-hidden" style={{ borderBottom: '1px solid var(--border)' }}>
+      <div className="py-6 overflow-hidden relative z-10" style={{ borderBottom: '1px solid var(--border)' }}>
         <div className="animate-marquee">
           {[...marqueeItems, ...marqueeItems].map((item, i) => (
             <span key={i} className="flex items-center gap-8 mx-8">
@@ -34,7 +34,7 @@ export default function Footer() {
       </div>
 
       {/* Main footer content */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-20">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-20 relative z-10">
         <ScrollReveal distance={50} duration={0.9} className="grid lg:grid-cols-[2fr_1fr_1fr] gap-16">
           {/* Brand */}
           <div>
