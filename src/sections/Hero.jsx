@@ -117,8 +117,12 @@ export default function Hero() {
           <img
             src={cinemImage}
             alt="Mohamed Shaheem Cinematic Widescreen Backdrop"
-            className="w-full h-full object-cover select-none"
-            style={{ filter: "brightness(0.48) contrast(1.18)" }}
+            className="w-full h-full object-cover select-none brightness-[0.48] contrast-[1.18]"
+            style={{ 
+              transform: "translate3d(0, 0, 0)",
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden"
+            }}
           />
           {/* Subtle cinematic overlays for legibility */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#070707] via-transparent to-[#070707]/60 pointer-events-none" />
