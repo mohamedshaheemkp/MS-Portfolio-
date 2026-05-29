@@ -127,3 +127,25 @@
   transform-origin: bottom;
   transition: all 0.3s ease-in-out;
 }
+
+.folder__etched-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display), 'Space Grotesk', sans-serif;
+  font-weight: 900;
+  font-size: 8px; /* Scales with the parent container transform scale */
+  text-align: center;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  
+  /* High-end debossed/etched plastic material effect */
+  color: rgba(0, 0, 0, 0.28);
+  text-shadow: 
+    -0.5px -0.5px 0.5px rgba(0, 0, 0, 0.45),
+    0.5px 0.5px 0.5px rgba(255, 255, 255, 0.2);
+}
+

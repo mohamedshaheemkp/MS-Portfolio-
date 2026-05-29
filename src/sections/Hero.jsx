@@ -1,5 +1,4 @@
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
-import { ArrowDownRight, Download, Code, Palette } from "lucide-react";
 import cinemImage from "../assets/cinem.png";
 import { useRef, useEffect } from "react";
 import Magnetic from "../components/Magnetic";
@@ -10,19 +9,15 @@ export default function Hero() {
   // Track scroll for parallax depth
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
 
-  // Parallax transforms for cinematic depth
-  const bgWordY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  // Parallax transforms for cinematic depth on scroll
   const imageY = useTransform(scrollYProgress, [0, 1], ["0px", "120px"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
-  const imageOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0px", "60px"]);
-  const glowY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0px", "70px"]);
 
   // Smooth springs on scroll transforms
   const smoothImageY = useSpring(imageY, { stiffness: 80, damping: 20 });
   const smoothTextY = useSpring(textY, { stiffness: 80, damping: 20 });
 
-  // Interactive Mouse Coordinates for cursor parallax & lighting spot
+  // Interactive Mouse Coordinates for cursor parallax
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -69,12 +64,9 @@ export default function Hero() {
     mouseY.set(0);
   };
 
-  // Derive subtle mouse translations for deep layers
+  // Derive subtle mouse translations exclusively for the text layer (none for background image)
   const textMouseX = useTransform(smoothMouseX, [-800, 800], [-15, 15]);
   const textMouseY = useTransform(smoothMouseY, [-400, 400], [-10, 10]);
-
-  const imageMouseX = useTransform(smoothMouseX, [-800, 800], [-25, 25]);
-  const imageMouseY = useTransform(smoothMouseY, [-400, 400], [-15, 15]);
 
   return (
     <section 
@@ -85,18 +77,6 @@ export default function Hero() {
       onMouseLeave={handleMouseLeave}
       className="relative min-h-screen w-full flex items-center justify-center py-16 md:py-24 px-4 md:px-8 bg-black overflow-hidden select-none"
     >
-      {/* Background Soft Glow Spotlight */}
-      <motion.div
-        style={{
-          x: smoothMouseX,
-          y: smoothMouseY,
-          translateX: "-50%",
-          translateY: "-50%",
-          willChange: "transform",
-        }}
-        className="absolute w-[800px] h-[800px] bg-cyan-500/[0.015] blur-[180px] rounded-full pointer-events-none z-0"
-      />
-
       {/* Centered Framed Card Container */}
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
@@ -104,12 +84,10 @@ export default function Hero() {
         transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10 w-full h-[85vh] min-h-[550px] max-h-[850px] max-w-7xl border border-white/[0.08] bg-[#070707] rounded-[36px] overflow-hidden flex flex-col justify-between p-6 md:p-12 shadow-[0_30px_100px_rgba(0,0,0,0.9)] group"
       >
-        {/* Full-width Cinematic Widescreen Background Image with interactive parallax */}
+        {/* Full-width Widescreen Background Image: Scroll Parallax Only (Cinematic, not floating) */}
         <motion.div 
           style={{
-            x: imageMouseX,
             y: smoothImageY,
-            scale: 1.08,
             willChange: "transform",
           }}
           className="absolute inset-0 w-full h-full z-0 pointer-events-none"
@@ -117,16 +95,15 @@ export default function Hero() {
           <img
             src={cinemImage}
             alt="Mohamed Shaheem Cinematic Widescreen Backdrop"
-            className="w-full h-full object-cover select-none brightness-[0.48] contrast-[1.18]"
+            className="w-full h-full object-cover select-none brightness-[0.78] contrast-[1.08]"
             style={{ 
               transform: "translate3d(0, 0, 0)",
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden"
             }}
           />
-          {/* Subtle cinematic overlays for legibility */}
+          {/* Subtle cinematic gradient overlay for legibility */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#070707] via-transparent to-[#070707]/60 pointer-events-none" />
-          <div className="absolute inset-0 bg-black/15 pointer-events-none" />
         </motion.div>
 
         {/* Top Row: Mini Nav */}
@@ -137,7 +114,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="glass-text-mono select-none"
           >
-            © Shaheem Design & Strategy
+            AI ENGINEER &bull; CREATIVE TECHNOLOGIST
           </motion.span>
           
           <motion.div 
@@ -152,80 +129,72 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Middle Row: Massive Centered Typography (Layered on top of cinematic landscape with Glassmorphism) */}
-        <div className="relative flex-1 flex flex-col items-center justify-center w-full my-6 z-10 overflow-hidden pointer-events-none">
+        {/* Middle Row: Massive Centered Typography (Layered on top of cinematic landscape with Glassmorphism and Glass Plate) */}
+        <div className="relative flex-1 flex flex-col items-center justify-center w-full my-6 z-10 overflow-hidden">
           
+          {/* Parent maps the vertical Scroll Parallax */}
           <motion.div
             style={{
-              x: textMouseX,
               y: smoothTextY,
               willChange: "transform",
             }}
-            className="text-center flex flex-col items-center justify-center select-none"
+            className="text-center flex flex-col items-center justify-center select-none w-full max-w-4xl relative"
           >
-            {/* Giant Title Name */}
-            <h1 className="text-[9vw] md:text-[6.2vw] font-black uppercase tracking-tighter leading-none select-none font-display text-center glass-text-main"
-                style={{ 
-                  letterSpacing: "-0.04em"
-                }}
-            >
-              MOHAMED SHAHEEM
-            </h1>
-            
-            {/* Interactive mini badge */}
+            {/* Child maps the interactive 3D Mouse Parallax exclusively on text */}
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="mt-4 md:mt-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl text-[8px] font-mono uppercase tracking-widest shadow-lg"
+              style={{
+                x: textMouseX,
+                y: textMouseY,
+                willChange: "transform",
+              }}
+              className="text-center flex flex-col items-center justify-center w-full relative py-12"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(0,240,255,0.8)] animate-pulse" />
-              <span className="glass-text-mono font-bold tracking-[0.18em]" style={{ color: "rgba(34, 211, 238, 0.35)", WebkitTextStroke: "0.2px rgba(34, 211, 238, 0.7)" }}>
-                Creative Technologist • AI Engineer
-              </span>
+              {/* Premium Glass Plate Behind Name */}
+              <div
+                className="absolute inset-x-0 mx-auto w-[90%] md:w-[75%] h-[240px] md:h-[180px] rounded-[40px] bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] z-0 pointer-events-none"
+              />
+
+              {/* Giant Title Name: Center split for maximum visual balance */}
+              <h1 
+                className="relative text-[11vw] font-black uppercase tracking-tighter leading-[0.82] select-none font-display text-center glass-text-main z-10 block"
+                style={{ letterSpacing: "-0.08em" }}
+              >
+                MOHAMED<br />SHAHEEM
+              </h1>
+              
+              {/* Subtitle Roles: Centered beneath name */}
+              <div className="relative mt-6 font-mono text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-zinc-400 font-bold leading-normal text-center z-10">
+                AI ENGINEER &bull; GRAPHIC DESIGNER
+              </div>
+
+              {/* Button Actions: Projects & Resume with Magnetic Micro-animations */}
+              <div className="relative mt-8 flex gap-4 z-10">
+                <Magnetic>
+                  <a 
+                    href="#projects" 
+                    className="px-6 py-2.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all font-mono text-[9px] uppercase tracking-widest text-cyan-400 font-bold cursor-pointer"
+                  >
+                    [Projects]
+                  </a>
+                </Magnetic>
+                <Magnetic>
+                  <a 
+                    href="/resume.pdf" 
+                    target="_blank" 
+                    className="px-6 py-2.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all font-mono text-[9px] uppercase tracking-widest text-white font-bold cursor-pointer"
+                  >
+                    [Resume]
+                  </a>
+                </Magnetic>
+              </div>
             </motion.div>
+
           </motion.div>
 
         </div>
 
-        {/* Bottom Row: Socials & Role Tags */}
-        <div className="flex justify-between items-end w-full z-20">
-          
-          {/* Bottom Left: Social Columns */}
-          <motion.div 
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex flex-col gap-2 font-mono text-[9px] md:text-[10px] uppercase tracking-widest text-left"
-          >
-            <a href="https://linkedin.com/in/mohamedshaheemkp" target="_blank" rel="noreferrer" className="glass-text-link-hover flex items-center gap-1.5 group">
-              <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full group-hover:bg-cyan-400 transition-colors" />
-              LinkedIn
-            </a>
-            <a href="https://github.com/mohamedshaheemkp" target="_blank" rel="noreferrer" className="glass-text-link-hover flex items-center gap-1.5 group">
-              <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full group-hover:bg-purple-400 transition-colors" />
-              GitHub
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="glass-text-link-hover flex items-center gap-1.5 group">
-              <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full group-hover:bg-[#e8ff00] transition-colors" />
-              Instagram
-            </a>
-          </motion.div>
-
-          {/* Bottom Right: Role Details */}
-          <motion.div 
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col text-right leading-tight font-display uppercase"
-          >
-            <span className="glass-text-mono font-mono text-[9px] tracking-widest normal-case block mb-1.5">// DESIGN & CODE</span>
-            <span className="glass-text-sub font-black text-lg md:text-2xl tracking-tight">AI Developer</span>
-            <span className="glass-text-sub font-serif font-medium text-lg md:text-2xl italic normal-case tracking-normal">Creative Technologist</span>
-          </motion.div>
-        </div>
-
-
+        {/* Bottom Row: Kept minimalist and clean to let widescreen landscape breathe */}
+        <div className="w-full h-2 z-20" />
       </motion.div>
     </section>
   );

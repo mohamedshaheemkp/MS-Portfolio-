@@ -107,7 +107,9 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '', open:
               {item}
             </div>
           ))}
-          <div className="folder__front"></div>
+          <div className="folder__front">
+            <span className="folder__etched-text">SELECTED WORKS</span>
+          </div>
           <div className="folder__front right"></div>
         </div>
       </div>
