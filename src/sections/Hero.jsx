@@ -8,6 +8,7 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import cinemImage from "../assets/cinem.webp";
+import GithubButton from "../components/GithubButton";
 
 export default function Hero() {
   const sectionRef = useRef(null);
@@ -120,6 +121,7 @@ export default function Hero() {
               >
                 Resume
               </a>
+              <GithubButton />
             </div>
           </motion.div>
 

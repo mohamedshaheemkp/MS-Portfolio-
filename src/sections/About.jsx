@@ -10,8 +10,8 @@ export default function About() {
     <section id="about" className="relative py-40 px-6 md:px-12 lg:px-20 overflow-hidden bg-black">
       
       {/* Radial glows with scrolling parallax */}
-      <Parallax speed={-0.15} className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/[0.015] blur-[150px] pointer-events-none" />
-      <Parallax speed={0.08} className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] bg-[#e8ff00]/[0.01] blur-[160px] pointer-events-none" />
+      <Parallax speed={-0.15} className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none" style={{ background: "radial-gradient(circle, rgba(0, 240, 255, 0.07) 0%, transparent 70%)" }} />
+      <Parallax speed={0.08} className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] pointer-events-none" style={{ background: "radial-gradient(circle, rgba(232, 255, 0, 0.05) 0%, transparent 70%)" }} />
 
       {/* Oversized background typography for high-end editorial feel */}
       <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
@@ -53,8 +53,8 @@ export default function About() {
 
           {/* Right blank space vector diagnostic grid */}
           <ScrollReveal variant="scale" delay={0.2} duration={1.2} className="flex justify-center lg:justify-end items-center relative pr-4">
-            <div className="absolute w-72 h-72 rounded-full bg-cyan-500/[0.04] blur-3xl pointer-events-none" />
-            <div className="absolute w-48 h-48 rounded-full bg-[#e8ff00]/[0.02] blur-2xl pointer-events-none" />
+            <div className="absolute w-72 h-72 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, transparent 70%)" }} />
+            <div className="absolute w-48 h-48 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(232, 255, 0, 0.08) 0%, transparent 70%)" }} />
 
             <div className="relative z-10 bg-black rounded-3xl p-4">
               <MagnetLines

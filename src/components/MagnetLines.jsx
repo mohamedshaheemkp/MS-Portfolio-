@@ -20,10 +20,18 @@ export default function MagnetLines({
     const items = container.querySelectorAll('span');
 
     const onPointerMove = pointer => {
-      items.forEach(item => {
-        const rect = item.getBoundingClientRect();
-        const centerX = rect.x + rect.width / 2;
-        const centerY = rect.y + rect.height / 2;
+      const rect = container.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      const colWidth = rect.width / columns;
+      const rowHeight = rect.height / rows;
+
+      items.forEach((item, index) => {
+        const col = index % columns;
+        const row = Math.floor(index / columns);
+
+        const centerX = rect.left + (col + 0.5) * colWidth;
+        const centerY = rect.top + (row + 0.5) * rowHeight;
 
         const b = pointer.x - centerX;
         const a = pointer.y - centerY;
@@ -37,9 +45,10 @@ export default function MagnetLines({
     window.addEventListener('pointermove', onPointerMove);
 
     if (items.length) {
-      const middleIndex = Math.floor(items.length / 2);
-      const rect = items[middleIndex].getBoundingClientRect();
-      onPointerMove({ x: rect.x, y: rect.y });
+      const rect = container.getBoundingClientRect();
+      if (rect.width && rect.height) {
+        onPointerMove({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+      }
     }
 
     return () => {

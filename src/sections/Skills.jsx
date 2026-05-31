@@ -80,7 +80,7 @@ const Skills = () => {
       </div>
 
       {/* Subtle Background Lighting Accent */}
-      <Parallax speed={-0.12} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-cyan-500/[0.015] blur-[120px] rounded-full pointer-events-none" />
+      <Parallax speed={-0.12} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%)" }} />
 
       {/* Section label */}
       <ScrollReveal direction="left" distance={30} duration={0.7} className="flex items-center gap-4 mb-20">

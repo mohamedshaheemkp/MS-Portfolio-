@@ -33,13 +33,13 @@ export default function Background() {
       <div className="absolute inset-0 w-full h-full z-0 opacity-60 pointer-events-none">
         
         {/* Cyan Glow (Drifting Top-Left) */}
-        <div className="absolute -top-[10%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-cyan-500/[0.06] blur-[130px] animate-drift-cyan" />
+        <div className="absolute -top-[10%] -left-[10%] w-[60vw] h-[60vw] rounded-full animate-drift-cyan" style={{ background: "radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%)" }} />
 
         {/* Purple Glow (Drifting Bottom-Right) */}
-        <div className="absolute -bottom-[15%] -right-[15%] w-[70vw] h-[70vw] rounded-full bg-violet-600/[0.05] blur-[150px] animate-drift-purple" />
+        <div className="absolute -bottom-[15%] -right-[15%] w-[70vw] h-[70vw] rounded-full animate-drift-purple" style={{ background: "radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%)" }} />
 
         {/* Soft Yellow/Green Accent (Drifting Mid-Left) */}
-        <div className="absolute top-[30%] left-[20%] w-[45vw] h-[45vw] rounded-full bg-[#e8ff00]/[0.025] blur-[120px] animate-drift-yellow" />
+        <div className="absolute top-[30%] left-[20%] w-[45vw] h-[45vw] rounded-full animate-drift-yellow" style={{ background: "radial-gradient(circle, rgba(232, 255, 0, 0.08) 0%, transparent 70%)" }} />
       </div>
 
       {/* LAYER 4: Noise Texture overlay (GPU-accelerated organic shimmer) */}

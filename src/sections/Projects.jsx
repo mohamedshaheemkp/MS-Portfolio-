@@ -196,8 +196,8 @@ export default function Projects() {
     <section id="projects" className="relative py-32 px-6 md:px-12 lg:px-20 overflow-hidden bg-black min-h-screen">
 
       {/* Background Ambience */}
-      <Parallax speed={-0.1} className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-cyan-500/[0.02] blur-[150px] pointer-events-none" />
-      <Parallax speed={0.1} className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-purple-500/[0.02] blur-[180px] pointer-events-none" />
+      <Parallax speed={-0.1} className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%)" }} />
+      <Parallax speed={0.1} className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, transparent 70%)" }} />
 
 
       <div className="max-w-7xl mx-auto relative z-20">
