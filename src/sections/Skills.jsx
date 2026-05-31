@@ -53,32 +53,6 @@ const Skills = () => {
   return (
     <section id="skills" className="relative py-20 md:py-[120px] px-6 md:px-12 lg:px-20 overflow-hidden bg-[#050505]">
       
-      {/* Background Micro-Data Neural Particles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        {[...Array(14)].map((_, i) => (
-          <motion.div
-            key={i}
-            animate={{
-              y: ["0vh", "100vh"],
-              x: ["0vw", `${(i % 3 - 1) * 8}vw`],
-              opacity: [0, 0.25, 0]
-            }}
-            transition={{
-              duration: 16 + i * 3,
-              repeat: Infinity,
-              ease: "linear",
-              delay: i * 1.2
-            }}
-            className="absolute w-[3px] h-[3px] rounded-full bg-cyan-400/25"
-            style={{
-              top: "-5%",
-              left: `${10 + i * 6.5}%`,
-              filter: "blur(0.8px)"
-            }}
-          />
-        ))}
-      </div>
-
       {/* Subtle Background Lighting Accent */}
       <Parallax speed={-0.12} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%)" }} />
 
@@ -175,14 +149,14 @@ const Skills = () => {
                           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
                         />
 
-                        {/* Moving signal nodes traversing the branches */}
+                        {/* Moving signal nodes traversing the branches once on hover */}
                         <motion.circle cx="50" cy="60" r="3" fill={accentColor}
                           animate={{
                             cx: [50, 300, 600, 1150],
                             cy: [60, 32, 60, 60],
                             opacity: [0, 1, 1, 0]
                           }}
-                          transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
+                          transition={{ duration: 2, ease: "easeInOut" }}
                         />
                         <motion.circle cx="250" cy="48" r="2.5" fill="var(--accent3)"
                           animate={{
@@ -190,13 +164,13 @@ const Skills = () => {
                             cy: [48, 72, 35],
                             opacity: [0, 1, 1, 0]
                           }}
-                          transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut", delay: 0.5 }}
+                          transition={{ duration: 2.5, ease: "easeInOut", delay: 0.2 }}
                         />
 
-                        {/* Pulsing junction nodes */}
-                        <motion.circle cx="250" cy="48" r="4" fill={accentColor} animate={{ scale: [1, 1.8, 1], opacity: [0.5, 0.9, 0.5] }} transition={{ repeat: Infinity, duration: 2 }} />
-                        <motion.circle cx="600" cy="60" r="5" fill="var(--accent3)" animate={{ scale: [1, 2, 1], opacity: [0.4, 0.8, 0.4] }} transition={{ repeat: Infinity, duration: 2.5, delay: 0.5 }} />
-                        <motion.circle cx="750" cy="35" r="3.5" fill={accentColor} animate={{ scale: [1, 1.6, 1], opacity: [0.6, 1, 0.6] }} transition={{ repeat: Infinity, duration: 1.8, delay: 0.2 }} />
+                        {/* Pulsing junction nodes using high-performance CSS animation */}
+                        <circle cx="250" cy="48" r="4" fill={accentColor} className="animate-pulse" />
+                        <circle cx="600" cy="60" r="5" fill="var(--accent3)" className="animate-pulse" />
+                        <circle cx="750" cy="35" r="3.5" fill={accentColor} className="animate-pulse" />
                       </svg>
                     )}
                   </AnimatePresence>

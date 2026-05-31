@@ -29,7 +29,7 @@ export default function SmartFolderPage() {
 
       {/* Hero Section */}
       <section className="pt-40 pb-20 px-6 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-purple-500/20 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-purple-500/20 blur-[30px] rounded-full pointer-events-none" />
         
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
@@ -100,9 +100,9 @@ export default function SmartFolderPage() {
               <div className="text-cyan-400">↳ Moving to: /Documents/Reports/</div>
               <div className="text-purple-400 mt-2">[EVENT] File created: background.png</div>
               <div className="text-cyan-400">↳ Moving to: /Pictures/Assets/</div>
-              <motion.div animate={{ opacity: [1, 0, 1] }} transition={{ repeat: Infinity, duration: 1 }} className="text-purple-500 mt-4">
+              <span className="blink text-purple-500 mt-4 block">
                 ▋
-              </motion.div>
+              </span>
             </div>
           </div>
         </div>

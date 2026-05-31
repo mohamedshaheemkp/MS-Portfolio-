@@ -18,6 +18,10 @@ export default function SpotlightCard({ children, className = "", spotlightColor
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      style={{
+        transform: "translateZ(0)",
+        willChange: "transform"
+      }}
     >
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-[28px] opacity-0 transition duration-500 group-hover:opacity-100"

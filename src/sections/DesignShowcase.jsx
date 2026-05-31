@@ -1,8 +1,6 @@
-import { motion, AnimatePresence, useInView } from "framer-motion"
-import { useState, useEffect, useRef, useCallback } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { useState } from "react"
 import designs from "../data/designs"
-import { X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react"
-import Magnetic from "../components/Magnetic"
 import CircularGallery from "../components/CircularGallery"
 
 const DesignShowcase = () => {
@@ -59,8 +57,9 @@ const DesignShowcase = () => {
                         <motion.div
                           layoutId="activeDot"
                           className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#00f0ff]"
-                          animate={{ scale: [1, 1.4, 1], y: [0, -3, 0] }}
-                          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                          initial={{ scale: 0.8 }}
+                          animate={{ scale: 1 }}
+                          transition={{ duration: 0.25 }}
                         />
                       ) : (
                         <div className="w-1.5 h-1.5 rounded-full bg-zinc-800 transition-colors group-hover/item:bg-zinc-600" />
@@ -79,30 +78,13 @@ const DesignShowcase = () => {
             </div>
           </div>
 
-          <div className="hidden md:flex flex-col gap-2 font-mono text-[9px] text-[#555] border-t border-white/[0.04] pt-6 z-10 relative">
-            <div className="flex justify-between items-center">
-              <span>LAB STATUS</span>
-              <span className="text-cyan-400 animate-pulse flex items-center gap-1">
-                <span className="w-1 h-1 rounded-full bg-cyan-400" /> ONLINE
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span>SYSTEM ENGINE</span>
-              <span>WEBGL_OGL_SCROLL</span>
-            </div>
-            <div className="flex justify-between">
-              <span>BEND INDEX</span>
-              <span>2.80_CYLINDRICAL</span>
-            </div>
-          </div>
-
         </div>
 
         {/* Right Content Area displaying active CircularGallery */}
         <div className="w-full md:w-[68%] lg:w-[74%] h-screen bg-[#030303] relative z-10 flex flex-col justify-center items-center overflow-hidden">
           
-          <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/[0.015] blur-[150px] pointer-events-none z-0" />
-          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-purple-500/[0.012] blur-[180px] pointer-events-none z-0" />
+          <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/[0.015] blur-[30px] pointer-events-none z-0" />
+          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-purple-500/[0.012] blur-[30px] pointer-events-none z-0" />
 
           {/* Heading overlay */}
           <div className="text-center max-w-xl mb-6 z-20 px-6">
@@ -165,4 +147,4 @@ const DesignShowcase = () => {
   );
 };
 
-export default DesignShowcase
+export default DesignShowcase;

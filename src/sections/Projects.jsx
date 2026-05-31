@@ -1,5 +1,4 @@
 import { motion, AnimatePresence } from "framer-motion";
-import ScrollReveal from "../components/ScrollReveal";
 import Parallax from "../components/Parallax";
 import { motionTiming } from "../utils/motion";
 import Folder from "../components/Folder";
@@ -15,15 +14,15 @@ import SpotlightCard from "../components/SpotlightCard";
 
 const FEATURED = [
   {
-    id: "agri-ai",
-    name: "AgriAI",
-    sub: "Crop Disease Detection via YOLOv9",
-    tag: "AI",
-    tagColor: "#e8ff00",
-    metric: "98.4%",
-    metricLabel: "Accuracy",
-    Icon: FiCpu,
-    route: "/projects/agri-ai",
+    id: "ai-portfolio",
+    name: "AI Portfolio",
+    sub: "Vite · Framer Motion · React 19",
+    tag: "WEB",
+    tagColor: "#00f0ff",
+    metric: "98",
+    metricLabel: "Lighthouse",
+    Icon: FiZap,
+    route: "/projects/ai-portfolio",
   },
   {
     id: "smart-folder-organizer",
@@ -37,15 +36,15 @@ const FEATURED = [
     route: "/projects/smart-folder-organizer",
   },
   {
-    id: "ai-portfolio",
-    name: "AI Portfolio",
-    sub: "Vite · Framer Motion · React 19",
-    tag: "WEB",
-    tagColor: "#00f0ff",
-    metric: "98",
-    metricLabel: "Lighthouse",
-    Icon: FiZap,
-    route: "/projects/ai-portfolio",
+    id: "agri-ai",
+    name: "AgriAI",
+    sub: "Crop Disease Detection via YOLOv9",
+    tag: "AI",
+    tagColor: "#e8ff00",
+    metric: "98.4%",
+    metricLabel: "Accuracy",
+    Icon: FiCpu,
+    route: "/projects/agri-ai",
   },
 ];
 
@@ -123,7 +122,7 @@ function FolderShowcase() {
 
       {/* Ambient glow behind folder */}
       <div
-        className="absolute w-80 h-80 rounded-full blur-[120px] pointer-events-none transition-all duration-[1200ms]"
+        className="absolute w-80 h-80 rounded-full blur-[30px] pointer-events-none transition-all duration-[1200ms]"
         style={{ background: glowColor, top: "50%", left: "50%", transform: "translate(-50%,-50%)" }}
       />
 
@@ -223,7 +222,7 @@ export default function Projects() {
         {/* ═══════════════════════════════════════════════════════
             INTERACTIVE FOLDER VAULT
         ═══════════════════════════════════════════════════════ */}
-        <div className="flex justify-center items-center mb-40 min-h-[480px]">
+        <div className="flex justify-center items-center mt-20 md:mt-32 mb-40 min-h-[480px]">
           <FolderShowcase />
         </div>
 
@@ -245,6 +244,7 @@ export default function Projects() {
                 whileHover={{ y: -4 }}
                 transition={{ duration: motionTiming.normal, ease: motionTiming.ease }}
                 className="will-change-transform"
+                style={{ transform: "translateZ(0)" }}
               >
                 <SpotlightCard className="h-full p-[28px] flex flex-col justify-between group">
                   <div>

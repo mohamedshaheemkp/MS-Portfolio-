@@ -68,10 +68,6 @@ body::before {
 .bg-surface { background: var(--surface); }
 .bg-surface2 { background: var(--surface2); }
 .border-base { border-color: var(--border); }
-.heading-display {
-  letter-spacing: -0.05em;
-  line-height: 0.95;
-}
 .heading-section {
   letter-spacing: -0.04em;
   line-height: 1.05;
@@ -141,18 +137,6 @@ body::before {
   will-change: transform;
 }
 
-/* Glow pulse */
-@keyframes glowPulse {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.05); }
-}
-.glow-pulse { animation: glowPulse 4s ease-in-out infinite; }
-
-/* Line draw */
-@keyframes lineDraw {
-  from { width: 0; }
-  to { width: 100%; }
-}
 
 /* Blink cursor */
 @keyframes blink {

@@ -21,7 +21,11 @@ export default function Hero() {
           src={cinemImage}
           alt="Mohamed Shaheem — AI Engineer & Graphic Designer"
           className="w-full h-full object-cover object-center"
-          style={{ filter: "brightness(0.78) contrast(1.06)" }}
+          style={{ 
+            filter: "brightness(0.78) contrast(1.06)",
+            transform: "translateZ(0)",
+            willChange: "transform"
+          }}
           draggable={false}
           loading="eager"
           decoding="async"
@@ -51,6 +55,7 @@ export default function Hero() {
 
         {/* TOP: role badge */}
         <motion.div
+          className="pt-20 md:pt-24"
           initial={{ opacity: 0, y: -14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: motionTiming.normal, delay: 0.15, ease: motionTiming.ease }}

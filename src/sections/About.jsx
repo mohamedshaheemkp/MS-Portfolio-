@@ -22,15 +22,11 @@ export default function About() {
         </Parallax>
       </div>
 
-      {/* Floating glass accent elements */}
-      <motion.div
-        animate={{ y: [-12, 12, -12], rotate: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
+      {/* Static glass accent elements */}
+      <div
         className="absolute top-[18%] right-[8%] w-24 h-24 rounded-2xl border border-white/[0.03] bg-white/[0.01] backdrop-blur-xl pointer-events-none z-0"
       />
-      <motion.div
-        animate={{ y: [15, -15, 15], rotate: [0, -8, 0] }}
-        transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
+      <div
         className="absolute bottom-[25%] left-[5%] w-36 h-36 rounded-full border border-cyan-400/[0.02] bg-cyan-400/[0.004] backdrop-blur-xl pointer-events-none z-0"
       />
 
@@ -138,7 +134,10 @@ export default function About() {
                 </div>
 
                 {/* Timeline glass card container */}
-                <div className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-[28px] p-[28px] hover:scale-[1.015] hover:-translate-y-1 hover:border-white/15 hover:shadow-[0_0_30px_rgba(0,240,255,0.08)] transition-all duration-300 will-change-transform">
+                <div 
+                  className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-[28px] p-[28px] hover:scale-[1.015] hover:-translate-y-1 hover:border-white/15 hover:shadow-[0_0_30px_rgba(0,240,255,0.08)] transition-all duration-300 will-change-transform"
+                  style={{ transform: "translateZ(0)", willChange: "transform" }}
+                >
                   <span className="font-mono text-xs tracking-widest uppercase text-cyan-400 block mb-2">{milestone.year}</span>
                   <h4 className="font-display font-black text-[clamp(1.2rem,2vw,1.45rem)] tracking-[-0.02em] leading-tight text-white mb-4 transition-all duration-300 group-hover:-skew-x-8 inline-block origin-left">{milestone.title}</h4>
                   <p className="text-sm leading-relaxed text-[#9b9892] font-sans">{milestone.desc}</p>
@@ -205,7 +204,11 @@ export default function About() {
               const dynamicGlow = glowClasses[idx % glowClasses.length];
 
               return (
-                <div key={idx} className={`bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-[28px] p-[28px] hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group h-full will-change-transform ${dynamicGlow}`}>
+                <div 
+                  key={idx} 
+                  className={`bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-[28px] p-[28px] hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group h-full will-change-transform ${dynamicGlow}`}
+                  style={{ transform: "translateZ(0)", willChange: "transform" }}
+                >
                   <div>
                     <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-6">
                       <div className={`p-2.5 rounded-lg bg-white/5 ${eco.color}`}>

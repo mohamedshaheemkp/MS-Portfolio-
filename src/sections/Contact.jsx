@@ -45,20 +45,12 @@ export default function Contact() {
     <section id="contact" className="relative py-20 md:py-[120px] px-6 md:px-12 lg:px-20 overflow-hidden bg-black">
 
       {/* Dynamic Environmental Background Glows */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[300px] bg-cyan-500/[0.03] blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[400px] bg-purple-600/[0.015] blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[300px] bg-cyan-500/[0.03] blur-[30px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[400px] bg-purple-600/[0.015] blur-[30px] rounded-full pointer-events-none" />
 
-      {/* Floating Blurred Shapes bobbing slowly around card */}
-      <motion.div
-        animate={{ y: [-15, 15, -15], x: [10, -10, 10] }}
-        transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-        className="absolute top-[20%] right-[10%] w-48 h-48 rounded-full bg-purple-500/[0.08] blur-3xl pointer-events-none z-0"
-      />
-      <motion.div
-        animate={{ y: [20, -20, 20], x: [-15, 15, -15] }}
-        transition={{ repeat: Infinity, duration: 11, ease: "easeInOut" }}
-        className="absolute bottom-[10%] left-[8%] w-60 h-60 rounded-full bg-cyan-400/[0.06] blur-3xl pointer-events-none z-0"
-      />
+      {/* Capped 30px Static Background Glow Shapes */}
+      <div className="absolute top-[20%] right-[10%] w-48 h-48 rounded-full bg-purple-500/[0.06] blur-[30px] pointer-events-none z-0" />
+      <div className="absolute bottom-[10%] left-[8%] w-60 h-60 rounded-full bg-cyan-400/[0.04] blur-[30px] pointer-events-none z-0" />
 
       {/* Section label */}
       <ScrollReveal direction="left" distance={30} duration={0.7} className="flex items-center gap-4 mb-20 relative z-10">
@@ -130,14 +122,10 @@ export default function Contact() {
         {/* Right Column: Upgraded Immersive Form Card Container */}
         <div className="relative w-full">
           
-          {/* Pulsing Backlight Glow directly behind card */}
-          <motion.div
-            animate={{
-              scale: [0.95, 1.05, 0.95],
-              opacity: [0.35, 0.6, 0.35]
-            }}
-            transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-            className="absolute -inset-6 bg-cyan-500/10 blur-[100px] rounded-3xl pointer-events-none z-0"
+          {/* Hardware-Accelerated Static Backlight Glow behind card */}
+          <div
+            className="absolute -inset-6 bg-cyan-500/08 blur-[30px] rounded-3xl pointer-events-none z-0"
+            style={{ transform: "translateZ(0)", willChange: "transform" }}
           />
 
           <ScrollReveal delay={0.12} distance={30} direction="right" duration={0.5}>
@@ -147,7 +135,11 @@ export default function Contact() {
               onMouseEnter={() => setHovered(true)}
               onMouseLeave={() => setHovered(false)}
               className="bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-[28px] p-[28px] md:p-[28px] relative overflow-hidden group hover:border-white/15 transition-all duration-500 w-full"
-              style={{ boxShadow: "rgba(0, 0, 0, 0.3) 0px 30px 60px -15px" }}
+              style={{ 
+                boxShadow: "rgba(0, 0, 0, 0.3) 0px 30px 60px -15px",
+                transform: "translateZ(0)",
+                willChange: "transform"
+              }}
             >
               {/* Subtle noise texture overlay */}
               <div 

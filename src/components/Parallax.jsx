@@ -41,6 +41,7 @@ export default function Parallax({
 
   const style = {
     [direction]: smoothVal,
+    z: 0,
     willChange: "transform",
   };
 

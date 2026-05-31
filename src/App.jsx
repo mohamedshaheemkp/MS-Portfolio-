@@ -1,22 +1,25 @@
+import { lazy, Suspense } from "react"
 import { Routes, Route } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import Hero from "./sections/Hero"
-import About from "./sections/About"
-import Skills from "./sections/Skills"
-import Projects from "./sections/Projects"
 import SmoothScroll from "./components/SmoothScroll"
 import ScrollProgress from "./components/ScrollProgress"
-import DesignShowcase from "./sections/DesignShowcase"
-import Contact from "./sections/Contact"
-import Footer from "./sections/Footer"
 import PageLoader from "./components/PageLoader"
 import Background from "./components/Background"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 
+// Lazy-loaded Sections
+const About = lazy(() => import("./sections/About"))
+const Skills = lazy(() => import("./sections/Skills"))
+const Projects = lazy(() => import("./sections/Projects"))
+const DesignShowcase = lazy(() => import("./sections/DesignShowcase"))
+const Contact = lazy(() => import("./sections/Contact"))
+const Footer = lazy(() => import("./sections/Footer"))
+
 // Case Study Pages
-import SmartFolderPage from "./pages/SmartFolderPage"
-import AgriAIPage from "./pages/AgriAIPage"
-import PortfolioPage from "./pages/PortfolioPage"
+const SmartFolderPage = lazy(() => import("./pages/SmartFolderPage"))
+const AgriAIPage = lazy(() => import("./pages/AgriAIPage"))
+const PortfolioPage = lazy(() => import("./pages/PortfolioPage"))
 
 function HomePage() {
   return (
@@ -28,12 +31,14 @@ function HomePage() {
         <ScrollProgress />
         <Navbar />
         <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <DesignShowcase />
-        <Contact />
-        <Footer />
+        <Suspense fallback={null}>
+          <About />
+          <Skills />
+          <Projects />
+          <DesignShowcase />
+          <Contact />
+          <Footer />
+        </Suspense>
       </main>
     </>
   )
@@ -42,15 +47,18 @@ function HomePage() {
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/projects/smart-folder-organizer" element={<SmartFolderPage />} />
-        <Route path="/projects/agri-ai" element={<AgriAIPage />} />
-        <Route path="/projects/ai-portfolio" element={<PortfolioPage />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/projects/smart-folder-organizer" element={<SmartFolderPage />} />
+          <Route path="/projects/agri-ai" element={<AgriAIPage />} />
+          <Route path="/projects/ai-portfolio" element={<PortfolioPage />} />
+        </Routes>
+      </Suspense>
       <SpeedInsights />
     </>
   )
 }
 
 export default App
+

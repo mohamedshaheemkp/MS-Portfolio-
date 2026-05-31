@@ -14,7 +14,6 @@ import poster4 from "../assets/poster 4.webp";
 import poster5 from "../assets/poster 5.webp";
 import poster6 from "../assets/poster 6.webp";
 
-
 const designs = [
   {
     title: "Poster Designs",
@@ -28,6 +27,6 @@ const designs = [
     title: "Logo Design",
     image: [logo1, logo2, logo3],
   },
-]
+];
 
-export default designs
+export default designs;
