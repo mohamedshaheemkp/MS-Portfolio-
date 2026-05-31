@@ -51,7 +51,7 @@ const Skills = () => {
   const [activeRow, setActiveRow] = useState(null);
 
   return (
-    <section id="skills" className="relative py-40 px-6 md:px-12 lg:px-20 overflow-hidden bg-[#050505]">
+    <section id="skills" className="relative py-20 md:py-[120px] px-6 md:px-12 lg:px-20 overflow-hidden bg-[#050505]">
       
       {/* Background Micro-Data Neural Particles */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
@@ -89,13 +89,12 @@ const Skills = () => {
         <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--muted)' }}>Capabilities</span>
       </ScrollReveal>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-[1200px] mx-auto relative z-10">
 
         {/* Header */}
-        <ScrollReveal variant="skew" distance={100} duration={1.1} className="mb-20">
+        <ScrollReveal variant="skew" distance={60} className="mb-20">
           <h2
-            className="font-display font-black leading-[0.92] max-w-3xl"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', color: 'var(--text)' }}
+            className="font-display font-bold heading-section text-[clamp(32px,5vw,56px)] max-w-3xl text-white"
           >
             What I bring to<br />
             <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>the table.</span>
@@ -114,12 +113,12 @@ const Skills = () => {
               <ScrollReveal
                 key={cap.num}
                 variant="blur"
-                delay={index * 0.08}
-                distance={40}
-                duration={0.8}
+                delay={index * 0.05}
+                distance={20}
+                duration={0.45}
               >
                 <div
-                  className="group relative flex flex-col py-12 px-4 md:px-8 cursor-pointer transition-all duration-500 border-b border-white/10 overflow-hidden"
+                  className="group relative flex flex-col py-12 px-4 md:px-8 cursor-pointer transition-all duration-300 border-b border-white/10 overflow-hidden"
                   style={{
                     background: isHovered ? rowColor : "transparent",
                     willChange: "background, padding"
@@ -129,7 +128,7 @@ const Skills = () => {
                 >
                   {/* Glowing Left Indicator Line */}
                   <div 
-                    className="absolute left-0 top-0 h-full w-0.5 transition-all duration-500"
+                    className="absolute left-0 top-0 h-full w-0.5 transition-all duration-300"
                     style={{ 
                       background: accentColor, 
                       opacity: isHovered ? 1 : 0,
@@ -150,7 +149,7 @@ const Skills = () => {
                           initial={{ pathLength: 0 }}
                           animate={{ pathLength: 1 }}
                           exit={{ opacity: 0 }}
-                          transition={{ duration: 1.2, ease: "easeOut" }}
+                          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                         />
                         {/* Branch 1 */}
                         <motion.path
@@ -161,7 +160,7 @@ const Skills = () => {
                           initial={{ pathLength: 0 }}
                           animate={{ pathLength: 1 }}
                           exit={{ opacity: 0 }}
-                          transition={{ duration: 1.5, ease: "easeOut", delay: 0.15 }}
+                          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
                         />
                         {/* Branch 2 */}
                         <motion.path
@@ -173,7 +172,7 @@ const Skills = () => {
                           initial={{ pathLength: 0 }}
                           animate={{ pathLength: 1 }}
                           exit={{ opacity: 0 }}
-                          transition={{ duration: 1.8, ease: "easeOut", delay: 0.25 }}
+                          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
                         />
 
                         {/* Moving signal nodes traversing the branches */}
@@ -237,7 +236,7 @@ const Skills = () => {
                       {cap.tags.map((tag) => (
                         <motion.span 
                           key={tag}
-                          whileHover={{ scale: 1.15, y: -2 }}
+                          whileHover={{ scale: 1.05, y: -1 }}
                           className="font-mono text-[10px] px-3 py-1 border rounded-lg transition-all duration-500 relative z-10"
                           style={{
                             borderColor: isHovered ? `rgba(255, 255, 255, 0.15)` : "rgba(255, 255, 255, 0.08)",
@@ -261,7 +260,7 @@ const Skills = () => {
                       opacity: isHovered ? 1 : 0,
                       marginTop: isHovered ? 18 : 0
                     }}
-                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.344, ease: [0.16, 1, 0.3, 1] }}
                     className="overflow-hidden pl-16 relative z-10"
                   >
                     <p className="text-xs font-sans tracking-wide max-w-2xl" style={{ color: `${accentColor}d0` }}>

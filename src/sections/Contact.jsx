@@ -42,7 +42,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-40 px-6 md:px-12 lg:px-20 overflow-hidden bg-black">
+    <section id="contact" className="relative py-20 md:py-[120px] px-6 md:px-12 lg:px-20 overflow-hidden bg-black">
 
       {/* Dynamic Environmental Background Glows */}
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[300px] bg-cyan-500/[0.03] blur-[120px] rounded-full pointer-events-none" />
@@ -67,18 +67,18 @@ export default function Contact() {
         <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--muted)' }}>Contact</span>
       </ScrollReveal>
 
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-[1fr_1.1fr] gap-20 lg:gap-24 items-center relative z-10">
+      <div className="max-w-[1200px] mx-auto grid lg:grid-cols-[1fr_1.1fr] gap-20 lg:gap-24 items-center relative z-10">
 
         {/* Left Column: Cinematic Statement & Socials */}
-        <ScrollReveal distance={80} duration={0.9} className="flex flex-col items-start text-left">
+        <ScrollReveal distance={40} duration={0.5} className="flex flex-col items-start text-left">
           <span className="font-mono text-xs tracking-widest text-[#6b6860] uppercase block mb-6">
             // DIRECT CHANNEL
           </span>
 
-          <h2 className="font-display font-black text-6xl md:text-8xl tracking-tight leading-[0.9] text-white uppercase mb-8">
+          <h2 className="font-display font-bold heading-section text-[clamp(32px,5vw,56px)] text-white uppercase mb-8">
             Let's build<br />
             something<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-[#a855f7] italic font-display">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-[#a855f7] italic font-display font-black">
               Unique.
             </span>
           </h2>
@@ -105,7 +105,7 @@ export default function Contact() {
             {socials.map(({ icon: Icon, href, label }) => (
               <a key={label} href={href} target="_blank" rel="noreferrer"
                 aria-label={label}
-                className="group relative flex items-center justify-center p-3.5 bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-2xl hover:scale-105 hover:border-cyan-500/30 hover:shadow-[0_0_25px_rgba(0,240,255,0.12)] transition-all duration-300 w-12 h-12 text-[#A1A1AA] hover:text-[#00f0ff]"
+                className="group relative flex items-center justify-center p-3.5 bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-full hover:scale-[1.02] hover:border-cyan-500/30 hover:shadow-[0_0_25px_rgba(0,240,255,0.12)] transition-all duration-300 w-12 h-12 text-[#A1A1AA] hover:text-[#00f0ff] hover-opacity-70"
               >
                 <Icon size={18} />
               </a>
@@ -116,7 +116,7 @@ export default function Contact() {
           <a
             href="/resume.pdf"
             download
-            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl text-sm font-semibold text-white hover:bg-white hover:text-black hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(0,240,255,0.25)] transition-all duration-500 font-sans tracking-wide"
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl text-sm font-semibold text-white hover:bg-white hover:text-black hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(0,240,255,0.25)] hover:scale-[1.02] transition-all duration-300 font-sans tracking-wide"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -140,13 +140,14 @@ export default function Contact() {
             className="absolute -inset-6 bg-cyan-500/10 blur-[100px] rounded-3xl pointer-events-none z-0"
           />
 
-          <ScrollReveal delay={0.2} distance={80} direction="right" duration={0.9}>
+          <ScrollReveal delay={0.12} distance={30} direction="right" duration={0.5}>
             <div 
               ref={cardRef}
               onMouseMove={handleFormMouseMove}
               onMouseEnter={() => setHovered(true)}
               onMouseLeave={() => setHovered(false)}
-              className="bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden group hover:border-white/15 transition-all duration-500 w-full"
+              className="bg-white/[0.02] backdrop-blur-[20px] border border-white/[0.08] rounded-[28px] p-[28px] md:p-[28px] relative overflow-hidden group hover:border-white/15 transition-all duration-500 w-full"
+              style={{ boxShadow: "rgba(0, 0, 0, 0.3) 0px 30px 60px -15px" }}
             >
               {/* Subtle noise texture overlay */}
               <div 
@@ -225,7 +226,7 @@ export default function Contact() {
                     <button 
                       type="submit" 
                       disabled={status === "sending"}
-                      className="w-full flex items-center justify-center gap-3 py-4 font-sans font-bold text-xs uppercase tracking-wider bg-[#00f0ff] hover:bg-white text-black hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,240,255,0.3)] transition-all duration-600 rounded-xl disabled:opacity-50 cursor-pointer select-none"
+                      className="w-full flex items-center justify-center gap-3 py-4 font-sans font-bold text-xs uppercase tracking-wider bg-[#00f0ff] hover:bg-white text-black hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,240,255,0.3)] transition-all duration-300 rounded-full disabled:opacity-50 cursor-pointer select-none"
                     >
                       {status === "sending" ? "Sending..." : "Send Message"}
                       <FiSend size={14} />

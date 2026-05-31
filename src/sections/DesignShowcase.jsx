@@ -30,7 +30,7 @@ const DesignShowcase = () => {
       <div className="w-full flex flex-col md:flex-row relative">
         
         {/* Left Sticky Sidebar Panel */}
-        <div className="w-full md:w-[32%] lg:w-[26%] md:h-screen md:sticky md:top-0 flex flex-col justify-between p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/[0.05] bg-black z-30 overflow-hidden">
+        <div className="w-full md:w-[32%] lg:w-[26%] md:h-screen md:sticky md:top-0 flex flex-col justify-between p-[28px] border-b md:border-b-0 md:border-r border-white/[0.05] bg-black z-30 overflow-hidden">
           
           <div className="flex items-center gap-4 z-10 relative">
             <span className="font-mono text-xs tracking-[0.3em] uppercase text-cyan-400">04</span>
@@ -39,9 +39,9 @@ const DesignShowcase = () => {
           </div>
 
           <div className="my-auto py-12 md:py-0 z-10 relative">
-            <h2 className="font-display font-black leading-[0.85] tracking-tight mb-8">
-              <span className="block text-[clamp(3.5rem,5.5vw,5.5rem)] text-white font-black select-none">VISUAL</span>
-              <span className="block text-[clamp(3.5rem,5.5vw,6.5rem)] text-cyan-400 font-extrabold italic select-none">EXP.</span>
+            <h2 className="font-display font-bold heading-section text-[clamp(32px,5vw,56px)] text-white mb-8">
+              <span className="block select-none">VISUAL</span>
+              <span className="block text-cyan-400 italic select-none font-extrabold">EXP.</span>
             </h2>
 
             {/* Menu Category Switcher */}
@@ -110,7 +110,7 @@ const DesignShowcase = () => {
               key={`label-${activeIndex}`}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.344, ease: [0.16, 1, 0.3, 1] }}
               className="font-mono text-[9px] text-cyan-400 tracking-[0.25em] block mb-2 uppercase"
             >
               // Showcase_Category_0{activeIndex + 1}
@@ -119,8 +119,8 @@ const DesignShowcase = () => {
               key={`title-${activeIndex}`}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tight mb-4"
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className="text-[clamp(32px,5vw,56px)] font-bold heading-section text-white uppercase mb-4"
             >
               {activeDesign.title}
             </motion.h3>
@@ -128,7 +128,7 @@ const DesignShowcase = () => {
               key={`desc-${activeIndex}`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1], delay: 0.06 }}
               className="text-xs md:text-sm text-zinc-400 font-light leading-relaxed px-4"
             >
               {activeDesign.title === "Poster Designs" ? "Crafting visual identities, experimental typography layouts, and contemporary graphic design assets."

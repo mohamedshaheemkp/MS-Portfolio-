@@ -5,9 +5,8 @@ const SmoothScroll = () => {
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.0,
+      duration: 1.1,
       smoothWheel: true,
-      smoothTouch: false,
     })
 
     let rafId

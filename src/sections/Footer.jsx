@@ -34,7 +34,7 @@ export default function Footer() {
       </div>
 
       {/* Main footer content */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-20 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-12 lg:px-20 py-20 relative z-10">
         <ScrollReveal distance={50} duration={0.9} className="grid lg:grid-cols-[2fr_1fr_1fr] gap-16">
           {/* Brand */}
           <div>

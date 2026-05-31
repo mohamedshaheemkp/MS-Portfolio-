@@ -68,6 +68,21 @@ body::before {
 .bg-surface { background: var(--surface); }
 .bg-surface2 { background: var(--surface2); }
 .border-base { border-color: var(--border); }
+.heading-display {
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+}
+.heading-section {
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+.hover-opacity-70 {
+  transition: opacity 0.3s ease;
+}
+.hover-opacity-70:hover {
+  opacity: 0.7;
+}
+
 
 /* Marquee */
 @keyframes marquee {
@@ -173,13 +188,13 @@ body::before {
 /* --- Giant Name: bottom-left editorial with Glass Reflection --- */
 .hero-name {
   font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(4.5rem, 16vw, 13.5rem);
-  line-height: 0.87;
+  font-weight: 700;
+  font-size: clamp(64px, 9vw, 96px);
+  line-height: 0.95;
   text-align: left;
   
   position: relative;
-  letter-spacing: -0.07em;
+  letter-spacing: -0.05em;
 
   /* Highly translucent base for authentic glass look */
   background:
@@ -193,11 +208,6 @@ body::before {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-
-  /* Subtle depth shadow, no neon glow - Commented out for performance testing */
-  /* text-shadow:
-    0 0 15px rgba(255,255,255,.04),
-    0 10px 30px rgba(255,255,255,.02); */
 }
 
 .hero-name::after {
@@ -240,11 +250,11 @@ body::before {
 /* --- Tagline: bottom-left, muted --- */
 .hero-tagline {
   font-family: var(--font-sans);
-  font-size: clamp(0.78rem, 1.4vw, 0.95rem);
-  font-weight: 400;
-  line-height: 1.75;
+  font-size: 20px;
+  font-weight: 450;
+  line-height: 1.4;
   color: rgba(255, 255, 255, 0.40);
-  letter-spacing: 0.01em;
+  letter-spacing: -0.02em;
   text-align: left;
   max-width: 320px;
 }

@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { Cpu, Layers, Terminal, BookOpen } from "lucide-react";
-import ScrollReveal from "../components/ScrollReveal";
+import ScrollReveal, { ScrollRevealGroup } from "../components/ScrollReveal";
 import Parallax from "../components/Parallax";
 import Magnetic from "../components/Magnetic";
 import MagnetLines from "../components/MagnetLines";
 
 export default function About() {
   return (
-    <section id="about" className="relative py-40 px-6 md:px-12 lg:px-20 overflow-hidden bg-black">
+    <section id="about" className="relative py-20 md:py-[120px] px-6 md:px-12 lg:px-20 overflow-hidden bg-black">
       
       {/* Radial glows with scrolling parallax */}
       <Parallax speed={-0.15} className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none" style={{ background: "radial-gradient(circle, rgba(0, 240, 255, 0.07) 0%, transparent 70%)" }} />
@@ -41,12 +41,12 @@ export default function About() {
         <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--muted)' }}>About</span>
       </ScrollReveal>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-[1200px] mx-auto relative z-10">
         
         {/* ================= BLOCK 1: LARGE STATEMENT + MAGNET LINES ================= */}
         <div className="grid lg:grid-cols-[1.5fr_1fr] gap-12 lg:gap-20 items-center mb-36 relative">
-          <ScrollReveal variant="skew" distance={100} duration={1.1}>
-            <h2 className="font-display font-black leading-[1.05] tracking-tight text-4xl md:text-6xl lg:text-[4.8rem] text-white">
+          <ScrollReveal variant="skew" distance={100} duration={0.55}>
+            <h2 className="font-display font-bold heading-section text-[clamp(32px,5vw,56px)] text-white">
               Converting <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-[#e8ff00] italic">Ideas </span> into  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e8ff00] to-violet-500 italic">Reality</span>.
             </h2>
           </ScrollReveal>
@@ -71,10 +71,10 @@ export default function About() {
         </div>
 
         {/* ================= BLOCK 2: SMALL BIOGRAPHY ================= */}
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-[1fr_1.4fr] gap-12 lg:gap-20 items-start">
-          <ScrollReveal distance={70} duration={0.9}>
+        <div className="max-w-[1200px] mx-auto grid lg:grid-cols-[1fr_1.4fr] gap-12 lg:gap-20 items-start">
+          <ScrollReveal distance={70} duration={0.5}>
             <span className="font-mono text-xs tracking-widest text-[#6b6860] uppercase block mb-4">// THE PERSPECTIVE</span>
-            <h3 className="font-display font-black text-2xl md:text-3xl text-white leading-tight">
+            <h3 className="font-display font-black text-[clamp(1.45rem,2.6vw,2.1rem)] text-white leading-[1.12] tracking-[-0.03em]">
               Create Unique Designs, and Machine Learning Projects.
             </h3>
           </ScrollReveal>
@@ -86,6 +86,17 @@ export default function About() {
             <p>
               I Target Achieve end user Desired design, for E-Commerce and Marketing, Using Design and Building AI Models.
             </p>
+            <div className="flex items-center gap-6 mt-8 border-t border-white/5 pt-6">
+              <a href="https://github.com/mohamedshaheemkp" target="_blank" rel="noreferrer" className="font-mono text-xs tracking-widest uppercase text-[#9b9892] hover:text-white transition-colors hover-opacity-70">
+                GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/mohamed-shaheem-91a895331" target="_blank" rel="noreferrer" className="font-mono text-xs tracking-widest uppercase text-[#9b9892] hover:text-white transition-colors hover-opacity-70">
+                LinkedIn
+              </a>
+              <a href="mailto:mohamedshaheemkp74@gmail.com" className="font-mono text-xs tracking-widest uppercase text-[#9b9892] hover:text-white transition-colors hover-opacity-70">
+                Email
+              </a>
+            </div>
           </ScrollReveal>
         </div>
 
@@ -95,17 +106,17 @@ export default function About() {
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent origin-center"
           />
         </div>
 
 
         {/* ================= BLOCK 3: EXPERIENCE TIMELINE ================= */}
-        <div className="max-w-7xl mx-auto">
-          <ScrollReveal distance={60} duration={0.9} className="mb-16 text-left">
+        <div className="max-w-[1200px] mx-auto">
+          <ScrollReveal distance={60} duration={0.5} className="mb-16 text-left">
             <span className="font-mono text-xs tracking-widest text-[#6b6860] uppercase block mb-4">// MILESTONES</span>
-            <h3 className="font-display font-black text-3xl md:text-5xl text-white">Experience Timeline</h3>
+            <h3 className="font-display font-bold heading-section text-[clamp(32px,5vw,56px)] text-white">Experience Timeline</h3>
           </ScrollReveal>
 
           <div className="relative border-l border-white/10 pl-6 md:pl-12 ml-4 space-y-12">
@@ -116,7 +127,7 @@ export default function About() {
                 desc: "Training custom deep learning models (YOLOv9, PyTorch) while architecting high-end creative interfaces. Built AgriAI, a computer vision crop diagnostics dashboard for Farmers Detecting diseases,weeds,insects in crop fields."
               }
             ].map((milestone, idx) => (
-              <ScrollReveal key={idx} variant="blur" delay={idx * 0.12} distance={50} duration={1} className="relative group">
+              <ScrollReveal key={idx} variant="blur" delay={idx * 0.08} distance={30} duration={0.45} className="relative group">
                 {/* Pulsing circular node dot wrapped in Magnetic pull */}
                 <div className="absolute -left-[31px] md:-left-[55px] top-1.5 z-20">
                   <Magnetic strength={0.4}>
@@ -127,9 +138,9 @@ export default function About() {
                 </div>
 
                 {/* Timeline glass card container */}
-                <div className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 md:p-8 hover:scale-[1.015] hover:-translate-y-1.5 hover:border-white/15 hover:shadow-[0_0_30px_rgba(0,240,255,0.08)] transition-all duration-600">
+                <div className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-[28px] p-[28px] hover:scale-[1.015] hover:-translate-y-1 hover:border-white/15 hover:shadow-[0_0_30px_rgba(0,240,255,0.08)] transition-all duration-300 will-change-transform">
                   <span className="font-mono text-xs tracking-widest uppercase text-cyan-400 block mb-2">{milestone.year}</span>
-                  <h4 className="font-display font-black text-xl md:text-2xl text-white mb-4 transition-all duration-600 group-hover:-skew-x-8 inline-block origin-left">{milestone.title}</h4>
+                  <h4 className="font-display font-black text-[clamp(1.2rem,2vw,1.45rem)] tracking-[-0.02em] leading-tight text-white mb-4 transition-all duration-300 group-hover:-skew-x-8 inline-block origin-left">{milestone.title}</h4>
                   <p className="text-sm leading-relaxed text-[#9b9892] font-sans">{milestone.desc}</p>
                 </div>
               </ScrollReveal>
@@ -143,19 +154,19 @@ export default function About() {
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0 bg-gradient-to-r from-transparent via-[#e8ff00]/15 to-transparent origin-center"
           />
         </div>
 
         {/* ================= BLOCK 4: SKILL ECOSYSTEM ================= */}
-        <div className="max-w-7xl mx-auto">
-          <ScrollReveal distance={60} duration={0.9} className="mb-16 text-left">
+        <div className="max-w-[1200px] mx-auto">
+          <ScrollReveal distance={60} duration={0.5} className="mb-16 text-left">
             <span className="font-mono text-xs tracking-widest text-[#6b6860] uppercase block mb-4">// Flow </span>
-            <h3 className="font-display font-black text-3xl md:text-5xl text-white">Skill Ecosystem</h3>
+            <h3 className="font-display font-bold heading-section text-[clamp(32px,5vw,56px)] text-white">Skill Ecosystem</h3>
           </ScrollReveal>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <ScrollRevealGroup variant="scale" itemDelay={0.06} distance={20} duration={0.45} className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
                 title: "AI & ML",
@@ -194,7 +205,7 @@ export default function About() {
               const dynamicGlow = glowClasses[idx % glowClasses.length];
 
               return (
-                <ScrollReveal key={idx} variant="scale" delay={idx * 0.1} distance={40} duration={0.9} className={`bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 hover:scale-[1.03] hover:-translate-y-2.5 transition-all duration-600 flex flex-col justify-between group ${dynamicGlow}`}>
+                <div key={idx} className={`bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-[28px] p-[28px] hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group h-full will-change-transform ${dynamicGlow}`}>
                   <div>
                     <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-6">
                       <div className={`p-2.5 rounded-lg bg-white/5 ${eco.color}`}>
@@ -210,10 +221,10 @@ export default function About() {
                       ))}
                     </div>
                   </div>
-                </ScrollReveal>
+                </div>
               );
             })}
-          </div>
+          </ScrollRevealGroup>
         </div>
 
       </div>

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Github } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 
 export default function GithubButton() {
   return (
@@ -7,7 +7,7 @@ export default function GithubButton() {
       href="https://github.com/mohamedshaheemkp"
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex h-10 w-10 items-center justify-center"
+      className="group relative flex h-12 w-12 items-center justify-center cursor-pointer transition-all duration-300"
       whileHover={{ y: -2 }}
       transition={{
         duration: 0.34,
@@ -18,28 +18,32 @@ export default function GithubButton() {
       <div
         className="
           absolute inset-0
-          rounded-xl
-          bg-zinc-900
+          rounded-[10px]
+          bg-[#181818]
+          pointer-events-none
           transition-transform duration-300
-          group-hover:rotate-[18deg]
+          origin-bottom
+          group-hover:rotate-[35deg]
+          z-0
         "
       />
 
-      {/* Foreground */}
+      {/* Foreground Container */}
       <div
         className="
           relative z-10
           flex h-full w-full items-center justify-center
-          rounded-xl
-          border border-white/10
+          rounded-[10px]
+          border border-[#9c9c9c]/45
           bg-black/20
-          backdrop-blur-sm
-          transition-colors duration-300
-          group-hover:bg-white/5
+          backdrop-blur-none
+          transition-all duration-300
+          group-hover:bg-[#9c9c9c]/47
+          group-hover:backdrop-blur-[4px]
         "
       >
-        <Github
-          size={18}
+        <FaGithub
+          size={20}
           className="
             text-white
             transition-opacity duration-300

@@ -14,13 +14,13 @@ export default function SpotlightCard({ children, className = "", spotlightColor
 
   return (
     <div
-      className={`relative overflow-hidden bg-black/40 border border-white/10 rounded-3xl group ${className}`}
+      className={`relative overflow-hidden bg-black/40 border border-white/[0.08] hover:border-white/15 rounded-[28px] group transition-all duration-300 ${className}`}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-500 group-hover:opacity-100"
+        className="pointer-events-none absolute -inset-px rounded-[28px] opacity-0 transition duration-500 group-hover:opacity-100"
         style={{
           background: useMotionTemplate`
             radial-gradient(

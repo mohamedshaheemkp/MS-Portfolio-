@@ -1,19 +1,11 @@
-/**
- * Hero.jsx
- * Layout: Lucas Martin–inspired — full-bleed portrait, name at bottom-left
- * Background FX: React Bits <Antigravity /> — cursor-following particle ring
- * Performance: 0 mouse springs · 0 Magnetic wrappers · CSS scroll indicator
- */
-
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import cinemImage from "../assets/cinem.webp";
 import GithubButton from "../components/GithubButton";
+import { motionTiming } from "../utils/motion";
 
 export default function Hero() {
   const sectionRef = useRef(null);
-
-
 
   return (
     <section
@@ -54,8 +46,6 @@ export default function Hero() {
         />
       </div>
 
-
-
       {/* ── Page Content ────────────────────────────────────────────────────── */}
       <div className="relative z-10 h-full flex flex-col justify-between px-8 md:px-14 lg:px-20 py-8 md:py-12">
 
@@ -63,7 +53,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: -14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: motionTiming.normal, delay: 0.15, ease: motionTiming.ease }}
         >
           <span className="hero-badge">AI Engineer · Graphic Designer</span>
         </motion.div>
@@ -79,7 +69,7 @@ export default function Hero() {
                 data-text="MOHAMED"
                 initial={{ y: "102%" }}
                 animate={{ y: "0%" }}
-                transition={{ duration: 1.05, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: motionTiming.slow, delay: 0.28, ease: motionTiming.ease }}
               >
                 MOHAMED
               </motion.h1>
@@ -90,7 +80,7 @@ export default function Hero() {
                 data-text="SHAHEEM"
                 initial={{ y: "102%" }}
                 animate={{ y: "0%" }}
-                transition={{ duration: 1.05, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: motionTiming.slow, delay: 0.38, ease: motionTiming.ease }}
               >
                 SHAHEEM
               </motion.h1>
@@ -102,7 +92,7 @@ export default function Hero() {
             className="flex flex-col sm:flex-row sm:items-end justify-between gap-5"
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.60, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: motionTiming.normal, delay: 0.48, ease: motionTiming.ease }}
           >
             <p className="hero-tagline">
               Building intelligent software,<br />
@@ -110,16 +100,16 @@ export default function Hero() {
             </p>
 
             <div className="flex items-center gap-3 shrink-0">
-              <a href="#projects" className="hero-btn-primary">
-                View Projects
-              </a>
               <a
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hero-btn-secondary"
+                className="hero-btn-secondary hover-opacity-70"
               >
                 Resume
+              </a>
+              <a href="#contact" className="hero-btn-primary hover-opacity-70">
+                Contact
               </a>
               <GithubButton />
             </div>
@@ -130,7 +120,7 @@ export default function Hero() {
             className="flex items-center gap-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
+            transition={{ delay: 0.8, duration: motionTiming.normal, ease: motionTiming.ease }}
           >
             <div className="hero-scroll-line" />
             <span className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/25">

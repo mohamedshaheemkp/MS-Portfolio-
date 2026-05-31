@@ -26,17 +26,18 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 md:px-12 lg:px-20"
+      <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 lg:px-20"
         style={{
           paddingTop: scrolled ? '12px' : '24px',
           paddingBottom: scrolled ? '12px' : '24px',
-          background: scrolled ? 'rgba(5,5,5,0.75)' : 'rgba(5,5,5,0)',
-          backdropFilter: scrolled ? 'blur(8px)' : 'blur(0px)',
-          borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(255,255,255,0)',
-          boxShadow: scrolled ? '0 10px 30px -10px rgba(0,0,0,0.6)' : 'none'
+          background: scrolled ? 'rgba(10,10,10,0.65)' : 'rgba(5,5,5,0)',
+          backdropFilter: scrolled ? 'blur(16px)' : 'blur(0px)',
+          borderBottom: scrolled ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(255,255,255,0)',
+          boxShadow: scrolled ? '0 10px 30px -10px rgba(0,0,0,0.6)' : 'none',
+          transition: "transform .34s ease, background-color .34s ease, backdrop-filter .34s ease, opacity .34s ease, padding .34s ease, border-color .34s ease, box-shadow .34s ease"
         }}
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="max-w-[1200px] mx-auto flex items-center justify-between">
           {/* Logo */}
           <Magnetic strength={0.25}>
             <Link to="home" smooth duration={800} className="cursor-pointer">
@@ -75,9 +76,10 @@ const Navbar = () => {
                     to={link.to}
                     smooth duration={800} spy offset={-80}
                     onSetActive={() => setActiveSection(link.to)}
-                    className="font-sans text-xs uppercase tracking-widest font-semibold cursor-pointer relative z-10 transition-all duration-600 text-zinc-400 hover:text-white block"
+                    className="font-sans text-xs uppercase tracking-widest font-semibold cursor-pointer relative z-10 text-zinc-400 hover:text-white block"
                     style={{
-                      textShadow: isHovered ? "0 0 8px rgba(0, 240, 255, 0.3)" : "none"
+                      textShadow: isHovered ? "0 0 8px rgba(0, 240, 255, 0.3)" : "none",
+                      transition: "color .3s ease, text-shadow .3s ease"
                     }}
                   >
                     {link.name}
@@ -105,7 +107,10 @@ const Navbar = () => {
               <Link 
                 to="contact"
                 smooth duration={800} offset={-80}
-                className="inline-flex items-center gap-2 font-sans text-xs uppercase tracking-widest font-bold px-6 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white text-white hover:text-black hover:border-cyan-400 hover:shadow-[0_0_25px_rgba(0,240,255,0.3)] transition-all duration-600 shadow-[0_0_20px_rgba(255,255,255,0.05)] cursor-pointer select-none"
+                className="inline-flex items-center gap-2 font-sans text-xs uppercase tracking-widest font-bold px-6 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white text-white hover:text-black hover:border-cyan-400 hover:shadow-[0_0_25px_rgba(0,240,255,0.3)] hover:scale-[1.02] shadow-[0_0_20px_rgba(255,255,255,0.05)] cursor-pointer select-none"
+                style={{
+                  transition: "transform .3s ease, background-color .3s ease, color .3s ease, border-color .3s ease, box-shadow .3s ease"
+                }}
               >
                 Hello!
               </Link>
@@ -149,7 +154,10 @@ const Navbar = () => {
                   <Link
                     to={link.to} smooth duration={800} offset={-80}
                     onClick={() => setMenuOpen(false)}
-                    className="font-display font-black text-4xl cursor-pointer transition-all duration-500 text-zinc-400 hover:text-white hover:-skew-x-8 inline-block origin-left"
+                    className="font-display font-black text-4xl cursor-pointer text-zinc-400 hover:text-white hover:-skew-x-8 inline-block origin-left"
+                    style={{
+                      transition: "color .3s ease, transform .3s ease"
+                    }}
                   >
                     {link.name}
                   </Link>

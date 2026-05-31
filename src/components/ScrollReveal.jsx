@@ -1,5 +1,6 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, Children } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motionTiming } from "../utils/motion";
 
 /**
  * ScrollReveal — Premium cinematic scroll-triggered reveal wrapper.
@@ -9,7 +10,7 @@ import { motion, useInView } from "framer-motion";
  *  - delay: number — stagger delay in seconds (default 0)
  *  - direction: "up" | "down" | "left" | "right" — initial drift direction (default "up")
  *  - distance: number — pixels to drift from (default 60)
- *  - duration: number — animation duration in seconds (default 0.8)
+ *  - duration: number — animation duration in seconds (default motionTiming.normal)
  *  - once: boolean — animate only once (default true)
  *  - className: string — extra class names
  *  - as: string — HTML tag to render (default "div")
@@ -21,7 +22,7 @@ export default function ScrollReveal({
   delay = 0,
   direction = "up",
   distance = 60,
-  duration = 0.8,
+  duration = motionTiming.normal,
   once = true,
   className = "",
   as: Tag = "div",
@@ -31,6 +32,7 @@ export default function ScrollReveal({
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once, margin: "-80px 0px -40px 0px" });
+  const shouldReduceMotion = useReducedMotion();
 
   const directionOffsets = {
     up:    { y: distance,  x: 0 },
@@ -43,7 +45,14 @@ export default function ScrollReveal({
   let initial = {};
   let animate = {};
 
-  if (variant === "blur") {
+  if (shouldReduceMotion) {
+    initial = {
+      opacity: 0,
+    };
+    animate = isInView
+      ? { opacity: 1 }
+      : initial;
+  } else if (variant === "blur") {
     initial = {
       opacity: 0,
       filter: `blur(${blurAmount}px)`,
@@ -95,7 +104,7 @@ export default function ScrollReveal({
       transition={{
         duration,
         delay,
-        ease: [0.22, 1, 0.36, 1],
+        ease: motionTiming.ease,
       }}
       className={className}
       {...props}
@@ -106,39 +115,105 @@ export default function ScrollReveal({
 }
 
 /**
- * ScrollRevealGroup — Staggered children reveal container.
- *
- * Wraps a group of ScrollReveal items so each gets an auto-computed stagger delay.
- * Use `itemDelay` to control spacing between each child (default 0.1).
+ * ScrollRevealGroup — High-performance Staggered children reveal container.
+ * 
+ * Uses a single IntersectionObserver on the parent container, cascading 
+ * visibility and stagger delays down to animated children on the GPU.
  */
 export function ScrollRevealGroup({
   children,
-  itemDelay = 0.1,
+  itemDelay = 0.05,
   className = "",
   direction = "up",
-  distance = 50,
-  duration = 0.8,
+  distance = 30,
+  duration = motionTiming.normal,
   variant = "fade",
-  blurAmount = 12,
+  blurAmount = 8,
+  once = true,
 }) {
-  return (
-    <div className={className}>
-      {Array.isArray(children)
-        ? children.map((child, i) => (
-            <ScrollReveal
-              key={i}
-              delay={i * itemDelay}
-              direction={direction}
-              distance={distance}
-              duration={duration}
-              variant={variant}
-              blurAmount={blurAmount}
-            >
-              {child}
-            </ScrollReveal>
-          ))
-        : <ScrollReveal direction={direction} distance={distance} duration={duration} variant={variant} blurAmount={blurAmount}>{children}</ScrollReveal>
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once, margin: "-50px" });
+  const shouldReduceMotion = useReducedMotion();
+
+  const directionOffsets = {
+    up:    { y: distance,  x: 0 },
+    down:  { y: -distance, x: 0 },
+    left:  { x: distance,  y: 0 },
+    right: { x: -distance, y: 0 },
+    none:  { x: 0,         y: 0 }
+  };
+
+  const getVariantStyles = (v) => {
+    if (shouldReduceMotion) {
+      return {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 }
+      };
+    }
+    if (v === "blur") {
+      return {
+        hidden: { opacity: 0, filter: `blur(${blurAmount}px)`, scale: 0.96, ...directionOffsets[direction] },
+        visible: { opacity: 1, filter: "blur(0px)", scale: 1, y: 0, x: 0 }
+      };
+    } else if (v === "scale") {
+      return {
+        hidden: { opacity: 0, scale: 0.88, rotate: -1, ...directionOffsets[direction] },
+        visible: { opacity: 1, scale: 1, rotate: 0, y: 0, x: 0 }
+      };
+    } else if (v === "skew") {
+      return {
+        hidden: { opacity: 0, skewY: 4, ...directionOffsets[direction] },
+        visible: { opacity: 1, skewY: 0, y: 0, x: 0 }
+      };
+    } else {
+      return {
+        hidden: { opacity: 0, filter: "blur(6px)", scale: 0.97, ...directionOffsets[direction] },
+        visible: { opacity: 1, filter: "blur(0px)", scale: 1, y: 0, x: 0 }
+      };
+    }
+  };
+
+  const childStyle = getVariantStyles(variant);
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : itemDelay,
       }
-    </div>
+    }
+  };
+
+  const childVariants = {
+    hidden: childStyle.hidden,
+    visible: {
+      ...childStyle.visible,
+      transition: {
+        duration,
+        ease: motionTiming.ease,
+      }
+    }
+  };
+
+  const childArray = Children.toArray(children);
+
+  return (
+    <motion.div
+      ref={ref}
+      variants={containerVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      className={className}
+    >
+      {childArray.map((child, i) => {
+        // Strip keys and empty spacing items to avoid key warnings or rendering empty nodes
+        if (typeof child === "string" && !child.trim()) return null;
+        return (
+          <motion.div key={i} variants={childVariants} className="h-full">
+            {child}
+          </motion.div>
+        );
+      })}
+    </motion.div>
   );
 }

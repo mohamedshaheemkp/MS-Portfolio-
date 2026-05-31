@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import ScrollReveal from "../components/ScrollReveal";
 import Parallax from "../components/Parallax";
+import { motionTiming } from "../utils/motion";
 import Folder from "../components/Folder";
 import { FiArrowUpRight, FiCode, FiCpu, FiLayers, FiZap } from "react-icons/fi";
 import { projects } from "../data/projects";
@@ -146,7 +147,7 @@ function FolderShowcase() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
+            transition={{ duration: 0.344, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-wrap items-center justify-center gap-3 relative z-10"
           >
             {FEATURED.map((proj) => (
@@ -176,7 +177,7 @@ function FolderShowcase() {
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: folderOpen ? 1 : 0.4 }}
-        transition={{ duration: 0.4 }}
+        transition={{ duration: 0.344, ease: [0.16, 1, 0.3, 1] }}
         className="font-mono text-[8px] text-zinc-700 uppercase tracking-[0.3em] relative z-10"
       >
         {folderOpen ? "click any paper · or use legend above" : "hover to preview · click to open"}
@@ -185,22 +186,39 @@ function FolderShowcase() {
   );
 }
 
-// ==============================================================================
-// MAIN PROJECTS COMPONENT
-// ==============================================================================
-
 export default function Projects() {
   const gridProjects = projects.filter(p => !p.featured);
 
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.06
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: motionTiming.normal, 
+        ease: motionTiming.ease 
+      } 
+    }
+  };
+
   return (
-    <section id="projects" className="relative py-32 px-6 md:px-12 lg:px-20 overflow-hidden bg-black min-h-screen">
+    <section id="projects" className="relative py-20 md:py-[120px] px-6 md:px-12 lg:px-20 overflow-hidden bg-black min-h-screen">
 
       {/* Background Ambience */}
       <Parallax speed={-0.1} className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%)" }} />
       <Parallax speed={0.1} className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, transparent 70%)" }} />
 
 
-      <div className="max-w-7xl mx-auto relative z-20">
+      <div className="max-w-[1200px] mx-auto relative z-20">
 
         {/* ═══════════════════════════════════════════════════════
             INTERACTIVE FOLDER VAULT
@@ -214,48 +232,47 @@ export default function Projects() {
         ═══════════════════════════════════════════════════════ */}
         {gridProjects.length > 0 && (
           <motion.div
-            layout
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {gridProjects.map((project, index) => (
+            {gridProjects.map((project) => (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                variants={cardVariants}
+                whileHover={{ y: -4 }}
+                transition={{ duration: motionTiming.normal, ease: motionTiming.ease }}
+                className="will-change-transform"
               >
-                <SpotlightCard className="h-full p-6 flex flex-col justify-between group">
+                <SpotlightCard className="h-full p-[28px] flex flex-col justify-between group">
                   <div>
                     <div className="flex justify-between items-start mb-6">
                       <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full font-mono text-[9px] uppercase tracking-wider text-cyan-400">
                         {project.category}
                       </span>
-                      <a href={project.github} target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors">
+                      <a href={project.github} target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors hover-opacity-70">
                         <FiCode size={16} />
                       </a>
                     </div>
-                    <h4 className="text-2xl font-display font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">
+                    <h4 className="text-[28px] font-semibold tracking-[-0.03em] leading-tight text-white mb-3 group-hover:text-cyan-400 transition-colors">
                       {project.title}
                     </h4>
-                    <p className="text-sm text-zinc-400 leading-relaxed mb-6 line-clamp-3">
+                    <p className="text-[17px] leading-[1.5] text-white/72 mb-6 line-clamp-3">
                       {project.description}
                     </p>
                   </div>
                   <div>
                     <div className="flex flex-wrap gap-2 mb-6">
                       {project.tech.slice(0, 3).map(t => (
-                        <span key={t} className="text-[10px] font-mono text-zinc-500">{t}</span>
+                        <span key={t} className="text-[13px] font-mono text-zinc-500 tracking-[0.02em]">{t}</span>
                       ))}
                       {project.tech.length > 3 && (
-                        <span className="text-[10px] font-mono text-zinc-600">+{project.tech.length - 3}</span>
+                        <span className="text-[13px] font-mono text-zinc-600 tracking-[0.02em]">+{project.tech.length - 3}</span>
                       )}
                     </div>
-                    <Link to={`/projects/${project.id}`} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white hover:text-cyan-400 transition-colors">
+                    <Link to={`/projects/${project.id}`} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white hover:text-cyan-400 transition-colors hover-opacity-70">
                       View Details <FiArrowUpRight size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </Link>
                   </div>

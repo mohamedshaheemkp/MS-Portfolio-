@@ -17,7 +17,7 @@ export default function SmartFolderPage() {
       
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors text-sm font-bold uppercase tracking-wider">
             <FiArrowLeft size={16} /> Back to Portfolio
           </Link>
