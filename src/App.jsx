@@ -7,6 +7,8 @@ import ScrollProgress from "./components/ScrollProgress"
 import PageLoader from "./components/PageLoader"
 import Background from "./components/Background"
 import { SpeedInsights } from "@vercel/speed-insights/react"
+import { Analytics } from "@vercel/analytics/react"
+
 
 // Lazy-loaded Sections
 const About = lazy(() => import("./sections/About"))
@@ -55,7 +57,9 @@ function App() {
           <Route path="/projects/ai-portfolio" element={<PortfolioPage />} />
         </Routes>
       </Suspense>
+      <Analytics />
       <SpeedInsights />
+
     </>
   )
 }
