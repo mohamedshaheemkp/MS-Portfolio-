@@ -24,9 +24,6 @@ export default function About() {
 
       {/* Static glass accent elements */}
       <div
-        className="absolute top-[18%] right-[8%] w-24 h-24 rounded-2xl border border-white/[0.03] bg-white/[0.01] backdrop-blur-xl pointer-events-none z-0"
-      />
-      <div
         className="absolute bottom-[25%] left-[5%] w-36 h-36 rounded-full border border-cyan-400/[0.02] bg-cyan-400/[0.004] backdrop-blur-xl pointer-events-none z-0"
       />
 
