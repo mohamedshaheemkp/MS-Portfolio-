@@ -1,240 +1,249 @@
 import { motion } from "framer-motion";
 import { Cpu, Layers, Terminal, BookOpen } from "lucide-react";
-import ScrollReveal, { ScrollRevealGroup } from "../components/ScrollReveal";
+import ScrollReveal from "../components/ScrollReveal";
 import Parallax from "../components/Parallax";
 import Magnetic from "../components/Magnetic";
-import MagnetLines from "../components/MagnetLines";
+
+// ── Credential data ──────────────────────────────────────────────────────────
+const credentials = [
+  { label: "Degree",  value: "AI & Data Science" },
+  { label: "College", value: "MEA Engineering, Malappuram" },
+  { label: "Year",    value: "2022 – 2026" },
+  { label: "Skills",  value: "ML · Vision · Design" },
+  { label: "Tools",   value: "Python · React · PyTorch · Figma" },
+  { label: "Status",  value: "Open to work" },
+];
 
 export default function About() {
   return (
-    <section id="about" className="relative py-20 md:py-[120px] px-6 md:px-12 lg:px-20 overflow-hidden bg-black">
-      
-      {/* Radial glows with scrolling parallax */}
-      <Parallax speed={-0.15} className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none" style={{ background: "radial-gradient(circle, rgba(0, 240, 255, 0.07) 0%, transparent 70%)" }} />
-      <Parallax speed={0.08} className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] pointer-events-none" style={{ background: "radial-gradient(circle, rgba(232, 255, 0, 0.05) 0%, transparent 70%)" }} />
-
-      {/* Oversized background typography for high-end editorial feel */}
-      <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none z-0">
-        <Parallax speed={-0.08}>
-          <h1 className="text-[20vw] font-black text-white/[0.012] tracking-tighter leading-none font-display">
-            CONCEPT
-          </h1>
-        </Parallax>
-      </div>
-
-      {/* Static glass accent elements */}
-      <div
-        className="absolute bottom-[25%] left-[5%] w-36 h-36 rounded-full border border-cyan-400/[0.02] bg-cyan-400/[0.004] backdrop-blur-xl pointer-events-none z-0"
+    <section
+      id="about"
+      className="relative py-20 md:py-[120px] px-6 md:px-12 lg:px-20 overflow-hidden bg-black"
+    >
+      {/* Subtle radial glows — max opacity 0.07 */}
+      <Parallax
+        speed={-0.15}
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(0,240,255,0.06) 0%, transparent 70%)" }}
+      />
+      <Parallax
+        speed={0.08}
+        className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(232,255,0,0.04) 0%, transparent 70%)" }}
       />
 
-      {/* Section label */}
-      <ScrollReveal direction="left" distance={30} duration={0.7} className="flex items-center gap-4 mb-20 relative z-10">
-        <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--accent)' }}>01</span>
-        <div className="w-12 h-px" style={{ background: 'var(--accent)' }} />
-        <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--muted)' }}>About</span>
+      {/* ── Section label ──────────────────────────────────────────────────── */}
+      <ScrollReveal
+        direction="left"
+        distance={30}
+        duration={0.7}
+        className="flex items-center gap-4 mb-20 relative z-10"
+      >
+        <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: "var(--accent)" }}>01</span>
+        <div className="w-12 h-px" style={{ background: "var(--accent)" }} />
+        <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: "var(--muted)" }}>About</span>
       </ScrollReveal>
 
       <div className="max-w-[1200px] mx-auto relative z-10">
-        
-        {/* ================= BLOCK 1: LARGE STATEMENT + MAGNET LINES ================= */}
-        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-12 lg:gap-20 items-center mb-36 relative">
+
+        {/* ══════════════════════════════════════════════════════════════════
+            BLOCK 1 — Statement + Credentials
+        ══════════════════════════════════════════════════════════════════ */}
+        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-start mb-32">
+
+          {/* Left: headline */}
           <ScrollReveal variant="skew" distance={100} duration={0.55}>
-            <h2 className="font-display font-bold heading-section text-[clamp(32px,5vw,56px)] text-white">
-              Converting <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-[#e8ff00] italic">Ideas </span> into  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e8ff00] to-violet-500 italic">Reality</span>.
+            <h2
+              className="font-display font-bold text-white"
+              style={{ fontSize: "clamp(32px, 5vw, 56px)", letterSpacing: "-0.04em", lineHeight: 1.05 }}
+            >
+              Converting{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-[#e8ff00] italic">
+                Ideas{" "}
+              </span>
+              into{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e8ff00] to-violet-500 italic">
+                Reality
+              </span>
+              .
             </h2>
           </ScrollReveal>
 
-          {/* Right blank space vector diagnostic grid */}
-          <ScrollReveal variant="scale" delay={0.2} duration={1.2} className="flex justify-center lg:justify-end items-center relative pr-4">
-            <div className="absolute w-72 h-72 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, transparent 70%)" }} />
-            <div className="absolute w-48 h-48 pointer-events-none" style={{ background: "radial-gradient(circle, rgba(232, 255, 0, 0.08) 0%, transparent 70%)" }} />
-
-            <div className="relative z-10 bg-black rounded-3xl p-4">
-              <MagnetLines
-                rows={8}
-                columns={8}
-                containerSize="260px"
-                lineColor="rgba(0, 240, 255, 0.28)"
-                lineWidth="2px"
-                lineHeight="16px"
-                baseAngle={45}
-              />
-            </div>
+          {/* Right: credential list */}
+          <ScrollReveal delay={0.15} distance={50} duration={0.6}>
+            <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-3">
+              {credentials.map(({ label, value }) => (
+                <div key={label} className="contents">
+                  <dt
+                    className="font-mono text-[10px] uppercase tracking-widest pt-[3px]"
+                    style={{ color: "var(--muted)" }}
+                  >
+                    {label}
+                  </dt>
+                  <dd
+                    className="font-sans text-sm leading-snug"
+                    style={{ color: "var(--text)" }}
+                  >
+                    {value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </ScrollReveal>
         </div>
 
-        {/* ================= BLOCK 2: SMALL BIOGRAPHY ================= */}
-        <div className="max-w-[1200px] mx-auto grid lg:grid-cols-[1fr_1.4fr] gap-12 lg:gap-20 items-start">
-          <ScrollReveal distance={70} duration={0.5}>
-            <span className="font-mono text-xs tracking-widest text-[#6b6860] uppercase block mb-4">// THE PERSPECTIVE</span>
-            <h3 className="font-display font-black text-[clamp(1.45rem,2.6vw,2.1rem)] text-white leading-[1.12] tracking-[-0.03em]">
-              Create Unique Designs, and Machine Learning Projects.
-            </h3>
-          </ScrollReveal>
-          
-          <ScrollReveal delay={0.15} distance={70} duration={0.9} className="space-y-6 text-[#9b9892] text-base md:text-lg leading-relaxed font-sans">
-            <p>
-              I live at the overlap of machine learning, modern frontend systems, and premium design rules. Currently Completed my Artificial Intelligence &amp; Data Science engineering from MEA ENGG College Malappuram in Kerala
-            </p>
-            <p>
-              I Target Achieve end user Desired design, for E-Commerce and Marketing, Using Design and Building AI Models.
-            </p>
-            <div className="flex items-center gap-6 mt-8 border-t border-white/5 pt-6">
-              <a href="https://github.com/mohamedshaheemkp" target="_blank" rel="noreferrer" className="font-mono text-xs tracking-widest uppercase text-[#9b9892] hover:text-white transition-colors hover-opacity-70">
-                GitHub
-              </a>
-              <a href="https://www.linkedin.com/in/mohamed-shaheem-91a895331" target="_blank" rel="noreferrer" className="font-mono text-xs tracking-widest uppercase text-[#9b9892] hover:text-white transition-colors hover-opacity-70">
-                LinkedIn
-              </a>
-              <a href="mailto:mohamedshaheemkp74@gmail.com" className="font-mono text-xs tracking-widest uppercase text-[#9b9892] hover:text-white transition-colors hover-opacity-70">
-                Email
-              </a>
-            </div>
-          </ScrollReveal>
-        </div>
-
-        {/* Dynamic Self-Drawing Line Divider */}
-        <div className="relative w-full h-px bg-white/5 my-32">
+        {/* Divider */}
+        <div className="relative w-full h-px mb-32" style={{ background: "rgba(255,255,255,0.05)" }}>
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent origin-center"
+            className="absolute inset-0 origin-center"
+            style={{ background: "linear-gradient(to right, transparent, rgba(0,240,255,0.18), transparent)" }}
           />
         </div>
 
+        {/* ══════════════════════════════════════════════════════════════════
+            BLOCK 2 — Bio
+        ══════════════════════════════════════════════════════════════════ */}
+        <div className="max-w-[1200px] mx-auto grid lg:grid-cols-[1fr_1.4fr] gap-12 lg:gap-20 items-start mb-32">
 
-        {/* ================= BLOCK 3: EXPERIENCE TIMELINE ================= */}
-        <div className="max-w-[1200px] mx-auto">
-          <ScrollReveal distance={60} duration={0.5} className="mb-16 text-left">
-            <span className="font-mono text-xs tracking-widest text-[#6b6860] uppercase block mb-4">// MILESTONES</span>
-            <h3 className="font-display font-bold heading-section text-[clamp(32px,5vw,56px)] text-white">Experience Timeline</h3>
+          <ScrollReveal distance={70} duration={0.5}>
+            <h3
+              className="font-display font-black text-white leading-[1.12] tracking-[-0.03em]"
+              style={{ fontSize: "clamp(20px, 2.5vw, 28px)" }}
+            >
+              Building AI Systems,<br />and Crafting Visual Identities.
+            </h3>
           </ScrollReveal>
 
-          <div className="relative border-l border-white/10 pl-6 md:pl-12 ml-4 space-y-12">
-            {[
-              {
-                year: "2025 - 2026 - Present",
-                title: "AI Research & Creative Engineering",
-                desc: "Training custom deep learning models (YOLOv9, PyTorch) while architecting high-end creative interfaces. Built AgriAI, a computer vision crop diagnostics dashboard for Farmers Detecting diseases,weeds,insects in crop fields."
-              }
-            ].map((milestone, idx) => (
-              <ScrollReveal key={idx} variant="blur" delay={idx * 0.08} distance={30} duration={0.45} className="relative group">
-                {/* Pulsing circular node dot wrapped in Magnetic pull */}
-                <div className="absolute -left-[31px] md:-left-[55px] top-1.5 z-20">
-                  <Magnetic strength={0.4}>
-                    <div className="flex h-4 w-4 items-center justify-center rounded-full bg-black border-2 border-white/20 group-hover:border-cyan-400 transition-all duration-600">
-                      <div className="h-1.5 w-1.5 rounded-full bg-white group-hover:bg-cyan-400 animate-pulse" />
-                    </div>
-                  </Magnetic>
-                </div>
-
-                {/* Timeline glass card container */}
-                <div 
-                  className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-[28px] p-[28px] hover:scale-[1.015] hover:-translate-y-1 hover:border-white/15 hover:shadow-[0_0_30px_rgba(0,240,255,0.08)] transition-all duration-300 will-change-transform"
-                  style={{ transform: "translateZ(0)", willChange: "transform" }}
+          <ScrollReveal
+            delay={0.15}
+            distance={70}
+            duration={0.9}
+            className="space-y-5 font-sans"
+            style={{ color: "#9b9892", fontSize: "17px", lineHeight: 1.65 }}
+          >
+            <p>
+              I'm an AI Engineer and Graphic Designer based in Kerala, India. I live at the
+              overlap of machine learning, modern frontend systems, and premium visual design —
+              currently completing my AI & Data Science degree at MEA Engineering College,
+              Malappuram.
+            </p>
+            <p>
+              I specialise in taking ideas from concept to production: training computer vision
+              models, architecting React interfaces, and building brand identities — often for
+              the same project. Real technologies, measurable outcomes.
+            </p>
+            <div
+              className="flex items-center gap-6 mt-8 pt-6"
+              style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
+            >
+              {[
+                { label: "GitHub",   href: "https://github.com/mohamedshaheemkp" },
+                { label: "LinkedIn", href: "https://www.linkedin.com/in/mohamed-shaheem-91a895331" },
+                { label: "Email",    href: "mailto:mohamedshaheemkp74@gmail.com" },
+              ].map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer"
+                  className="font-mono text-xs tracking-widest uppercase hover:text-white transition-colors hover-opacity-70"
+                  style={{ color: "#9b9892" }}
                 >
-                  <span className="font-mono text-xs tracking-widest uppercase text-cyan-400 block mb-2">{milestone.year}</span>
-                  <h4 className="font-display font-black text-[clamp(1.2rem,2vw,1.45rem)] tracking-[-0.02em] leading-tight text-white mb-4 transition-all duration-300 group-hover:-skew-x-8 inline-block origin-left">{milestone.title}</h4>
-                  <p className="text-sm leading-relaxed text-[#9b9892] font-sans">{milestone.desc}</p>
-                </div>
-              </ScrollReveal>
-            ))}
+                  {label}
+                </a>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+
+        {/* Divider */}
+        <div className="relative w-full h-px mb-32" style={{ background: "rgba(255,255,255,0.05)" }}>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0 origin-center"
+            style={{ background: "linear-gradient(to right, transparent, rgba(232,255,0,0.13), transparent)" }}
+          />
+        </div>
+
+        {/* ══════════════════════════════════════════════════════════════════
+            BLOCK 3 — Experience Timeline (single entry, rescaled heading)
+        ══════════════════════════════════════════════════════════════════ */}
+        <div className="max-w-[1200px] mx-auto">
+          <ScrollReveal distance={60} duration={0.5} className="mb-16 text-left">
+            {/* heading rescaled from clamp(32px,5vw,56px) → 22px per blueprint */}
+            <h3
+              className="font-display font-bold text-white"
+              style={{ fontSize: "22px", letterSpacing: "-0.02em" }}
+            >
+              AI Research & Creative Engineering
+            </h3>
+          </ScrollReveal>
+
+          <div className="relative border-l pl-6 md:pl-12 ml-4 space-y-12" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+            <ScrollReveal variant="blur" delay={0} distance={30} duration={0.45} className="relative group">
+              {/* Node dot */}
+              <div className="absolute -left-[31px] md:-left-[55px] top-1.5 z-20">
+                <Magnetic strength={0.4}>
+                  <div
+                    className="flex h-4 w-4 items-center justify-center rounded-full border-2 transition-all duration-300"
+                    style={{ background: "#000", borderColor: "rgba(255,255,255,0.18)" }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--accent)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)"; }}
+                  >
+                    <div className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
+                  </div>
+                </Magnetic>
+              </div>
+
+              {/* Card */}
+              <div
+                className="rounded-[28px] p-[28px] hover:scale-[1.015] hover:-translate-y-1 transition-all duration-300"
+                style={{
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  willChange: "transform",
+                }}
+              >
+                <span
+                  className="font-mono text-xs tracking-widest uppercase block mb-2"
+                  style={{ color: "var(--accent)" }}
+                >
+                  2025 – Present
+                </span>
+                <h4
+                  className="font-display font-black text-white mb-4 leading-tight"
+                  style={{ fontSize: "clamp(1.2rem, 2vw, 1.45rem)", letterSpacing: "-0.02em" }}
+                >
+                  AI Research & Creative Engineering
+                </h4>
+                <p className="font-sans text-sm leading-relaxed" style={{ color: "#9b9892" }}>
+                  Training custom deep learning models (YOLOv9, PyTorch) while architecting
+                  high-end creative interfaces. Built AgriAI — a computer vision crop diagnostics
+                  dashboard for farmers detecting diseases, weeds, and insects in crop fields.
+                </p>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
 
-        {/* Dynamic Self-Drawing Line Divider */}
-        <div className="relative w-full h-px bg-white/5 my-32">
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-[#e8ff00]/15 to-transparent origin-center"
-          />
-        </div>
-
-        {/* ================= BLOCK 4: SKILL ECOSYSTEM ================= */}
-        <div className="max-w-[1200px] mx-auto">
-          <ScrollReveal distance={60} duration={0.5} className="mb-16 text-left">
-            <span className="font-mono text-xs tracking-widest text-[#6b6860] uppercase block mb-4">// Flow </span>
-            <h3 className="font-display font-bold heading-section text-[clamp(32px,5vw,56px)] text-white">Skill Ecosystem</h3>
-          </ScrollReveal>
-
-          <ScrollRevealGroup variant="scale" itemDelay={0.06} distance={20} duration={0.45} className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                title: "AI & ML",
-                icon: Cpu,
-                color: "text-cyan-400 border-cyan-500/10",
-                skills: ["YOLOv9 ", "PyTorch ", "TensorFlow", "Computer Vision"]
-              },
-              {
-                title: "Visual Direction",
-                icon: BookOpen,
-                color: "text-pink-400 border-pink-500/10",
-                skills: ["Photoshop ","Illustrator ","Logo Design","Poster Design", "Vector Design"]
-              },
-              {
-                title: "Creative",
-                icon: Layers,
-                color: "text-[#e8ff00] border-[#e8ff00]/10",
-                skills: ["React + Hooks", "Framer Motion", "Tailwind CSS v4", "Three.js WebGL", "Vite Config"]
-              },
-              {
-                title: "Infrastructure",
-                icon: Terminal,
-                color: "text-violet-400 border-violet-500/10",
-                skills: ["FastAPI Engine", "Python Dev", "SQL Schema", "Docker Build", "REST APIs"]
-              },
-              
-            ].map((eco, idx) => {
-              const Icon = eco.icon;
-              // Map dynamic premium glows based on index
-              const glowClasses = [
-                "hover:shadow-[0_0_35px_rgba(34,211,238,0.12)] hover:border-cyan-400/30",
-                "hover:shadow-[0_0_35px_rgba(244,114,182,0.12)] hover:border-pink-400/30",
-                "hover:shadow-[0_0_35px_rgba(232,255,0,0.12)] hover:border-[#e8ff00]/30",
-                "hover:shadow-[0_0_35px_rgba(167,139,250,0.12)] hover:border-violet-400/30"
-              ];
-              const dynamicGlow = glowClasses[idx % glowClasses.length];
-
-              return (
-                <div 
-                  key={idx} 
-                  className={`bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-[28px] p-[28px] hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group h-full will-change-transform ${dynamicGlow}`}
-                  style={{ transform: "translateZ(0)", willChange: "transform" }}
-                >
-                  <div>
-                    <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-6">
-                      <div className={`p-2.5 rounded-lg bg-white/5 ${eco.color}`}>
-                        <Icon size={18} />
-                      </div>
-                      <h4 className="font-mono text-xs tracking-wider font-bold text-white uppercase">{eco.title}</h4>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      {eco.skills.map((skill) => (
-                        <span key={skill} className="font-mono text-xs text-[#9b9892] py-1 border-b border-white/[0.02] last:border-0">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </ScrollRevealGroup>
-        </div>
-
       </div>
-      
-      {/* Bottom Soft transition & Glow Divider */}
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-black backdrop-blur-[2px] pointer-events-none z-10" />
+
+      {/* Bottom soft transition */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-black pointer-events-none z-10" />
       <div className="absolute bottom-0 left-0 right-0 h-px w-full overflow-hidden pointer-events-none z-20">
-        <div 
-          className="h-px w-[65%] mx-auto bg-gradient-to-r from-transparent via-[#a855f7]/25 to-transparent" 
-          style={{ boxShadow: "0 0 10px rgba(168, 85, 247, 0.4)" }}
+        <div
+          className="h-px w-[65%] mx-auto"
+          style={{
+            background: "linear-gradient(to right, transparent, rgba(168,85,247,0.22), transparent)",
+            boxShadow: "0 0 10px rgba(168,85,247,0.35)",
+          }}
         />
       </div>
     </section>

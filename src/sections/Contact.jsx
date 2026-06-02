@@ -63,10 +63,6 @@ export default function Contact() {
 
         {/* Left Column: Cinematic Statement & Socials */}
         <ScrollReveal distance={40} duration={0.5} className="flex flex-col items-start text-left">
-          <span className="font-mono text-xs tracking-widest text-[#6b6860] uppercase block mb-6">
-            // DIRECT CHANNEL
-          </span>
-
           <h2 className="font-display font-bold heading-section text-[clamp(32px,5vw,56px)] text-white uppercase mb-8">
             Let's build<br />
             something<br />
@@ -212,18 +208,16 @@ export default function Contact() {
                   <p className="font-mono text-xs text-rose-500">// Failed to send. Please try again.</p>
                 )}
 
-                {/* Desktop Send Button with Magnetic pull physics */}
+                {/* Desktop Send Button */}
                 <div className="pt-2">
-                  <Magnetic>
-                    <button 
-                      type="submit" 
-                      disabled={status === "sending"}
-                      className="w-full flex items-center justify-center gap-3 py-4 font-sans font-bold text-xs uppercase tracking-wider bg-[#00f0ff] hover:bg-white text-black hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,240,255,0.3)] transition-all duration-300 rounded-full disabled:opacity-50 cursor-pointer select-none"
-                    >
-                      {status === "sending" ? "Sending..." : "Send Message"}
-                      <FiSend size={14} />
-                    </button>
-                  </Magnetic>
+                  <button 
+                    type="submit" 
+                    disabled={status === "sending"}
+                    className="w-full flex items-center justify-center gap-3 py-4 px-6 font-sans font-bold text-sm uppercase tracking-widest bg-[#00f0ff] hover:bg-white text-black hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] transition-all duration-300 rounded-xl disabled:opacity-50 cursor-pointer select-none hover:-translate-y-1"
+                  >
+                    {status === "sending" ? "Sending..." : "Send Message"}
+                    <FiSend size={16} />
+                  </button>
                 </div>
               </form>
             </div>

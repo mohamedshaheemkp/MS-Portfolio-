@@ -346,43 +346,7 @@ export default function Projects() {
 
         </div>
 
-        {/* ════════════════════════════════════════════════════════════
-            METRICS BAR
-        ════════════════════════════════════════════════════════════ */}
-        <ScrollReveal delay={0.1} distance={20} duration={0.8} className="mt-20 md:mt-28">
-          <div
-            className="grid grid-cols-2 md:grid-cols-4 border border-white/[0.07] rounded-2xl overflow-hidden"
-            style={{ background: 'rgba(255,255,255,0.015)' }}
-          >
-            {[
-              { value: "3",     label: "Production Projects",  accent: false },
-              { value: "98.4%", label: "AI Model Accuracy",    accent: true  },
-              { value: "10k+",  label: "Files Routed",         accent: false },
-              { value: "98",    label: "Lighthouse Score",      accent: true  },
-            ].map(({ value, label, accent }, i, arr) => (
-              <div
-                key={label}
-                className={[
-                  "flex flex-col items-center justify-center py-7 px-4 text-center",
-                  // vertical divider between cells on md+
-                  i < arr.length - 1 ? "border-b md:border-b-0 md:border-r border-white/[0.07]" : "",
-                  // keep bottom border on the 2-col mobile grid's top row
-                  i === 1 ? "border-b md:border-b-0" : "",
-                ].join(" ")}
-              >
-                <span
-                  className="font-display font-black text-[clamp(1.6rem,3vw,2.2rem)] leading-none mb-1.5 tracking-[-0.03em]"
-                  style={{ color: accent ? 'var(--accent)' : 'white' }}
-                >
-                  {value}
-                </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-600">
-                  {label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </ScrollReveal>
+
 
         {/* ════════════════════════════════════════════════════════════
             NON-FEATURED PROJECT GRID (renders if any project has featured: false)

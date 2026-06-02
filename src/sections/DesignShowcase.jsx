@@ -88,15 +88,6 @@ const DesignShowcase = () => {
 
           {/* Heading overlay */}
           <div className="text-center max-w-xl mb-6 z-20 px-6">
-            <motion.span 
-              key={`label-${activeIndex}`}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.344, ease: [0.16, 1, 0.3, 1] }}
-              className="font-mono text-[9px] text-cyan-400 tracking-[0.25em] block mb-2 uppercase"
-            >
-              // Showcase_Category_0{activeIndex + 1}
-            </motion.span>
             <motion.h3 
               key={`title-${activeIndex}`}
               initial={{ opacity: 0, scale: 0.95 }}
