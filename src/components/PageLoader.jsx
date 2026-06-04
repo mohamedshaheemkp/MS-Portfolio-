@@ -1,48 +1,76 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion"
+import { useState, useEffect } from "react"
+
+const EASE = [0.16, 1, 0.3, 1]
 
 export default function PageLoader() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading]   = useState(true)
+  const [counter, setCounter]   = useState(0)
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 800);
-    return () => clearTimeout(timer);
-  }, []);
+    // Count 0 → 100 over ~1.4s
+    let start = null
+    const duration = 1400
+
+    const step = (ts) => {
+      if (!start) start = ts
+      const prog = Math.min((ts - start) / duration, 1)
+      setCounter(Math.floor(prog * 100))
+      if (prog < 1) requestAnimationFrame(step)
+      else setTimeout(() => setLoading(false), 200)
+    }
+    requestAnimationFrame(step)
+  }, [])
 
   return (
     <AnimatePresence>
       {loading && (
         <motion.div
+          className="page-loader"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
-          style={{ background: '#080808' }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.7, ease: EASE }}
         >
+          {/* Counter */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            className="loader-counter"
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="text-center mb-12"
+            transition={{ duration: 0.4, ease: EASE }}
           >
-            <h1 className="font-display font-black text-5xl mb-2" style={{ fontFamily: "'Playfair Display', serif", color: '#f0ede8' }}>
-              MS<span style={{ color: '#e8ff00' }}>.</span>
-            </h1>
-            <p className="font-mono text-xs tracking-[0.4em] uppercase" style={{ color: '#6b6860', fontFamily: "'DM Mono', monospace" }}>
-              Portfolio
-            </p>
+            {String(counter).padStart(2, "0")}
           </motion.div>
 
-          <div className="w-40 h-px overflow-hidden" style={{ background: 'rgba(255,255,255,0.07)' }}>
+          {/* Bar */}
+          <div className="loader-bar-track">
             <motion.div
-              initial={{ width: "0%" }}
-              animate={{ width: "100%" }}
-              transition={{ duration: 0.7, ease: "easeInOut" }}
-              style={{ height: '100%', background: '#e8ff00' }}
+              className="loader-bar-fill"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: counter / 100 }}
+              transition={{ duration: 0.05, ease: "linear" }}
             />
           </div>
+
+          {/* Label */}
+          <motion.p
+            className="loader-label"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            Mohamed Shaheem · Portfolio
+          </motion.p>
+
+          {/* Exit wipe — lime line sweeps up */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: "var(--lime)", transformOrigin: "bottom" }}
+            initial={{ scaleY: 0 }}
+            exit={{ scaleY: 1 }}
+            transition={{ duration: 0.55, ease: EASE }}
+          />
         </motion.div>
       )}
     </AnimatePresence>
-  );
+  )
 }

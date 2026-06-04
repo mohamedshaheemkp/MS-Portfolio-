@@ -1,251 +1,321 @@
-import { motion } from "framer-motion";
-import { Cpu, Layers, Terminal, BookOpen } from "lucide-react";
-import ScrollReveal from "../components/ScrollReveal";
-import Parallax from "../components/Parallax";
-import Magnetic from "../components/Magnetic";
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 
-// ── Credential data ──────────────────────────────────────────────────────────
-const credentials = [
-  { label: "Degree",  value: "AI & Data Science" },
+const EASE = [0.16, 1, 0.3, 1]
+
+const STATS = [
+  { number: "3",  suffix: "+", label: "Years Building" },
+  { number: "15", suffix: "+", label: "Projects Shipped" },
+  { number: "98", suffix: "%", label: "Model Accuracy" },
+]
+
+const LINKS = [
+  { label: "GitHub",   href: "https://github.com/mohamedshaheemkp" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/mohamed-shaheem-91a895331" },
+  { label: "Email",    href: "mailto:mohamedshaheemkp74@gmail.com" },
+]
+
+const CREDENTIALS = [
+  { label: "Degree",  value: "B.Tech — AI & Data Science" },
   { label: "College", value: "MEA Engineering, Malappuram" },
-  { label: "Year",    value: "2022 – 2026" },
-  { label: "Skills",  value: "ML · Vision · Design" },
-  { label: "Tools",   value: "Python · React · PyTorch · Figma" },
+  { label: "Period",  value: "2022 – 2026" },
+  { label: "Focus",   value: "ML · Computer Vision · Design" },
   { label: "Status",  value: "Open to work" },
-];
+]
 
 export default function About() {
+  const sectionRef = useRef(null)
+
   return (
     <section
+      ref={sectionRef}
       id="about"
-      className="relative py-20 md:py-[120px] px-6 md:px-12 lg:px-20 overflow-hidden bg-black"
+      className="relative overflow-hidden"
+      style={{
+        background: "var(--ink-raised)",
+        paddingTop: "var(--space-section)",
+        paddingBottom: "var(--space-section)",
+      }}
     >
-      {/* Subtle radial glows — max opacity 0.07 */}
-      <Parallax
-        speed={-0.15}
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(0,240,255,0.06) 0%, transparent 70%)" }}
-      />
-      <Parallax
-        speed={0.08}
-        className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(232,255,0,0.04) 0%, transparent 70%)" }}
-      />
+      {/* Subtle top border */}
+      <div className="rule absolute top-0 left-0 right-0" />
 
-      {/* ── Section label ──────────────────────────────────────────────────── */}
-      <ScrollReveal
-        direction="left"
-        distance={30}
-        duration={0.7}
-        className="flex items-center gap-4 mb-20 relative z-10"
-      >
-        <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: "var(--accent)" }}>01</span>
-        <div className="w-12 h-px" style={{ background: "var(--accent)" }} />
-        <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: "var(--muted)" }}>About</span>
-      </ScrollReveal>
+      <div style={{ padding: "0 var(--space-gutter)" }}>
 
-      <div className="max-w-[1200px] mx-auto relative z-10">
+        {/* ── Section index ───────────────────────────────────── */}
+        <motion.div
+          className="section-index"
+          style={{ marginBottom: "clamp(40px, 6vw, 80px)" }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          04 / about
+        </motion.div>
 
-        {/* ══════════════════════════════════════════════════════════════════
-            BLOCK 1 — Statement + Credentials
-        ══════════════════════════════════════════════════════════════════ */}
-        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-start mb-32">
-
+        {/* ── BLOCK 1: Headline + credentials ─────────────────── */}
+        <div
+          className="grid grid-cols-1 lg:grid-cols-2"
+          style={{
+            gap: "clamp(40px, 6vw, 96px)",
+            marginBottom: "clamp(48px, 8vw, 112px)",
+            alignItems: "start",
+          }}
+        >
           {/* Left: headline */}
-          <ScrollReveal variant="skew" distance={100} duration={0.55}>
-            <h2
-              className="font-display font-bold text-white"
-              style={{ fontSize: "clamp(32px, 5vw, 56px)", letterSpacing: "-0.04em", lineHeight: 1.05 }}
-            >
-              Converting{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-[#e8ff00] italic">
-                Ideas{" "}
-              </span>
-              into{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e8ff00] to-violet-500 italic">
-                Reality
-              </span>
-              .
-            </h2>
-          </ScrollReveal>
+          <div>
+            <div style={{ overflow: "hidden", marginBottom: "clamp(12px, 1.5vw, 20px)" }}>
+              <motion.h2
+                className="type-headline"
+                initial={{ y: "100%" }}
+                whileInView={{ y: "0%" }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.85, ease: EASE }}
+              >
+                Converting
+              </motion.h2>
+            </div>
+            <div style={{ overflow: "hidden", marginBottom: "clamp(12px, 1.5vw, 20px)" }}>
+              <motion.h2
+                className="type-headline"
+                style={{ color: "var(--lime)", fontStyle: "italic" }}
+                initial={{ y: "100%" }}
+                whileInView={{ y: "0%" }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.85, ease: EASE, delay: 0.08 }}
+              >
+                Ideas
+              </motion.h2>
+            </div>
+            <div style={{ overflow: "hidden" }}>
+              <motion.h2
+                className="type-headline"
+                initial={{ y: "100%" }}
+                whileInView={{ y: "0%" }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.85, ease: EASE, delay: 0.16 }}
+              >
+                into Reality.
+              </motion.h2>
+            </div>
+          </div>
 
-          {/* Right: credential list */}
-          <ScrollReveal delay={0.15} distance={50} duration={0.6}>
-            <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-3">
-              {credentials.map(({ label, value }) => (
-                <div key={label} className="contents">
+          {/* Right: credentials list */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.2 }}
+          >
+            <dl style={{ display: "flex", flexDirection: "column", gap: "0" }}>
+              {CREDENTIALS.map(({ label, value }, i) => (
+                <div
+                  key={label}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "120px 1fr",
+                    gap: "24px",
+                    padding: "16px 0",
+                    borderBottom: "1px solid var(--ink-border)",
+                  }}
+                >
                   <dt
-                    className="font-mono text-[10px] uppercase tracking-widest pt-[3px]"
-                    style={{ color: "var(--muted)" }}
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "10px",
+                      letterSpacing: "0.16em",
+                      textTransform: "uppercase",
+                      color: "var(--text-dim)",
+                      paddingTop: "2px",
+                    }}
                   >
                     {label}
                   </dt>
                   <dd
-                    className="font-sans text-sm leading-snug"
-                    style={{ color: "var(--text)" }}
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "14px",
+                      fontWeight: 400,
+                      color: "var(--text-primary)",
+                      lineHeight: 1.5,
+                    }}
                   >
                     {value}
                   </dd>
                 </div>
               ))}
             </dl>
-          </ScrollReveal>
-        </div>
 
-        {/* Divider */}
-        <div className="relative w-full h-px mb-32" style={{ background: "rgba(255,255,255,0.05)" }}>
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0 origin-center"
-            style={{ background: "linear-gradient(to right, transparent, rgba(0,240,255,0.18), transparent)" }}
-          />
-        </div>
-
-        {/* ══════════════════════════════════════════════════════════════════
-            BLOCK 2 — Bio
-        ══════════════════════════════════════════════════════════════════ */}
-        <div className="max-w-[1200px] mx-auto grid lg:grid-cols-[1fr_1.4fr] gap-12 lg:gap-20 items-start mb-32">
-
-          <ScrollReveal distance={70} duration={0.5}>
-            <h3
-              className="font-display font-black text-white leading-[1.12] tracking-[-0.03em]"
-              style={{ fontSize: "clamp(20px, 2.5vw, 28px)" }}
-            >
-              Building AI Systems,<br />and Crafting Visual Identities.
-            </h3>
-          </ScrollReveal>
-
-          <ScrollReveal
-            delay={0.15}
-            distance={70}
-            duration={0.9}
-            className="space-y-5 font-sans"
-            style={{ color: "#9b9892", fontSize: "17px", lineHeight: 1.65 }}
-          >
-            <p>
-              I'm an AI Engineer and Graphic Designer based in Kerala, India. I live at the
-              overlap of machine learning, modern frontend systems, and premium visual design —
-              currently completing my AI & Data Science degree at MEA Engineering College,
-              Malappuram.
-            </p>
-            <p>
-              I specialise in taking ideas from concept to production: training computer vision
-              models, architecting React interfaces, and building brand identities — often for
-              the same project. Real technologies, measurable outcomes.
-            </p>
-            <div
-              className="flex items-center gap-6 mt-8 pt-6"
-              style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
-            >
-              {[
-                { label: "GitHub",   href: "https://github.com/mohamedshaheemkp" },
-                { label: "LinkedIn", href: "https://www.linkedin.com/in/mohamed-shaheem-91a895331" },
-                { label: "Email",    href: "mailto:mohamedshaheemkp74@gmail.com" },
-              ].map(({ label, href }) => (
+            {/* Social links */}
+            <div style={{ display: "flex", gap: "28px", marginTop: "28px" }}>
+              {LINKS.map(({ label, href }) => (
                 <a
                   key={label}
                   href={href}
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel="noreferrer"
-                  className="font-mono text-xs tracking-widest uppercase hover:text-white transition-colors hover-opacity-70"
-                  style={{ color: "#9b9892" }}
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "10px",
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    color: "var(--text-dim)",
+                    textDecoration: "none",
+                    transition: "color 0.2s ease",
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.color = "var(--text-primary)"}
+                  onMouseLeave={e => e.currentTarget.style.color = "var(--text-dim)"}
                 >
                   {label}
                 </a>
               ))}
             </div>
-          </ScrollReveal>
+          </motion.div>
         </div>
 
-        {/* Divider */}
-        <div className="relative w-full h-px mb-32" style={{ background: "rgba(255,255,255,0.05)" }}>
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0 origin-center"
-            style={{ background: "linear-gradient(to right, transparent, rgba(232,255,0,0.13), transparent)" }}
-          />
-        </div>
+        {/* ── BLOCK 2: Stats row ───────────────────────────────── */}
+        <motion.div
+          className="rule"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ transformOrigin: "left", marginBottom: "clamp(40px, 6vw, 72px)" }}
+        />
 
-        {/* ══════════════════════════════════════════════════════════════════
-            BLOCK 3 — Experience Timeline (single entry, rescaled heading)
-        ══════════════════════════════════════════════════════════════════ */}
-        <div className="max-w-[1200px] mx-auto">
-          <ScrollReveal distance={60} duration={0.5} className="mb-16 text-left">
-            {/* heading rescaled from clamp(32px,5vw,56px) → 22px per blueprint */}
-            <h3
-              className="font-display font-bold text-white"
-              style={{ fontSize: "22px", letterSpacing: "-0.02em" }}
+        <div
+          className="grid grid-cols-3"
+          style={{
+            gap: "clamp(24px, 4vw, 64px)",
+            marginBottom: "clamp(48px, 8vw, 112px)",
+          }}
+        >
+          {STATS.map(({ number, suffix, label }, i) => (
+            <motion.div
+              key={label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6, ease: EASE, delay: i * 0.1 }}
             >
-              AI Research & Creative Engineering
-            </h3>
-          </ScrollReveal>
-
-          <div className="relative border-l pl-6 md:pl-12 ml-4 space-y-12" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
-            <ScrollReveal variant="blur" delay={0} distance={30} duration={0.45} className="relative group">
-              {/* Node dot */}
-              <div className="absolute -left-[31px] md:-left-[55px] top-1.5 z-20">
-                <Magnetic strength={0.4}>
-                  <div
-                    className="flex h-4 w-4 items-center justify-center rounded-full border-2 transition-all duration-300"
-                    style={{ background: "#000", borderColor: "rgba(255,255,255,0.18)" }}
-                    onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--accent)"; }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)"; }}
-                  >
-                    <div className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-                  </div>
-                </Magnetic>
-              </div>
-
-              {/* Card */}
               <div
-                className="rounded-[28px] p-[28px] hover:scale-[1.015] hover:-translate-y-1 transition-all duration-300"
                 style={{
-                  background: "rgba(255,255,255,0.02)",
-                  border: "1px solid rgba(255,255,255,0.07)",
-                  willChange: "transform",
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 900,
+                  fontSize: "clamp(48px, 8vw, 120px)",
+                  letterSpacing: "-0.05em",
+                  lineHeight: 0.85,
+                  color: "var(--text-primary)",
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "2px",
                 }}
               >
-                <span
-                  className="font-mono text-xs tracking-widest uppercase block mb-2"
-                  style={{ color: "var(--accent)" }}
-                >
-                  2025 – Present
+                {number}
+                <span style={{ fontSize: "0.38em", color: "var(--lime)", marginTop: "0.18em" }}>
+                  {suffix}
                 </span>
-                <h4
-                  className="font-display font-black text-white mb-4 leading-tight"
-                  style={{ fontSize: "clamp(1.2rem, 2vw, 1.45rem)", letterSpacing: "-0.02em" }}
-                >
-                  AI Research & Creative Engineering
-                </h4>
-                <p className="font-sans text-sm leading-relaxed" style={{ color: "#9b9892" }}>
-                  Training custom deep learning models (YOLOv9, PyTorch) while architecting
-                  high-end creative interfaces. Built AgriAI — a computer vision crop diagnostics
-                  dashboard for farmers detecting diseases, weeds, and insects in crop fields.
-                </p>
               </div>
-            </ScrollReveal>
-          </div>
+              <div className="stat-label">{label}</div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ── BLOCK 3: Bio ─────────────────────────────────────── */}
+        <motion.div
+          className="rule"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ transformOrigin: "left", marginBottom: "clamp(40px, 6vw, 72px)" }}
+        />
+
+        <div
+          className="grid grid-cols-1 md:grid-cols-2"
+          style={{ gap: "clamp(32px, 5vw, 80px)", alignItems: "start" }}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: EASE }}
+          >
+            <h3
+              className="type-title"
+              style={{ marginBottom: "20px" }}
+            >
+              Building AI Systems,<br />
+              crafting Visual Identities.
+            </h3>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.12 }}
+            className="type-body"
+            style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+          >
+            <p>
+              I'm an AI Engineer and Graphic Designer based in Kerala, India.
+              I live at the overlap of machine learning, modern frontend systems,
+              and premium visual design — completing my AI & Data Science degree
+              at MEA Engineering College, Malappuram.
+            </p>
+            <p>
+              I specialise in taking ideas from concept to production: training
+              computer vision models, architecting React interfaces, and building
+              brand identities — often for the same project. Real technologies,
+              measurable outcomes.
+            </p>
+
+            {/* Experience entry */}
+            <div
+              style={{
+                marginTop: "8px",
+                paddingTop: "24px",
+                borderTop: "1px solid var(--ink-border)",
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "10px",
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: "var(--lime)",
+                  marginBottom: "8px",
+                }}
+              >
+                2025 – Present
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 700,
+                  fontSize: "15px",
+                  letterSpacing: "-0.02em",
+                  color: "var(--text-primary)",
+                  marginBottom: "6px",
+                }}
+              >
+                AI Research & Creative Engineering
+              </div>
+              <p style={{ fontSize: "14px" }}>
+                Training YOLOv9 / PyTorch models while architecting high-end
+                creative interfaces. Built AgriAI — a computer vision crop
+                diagnostics system detecting diseases, weeds, and insects.
+              </p>
+            </div>
+          </motion.div>
         </div>
 
       </div>
 
-      {/* Bottom soft transition */}
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-transparent to-black pointer-events-none z-10" />
-      <div className="absolute bottom-0 left-0 right-0 h-px w-full overflow-hidden pointer-events-none z-20">
-        <div
-          className="h-px w-[65%] mx-auto"
-          style={{
-            background: "linear-gradient(to right, transparent, rgba(168,85,247,0.22), transparent)",
-            boxShadow: "0 0 10px rgba(168,85,247,0.35)",
-          }}
-        />
-      </div>
+      <div className="rule absolute bottom-0 left-0 right-0" />
     </section>
-  );
+  )
 }

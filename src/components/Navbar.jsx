@@ -1,128 +1,185 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-scroll"
-import { HiMenuAlt3, HiX } from "react-icons/hi"
 import { motion, AnimatePresence } from "framer-motion"
-import Magnetic from "./Magnetic"
 
-const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+const NAV_LINKS = [
+  { label: "About",    to: "about" },
+  { label: "Work",     to: "projects" },
+  { label: "Design",   to: "designs" },
+  { label: "Contact",  to: "contact" },
+]
 
+const EASE = [0.16, 1, 0.3, 1]
+
+export default function Navbar() {
+  const [open, setOpen]       = useState(false)
+  const [visible, setVisible] = useState(true)
+  const [lastY, setLastY]     = useState(0)
+
+  // Hide on scroll down, show on scroll up
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    const onScroll = () => {
+      const y = window.scrollY
+      setVisible(y < lastY || y < 60)
+      setLastY(y)
+    }
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [lastY])
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 lg:px-16"
-        style={{
-          paddingTop: scrolled ? '16px' : '32px',
-          paddingBottom: scrolled ? '16px' : '32px',
-          transition: "all .4s cubic-bezier(0.16, 1, 0.3, 1)"
-        }}
+      <motion.nav
+        className="fixed top-0 left-0 right-0 z-[1000]"
+        style={{ padding: "28px var(--space-gutter)" }}
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: visible ? 0 : -80, opacity: visible ? 1 : 0 }}
+        transition={{ duration: 0.45, ease: EASE }}
       >
-        <div className="max-w-[1400px] mx-auto flex items-center justify-between">
-          
-          {/* Left - Name/Logo */}
-          <div className="w-1/3 flex justify-start">
-            <Magnetic strength={0.15}>
-              <Link to="home" smooth duration={800} className="cursor-pointer group flex items-center gap-1.5">
-                <span className="font-sans font-semibold text-sm tracking-tight text-[#FFD1BA] group-hover:text-white transition-colors drop-shadow-md">
-                  Mohamed
-                </span>
-                <span className="text-[#FFD1BA] text-xs">●</span>
-                <span className="font-sans font-semibold text-sm tracking-tight text-[#FFD1BA] group-hover:text-white transition-colors drop-shadow-md">
-                  Shaheem
-                </span>
-              </Link>
-            </Magnetic>
+        <div className="flex items-center justify-between">
+
+          {/* Logo */}
+          <Link to="home" smooth duration={800} className="nav-logo" style={{ cursor: "none" }}>
+            MS<span style={{ color: "var(--lime)" }}>.</span>
+          </Link>
+
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-10">
+            {NAV_LINKS.map((l, i) => (
+              <motion.div
+                key={l.to}
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + i * 0.06, duration: 0.4, ease: EASE }}
+              >
+                <Link
+                  to={l.to}
+                  smooth
+                  duration={800}
+                  offset={-80}
+                  className="nav-link"
+                  style={{ cursor: "none" }}
+                >
+                  {l.label}
+                </Link>
+              </motion.div>
+            ))}
           </div>
 
-          {/* Center - Pill Navigation */}
-          <div className="hidden md:flex w-1/3 justify-center">
-            <div 
-              className="flex items-center gap-8 px-8 py-2 rounded-full"
-              style={{
-                background: "rgba(255,255,255,0.05)",
-                backdropFilter: "blur(20px)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                boxShadow: "0 10px 30px -10px rgba(0,0,0,0.3)"
-              }}
+          {/* Right — availability + mobile toggle */}
+          <div className="flex items-center gap-6">
+            <motion.a
+              href="#contact"
+              className="hidden md:inline-flex btn-primary"
+              style={{ padding: "10px 20px", fontSize: "10px" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.4 }}
             >
-              <Link to="about" smooth duration={800} offset={-80} className="cursor-pointer font-sans text-xs font-semibold text-white/80 hover:text-white transition-colors">
-                About
-              </Link>
-              
-              <Link to="home" smooth duration={800} className="cursor-pointer">
-                <Magnetic strength={0.2}>
-                  <div className="w-9 h-9 rounded-md bg-white flex items-center justify-center shadow-lg hover:scale-105 transition-transform duration-300">
-                    <span className="font-display font-black text-[#FFD1BA] text-xl italic tracking-tighter" style={{ lineHeight: 1 }}>ms</span>
-                  </div>
-                </Magnetic>
-              </Link>
-              
-              <Link to="projects" smooth duration={800} offset={-80} className="cursor-pointer font-sans text-xs font-semibold text-white/80 hover:text-white transition-colors">
-                Work
-              </Link>
-            </div>
-          </div>
+              Hire me
+            </motion.a>
 
-          {/* Right - Social Links */}
-          <div className="hidden md:flex w-1/3 justify-end items-center gap-6">
-             <a href="#contact" className="font-sans text-[11px] font-bold uppercase tracking-wider text-[#FFD1BA] hover:text-white transition-colors drop-shadow-md">Email</a>
-             <a href="https://github.com" target="_blank" rel="noreferrer" className="font-sans text-[11px] font-bold uppercase tracking-wider text-[#FFD1BA] hover:text-white transition-colors drop-shadow-md">Github</a>
-             <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="font-sans text-[11px] font-bold uppercase tracking-wider text-[#FFD1BA] hover:text-white transition-colors drop-shadow-md">In</a>
-          </div>
-
-          {/* Mobile toggle */}
-          <div className="flex md:hidden w-1/3 justify-end">
+            {/* Mobile burger */}
             <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="text-2xl text-[#FFD1BA] cursor-pointer"
+              onClick={() => setOpen(!open)}
+              className="flex md:hidden flex-col gap-[5px] p-1"
+              style={{ cursor: "none", background: "none", border: "none" }}
+              aria-label="Toggle menu"
             >
-              {menuOpen ? <HiX /> : <HiMenuAlt3 />}
+              <motion.span
+                style={{ display: "block", width: 22, height: 1, background: "var(--text-primary)", transformOrigin: "center" }}
+                animate={{ rotate: open ? 45 : 0, y: open ? 6 : 0 }}
+                transition={{ duration: 0.3 }}
+              />
+              <motion.span
+                style={{ display: "block", width: 22, height: 1, background: "var(--text-primary)" }}
+                animate={{ opacity: open ? 0 : 1 }}
+                transition={{ duration: 0.2 }}
+              />
+              <motion.span
+                style={{ display: "block", width: 22, height: 1, background: "var(--text-primary)", transformOrigin: "center" }}
+                animate={{ rotate: open ? -45 : 0, y: open ? -6 : 0 }}
+                transition={{ duration: 0.3 }}
+              />
             </button>
           </div>
 
         </div>
-      </nav>
+      </motion.nav>
 
-      {/* Mobile menu */}
+      {/* Mobile fullscreen menu */}
       <AnimatePresence>
-        {menuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-40 flex flex-col justify-center items-center bg-[#050505]/95 backdrop-blur-xl"
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[999] flex flex-col justify-center"
+            style={{ background: "var(--ink-deep)" }}
           >
-            <button
-              onClick={() => setMenuOpen(false)}
-              className="absolute top-6 right-8 text-2xl text-white cursor-pointer"
+            {/* Lime line */}
+            <motion.div
+              className="absolute left-0 top-0 bottom-0 w-px"
+              style={{ background: "var(--lime)", transformOrigin: "top" }}
+              initial={{ scaleY: 0 }}
+              animate={{ scaleY: 1 }}
+              exit={{ scaleY: 0 }}
+              transition={{ duration: 0.5, ease: EASE }}
+            />
+
+            <ul
+              className="flex flex-col"
+              style={{ padding: "0 var(--space-gutter)", gap: "clamp(12px, 3vw, 24px)" }}
             >
-              <HiX />
-            </button>
-            <ul className="flex flex-col items-center gap-10">
-              {['About', 'Skills', 'Projects', 'Designs', 'Contact'].map((item) => (
-                <li key={item}>
+              {NAV_LINKS.map((l, i) => (
+                <motion.li
+                  key={l.to}
+                  initial={{ x: -32, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: -32, opacity: 0 }}
+                  transition={{ delay: 0.1 + i * 0.07, duration: 0.45, ease: EASE }}
+                >
                   <Link
-                    to={item.toLowerCase()} smooth duration={800} offset={-80}
-                    onClick={() => setMenuOpen(false)}
-                    className="font-display font-black text-4xl cursor-pointer text-zinc-400 hover:text-white hover:-skew-x-8 inline-block origin-left transition-all"
+                    to={l.to}
+                    smooth
+                    duration={800}
+                    offset={-80}
+                    onClick={() => setOpen(false)}
+                    style={{ cursor: "none" }}
                   >
-                    {item}
+                    <span
+                      className="font-display"
+                      style={{
+                        fontWeight: 900,
+                        fontSize: "clamp(40px, 10vw, 80px)",
+                        letterSpacing: "-0.04em",
+                        color: "var(--text-primary)",
+                        display: "inline-block",
+                        lineHeight: 1.0,
+                      }}
+                    >
+                      {l.label}
+                    </span>
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
+
+            {/* Bottom meta */}
+            <div
+              className="absolute bottom-8 flex items-center justify-between w-full"
+              style={{ padding: "0 var(--space-gutter)" }}
+            >
+              <span className="type-label">Mohamed Shaheem</span>
+              <span className="available-badge">
+                <span className="available-dot" />
+                Available
+              </span>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
     </>
   )
 }
-
-export default Navbar

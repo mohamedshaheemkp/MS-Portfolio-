@@ -5,20 +5,18 @@ import Hero from "./sections/Hero"
 import SmoothScroll from "./components/SmoothScroll"
 import ScrollProgress from "./components/ScrollProgress"
 import PageLoader from "./components/PageLoader"
-import Background from "./components/Background"
+import CustomCursor from "./components/CustomCursor"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import { Analytics } from "@vercel/analytics/react"
 
-// Lazy-loaded Sections — order matches blueprint section architecture
-const Statement    = lazy(() => import("./sections/Statement"))
-const About        = lazy(() => import("./sections/About"))
-const Skills       = lazy(() => import("./sections/Skills"))
-const Projects     = lazy(() => import("./sections/Projects"))
+const Statement      = lazy(() => import("./sections/Statement"))
+const About          = lazy(() => import("./sections/About"))
+const Skills         = lazy(() => import("./sections/Skills"))
+const Projects       = lazy(() => import("./sections/Projects"))
 const DesignShowcase = lazy(() => import("./sections/DesignShowcase"))
-const Contact      = lazy(() => import("./sections/Contact"))
-const Footer       = lazy(() => import("./sections/Footer"))
+const Contact        = lazy(() => import("./sections/Contact"))
+const Footer         = lazy(() => import("./sections/Footer"))
 
-// Case Study Pages
 const SmartFolderPage = lazy(() => import("./pages/SmartFolderPage"))
 const AgriAIPage      = lazy(() => import("./pages/AgriAIPage"))
 const PortfolioPage   = lazy(() => import("./pages/PortfolioPage"))
@@ -27,30 +25,22 @@ function HomePage() {
   return (
     <>
       <PageLoader />
-      <Background />
+      <CustomCursor />
       <main
         className="relative overflow-x-hidden min-h-screen"
-        style={{ background: "var(--bg)", color: "var(--text)" }}
+        style={{ background: "var(--ink)", color: "var(--text-primary)" }}
       >
         <SmoothScroll />
         <ScrollProgress />
         <Navbar />
-        {/* 01 — Hero */}
         <Hero />
         <Suspense fallback={null}>
-          {/* 02 — Statement */}
           <Statement />
-          {/* 03 — About */}
           <About />
-          {/* 04 — Capabilities */}
           <Skills />
-          {/* 05 — Projects */}
           <Projects />
-          {/* 06 — The Craft */}
           <DesignShowcase />
-          {/* 07 — Contact */}
           <Contact />
-          {/* 08 — Footer */}
           <Footer />
         </Suspense>
       </main>
@@ -76,3 +66,11 @@ function App() {
 }
 
 export default App
+
+// Legacy export kept for any component importing this
+export const motionTiming = {
+  fast: 0.22,
+  normal: 0.45,
+  slow: 0.7,
+  ease: [0.25, 0.1, 0.25, 1],
+}

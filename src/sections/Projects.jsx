@@ -1,410 +1,271 @@
-import { motion, AnimatePresence } from "framer-motion";
-import Parallax from "../components/Parallax";
-import ScrollReveal from "../components/ScrollReveal";
-import { motionTiming } from "../utils/motion";
-import Folder from "../components/Folder";
-import { FiArrowUpRight, FiCode, FiCpu, FiGithub, FiLayers, FiZap } from "react-icons/fi";
-import { projects } from "../data/projects";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import SpotlightCard from "../components/SpotlightCard";
+import { useState, useRef } from "react"
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
+import { Link } from "react-router-dom"
+import { projects as allProjects } from "../data/projects"
+import { FiArrowUpRight } from "react-icons/fi"
 
-// ==============================================================================
-// PROJECT DATA — maps featured projects to folder papers
-// ==============================================================================
+const EASE = [0.16, 1, 0.3, 1]
 
 const FEATURED = [
   {
-    id: "ai-portfolio",
-    name: "AI Portfolio",
-    sub: "Vite · Framer Motion · React 19",
-    tag: "WEB",
-    tagColor: "#00f0ff",
-    metric: "98",
-    metricLabel: "Lighthouse",
-    Icon: FiZap,
-    route: "/projects/ai-portfolio",
+    id: "agri-ai",
+    index: "01",
+    name: "AgriAI",
+    role: "AI · Computer Vision",
+    stack: "YOLOv9 · PyTorch · FastAPI · React",
+    metric: "98.4%",
+    metricLabel: "accuracy",
+    route: "/projects/agri-ai",
+    year: "2025",
   },
   {
     id: "smart-folder-organizer",
+    index: "02",
     name: "Smart Folder",
-    sub: "Realtime Python File Router",
-    tag: "AUTOMATION",
-    tagColor: "#a855f7",
+    role: "Automation · Python",
+    stack: "Watchdog · Tkinter · OS Module",
     metric: "10k+",
-    metricLabel: "Files Routed",
-    Icon: FiLayers,
+    metricLabel: "files routed",
     route: "/projects/smart-folder-organizer",
+    year: "2024",
   },
   {
-    id: "agri-ai",
-    name: "AgriAI",
-    sub: "Crop Disease Detection via YOLOv9",
-    tag: "AI",
-    tagColor: "#e8ff00",
-    metric: "98.4%",
-    metricLabel: "Accuracy",
-    Icon: FiCpu,
-    route: "/projects/agri-ai",
+    id: "ai-portfolio",
+    index: "03",
+    name: "MS Portfolio",
+    role: "Web · Design Engineering",
+    stack: "React 19 · Framer Motion · Vite",
+    metric: "98",
+    metricLabel: "Lighthouse",
+    route: "/projects/ai-portfolio",
+    year: "2025",
   },
-];
+]
 
-// ==============================================================================
-// PAPER CARD — rendered inside each paper slot of the Folder component
-// ==============================================================================
+function ProjectRow({ project, i }) {
+  const [hovered, setHovered] = useState(false)
+  const rowRef = useRef(null)
 
-function PaperCard({ project, onNavigate }) {
-  const Icon = project.Icon;
   return (
-    <button
-      onClick={(e) => {
-        e.stopPropagation();
-        onNavigate(project.route);
-      }}
-      className="w-full h-full flex flex-col justify-between p-3 text-left select-none cursor-pointer"
-      style={{ background: "transparent" }}
+    <motion.div
+      ref={rowRef}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.65, ease: EASE, delay: i * 0.08 }}
     >
-      {/* Top row */}
-      <div className="flex items-start justify-between">
-        <span
-          className="font-mono text-[6px] font-bold px-1 py-0.5 rounded"
+      <Link to={project.route} style={{ textDecoration: "none" }}>
+        <div
+          className="project-row"
           style={{
-            color: project.tagColor,
-            background: `${project.tagColor}18`,
-            border: `1px solid ${project.tagColor}30`,
+            gridTemplateColumns: "64px 1fr auto",
+            gap: "clamp(16px, 3vw, 40px)",
+            padding: "clamp(20px, 2.5vw, 32px) 0",
           }}
         >
-          {project.tag}
-        </span>
-        <Icon size={8} style={{ color: project.tagColor, opacity: 0.7 }} />
-      </div>
+          {/* Index */}
+          <span className="project-number">{project.index}</span>
 
-      {/* Title */}
-      <div>
-        <p className="font-display font-black text-[10px] text-zinc-900 leading-tight">{project.name}</p>
-        <p className="font-mono text-[6px] text-zinc-500 mt-0.5 leading-tight line-clamp-2">{project.sub}</p>
-      </div>
+          {/* Name + stack */}
+          <div style={{ minWidth: 0 }}>
+            <div
+              className="project-name"
+              style={{
+                color: hovered ? "var(--lime)" : "var(--text-primary)",
+                transition: "color 0.25s ease",
+              }}
+            >
+              {project.name}
+            </div>
+            <div
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "10px",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--text-dim)",
+                marginTop: "6px",
+              }}
+            >
+              {project.stack}
+            </div>
+          </div>
 
-      {/* Metric + CTA */}
-      <div className="flex items-center justify-between border-t border-black/[0.06] pt-1.5">
-        <div>
-          <span className="font-mono font-black text-[10px] text-zinc-800">{project.metric}</span>
-          <span className="font-mono text-[5px] text-zinc-400 block uppercase tracking-wider">{project.metricLabel}</span>
-        </div>
-        <span
-          className="font-mono text-[5.5px] font-bold uppercase tracking-wider flex items-center gap-0.5"
-          style={{ color: project.tagColor }}
-        >
-          OPEN <FiArrowUpRight size={6} />
-        </span>
-      </div>
-    </button>
-  );
-}
-
-// ==============================================================================
-// FOLDER SHOWCASE — preserved exactly, now lives in the right column
-// ==============================================================================
-
-function FolderShowcase() {
-  const [folderOpen, setFolderOpen] = useState(false);
-  const navigate = useNavigate();
-
-  const folderColor = "#5227FF";
-  const glowColor = folderOpen ? "rgba(82,39,255,0.18)" : "rgba(82,39,255,0.06)";
-
-  const paperItems = FEATURED.map((proj) => (
-    <PaperCard key={proj.id} project={proj} onNavigate={(route) => navigate(route)} />
-  ));
-
-  return (
-    <div className="flex flex-col items-center gap-10 relative">
-
-      {/* Ambient glow behind folder */}
-      <div
-        className="absolute w-80 h-80 rounded-full blur-[30px] pointer-events-none transition-all duration-[1200ms]"
-        style={{ background: glowColor, top: "50%", left: "50%", transform: "translate(-50%,-50%)" }}
-      />
-
-      {/* ── THE FOLDER COMPONENT ── */}
-      <div className="relative z-10">
-        <Folder
-          color={folderColor}
-          size={3.0}
-          open={folderOpen}
-          onClick={() => setFolderOpen(prev => !prev)}
-          items={paperItems}
-          className="py-16"
-        />
-      </div>
-
-      {/* Project legend pills — show when open */}
-      <AnimatePresence>
-        {folderOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 6 }}
-            transition={{ duration: 0.344, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-wrap items-center justify-center gap-3 relative z-10"
+          {/* Right — metric + year + arrow */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "clamp(16px, 2.5vw, 40px)",
+              flexShrink: 0,
+            }}
           >
-            {FEATURED.map((proj) => (
-              <Link
-                key={proj.id}
-                to={proj.route}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border font-mono text-[8px] font-bold uppercase tracking-wider transition-all duration-200 hover:scale-105"
+            {/* Metric */}
+            <div className="hidden md:block text-right">
+              <div
                 style={{
-                  color: proj.tagColor,
-                  borderColor: `${proj.tagColor}35`,
-                  background: `${proj.tagColor}0a`,
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: "clamp(18px, 2vw, 24px)",
+                  letterSpacing: "-0.04em",
+                  color: hovered ? "var(--lime)" : "var(--text-primary)",
+                  lineHeight: 1,
+                  transition: "color 0.25s ease",
                 }}
               >
-                <span
-                  className="w-1.5 h-1.5 rounded-full"
-                  style={{ background: proj.tagColor, boxShadow: `0 0 6px ${proj.tagColor}` }}
-                />
-                {proj.name}
-                <FiArrowUpRight size={8} />
-              </Link>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+                {project.metric}
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "9px",
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: "var(--text-dim)",
+                  marginTop: "4px",
+                }}
+              >
+                {project.metricLabel}
+              </div>
+            </div>
 
-      {/* Hint text */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: folderOpen ? 1 : 0.4 }}
-        transition={{ duration: 0.344, ease: [0.16, 1, 0.3, 1] }}
-        className="font-mono text-[8px] text-zinc-700 uppercase tracking-[0.3em] relative z-10"
-      >
-        {folderOpen ? "click any paper · or use legend above" : "hover to preview · click to open"}
-      </motion.p>
-    </div>
-  );
+            {/* Role pill */}
+            <div className="hidden sm:block">
+              <span className="project-tag">{project.role}</span>
+            </div>
+
+            {/* Year */}
+            <span
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "10px",
+                color: "var(--text-dim)",
+                letterSpacing: "0.1em",
+              }}
+            >
+              {project.year}
+            </span>
+
+            {/* Arrow */}
+            <motion.span
+              animate={{
+                x: hovered ? 4 : 0,
+                y: hovered ? -4 : 0,
+                color: hovered ? "var(--lime)" : "var(--text-dim)",
+              }}
+              transition={{ duration: 0.2 }}
+              style={{ display: "flex" }}
+            >
+              <FiArrowUpRight size={18} />
+            </motion.span>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  )
 }
 
-// ==============================================================================
-// MAIN SECTION
-// ==============================================================================
-
 export default function Projects() {
-  const [hoveredId, setHoveredId] = useState(null);
-  const gridProjects = projects.filter(p => !p.featured);
-
-  const containerVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.06 } }
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: motionTiming.normal, ease: motionTiming.ease }
-    }
-  };
+  const sectionRef = useRef(null)
 
   return (
     <section
+      ref={sectionRef}
       id="projects"
-      className="relative py-20 md:py-[120px] px-6 md:px-12 lg:px-20 overflow-hidden bg-black"
+      className="relative overflow-hidden"
+      style={{
+        background: "var(--ink)",
+        paddingTop: "var(--space-section)",
+        paddingBottom: "var(--space-section)",
+      }}
     >
-      {/* Background Ambience — preserved */}
-      <Parallax speed={-0.1} className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%)" }} />
-      <Parallax speed={0.1} className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, transparent 70%)" }} />
+      <div style={{ padding: "0 var(--space-gutter)" }}>
 
-      <div className="max-w-[1200px] mx-auto relative z-20">
+        {/* Section header */}
+        <div
+          className="flex flex-col md:flex-row md:items-end md:justify-between"
+          style={{ marginBottom: "clamp(40px, 6vw, 80px)", gap: "16px" }}
+        >
+          <div>
+            <motion.div
+              className="section-index"
+              style={{ marginBottom: "20px" }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              03 / work
+            </motion.div>
 
-        {/* ── SECTION LABEL — matches Skills / About pattern ── */}
-        <ScrollReveal direction="left" distance={30} duration={0.7} className="flex items-center gap-4 mb-20">
-          <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--accent)' }}>03</span>
-          <div className="w-12 h-px" style={{ background: 'var(--accent)' }} />
-          <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--muted)' }}>Projects</span>
-        </ScrollReveal>
-
-        {/* ════════════════════════════════════════════════════════════
-            TWO-COLUMN LAYOUT
-            Left:  section heading + project list + GitHub CTA
-            Right: Folder component (centred, full height)
-        ════════════════════════════════════════════════════════════ */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-16 lg:gap-20 items-center">
-
-          {/* ── LEFT COLUMN ── */}
-          <div className="flex flex-col">
-
-            {/* Heading */}
-            <ScrollReveal variant="skew" distance={60} className="mb-12">
-              <h2 className="font-display font-bold text-[clamp(32px,5vw,56px)] text-white leading-[1.05] tracking-[-0.03em] max-w-xl">
-                Built to solve<br />
-                <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>real problems.</span>
-              </h2>
-            </ScrollReveal>
-
-            {/* Project list — all 3 projects visible without interaction */}
-            <div className="flex flex-col border-t border-white/[0.07]">
-              {FEATURED.map((proj, index) => (
-                <motion.div
-                  key={proj.id}
-                  onHoverStart={() => setHoveredId(proj.id)}
-                  onHoverEnd={() => setHoveredId(null)}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: motionTiming.normal, ease: motionTiming.ease, delay: index * 0.08 }}
-                >
-                  <Link
-                    to={proj.route}
-                    className="group flex items-center justify-between py-5 border-b border-white/[0.07] transition-colors duration-200"
-                    style={{ color: hoveredId === proj.id ? proj.tagColor : 'inherit' }}
-                  >
-                    {/* Left: index + name + stack */}
-                    <div className="flex items-center gap-5 min-w-0">
-                      <span
-                        className="font-mono text-[10px] tracking-widest shrink-0 transition-colors duration-200"
-                        style={{ color: hoveredId === proj.id ? proj.tagColor : 'var(--muted)' }}
-                      >
-                        0{index + 1}
-                      </span>
-                      <div className="min-w-0">
-                        <p
-                          className="font-display font-bold text-base md:text-lg text-white leading-tight transition-colors duration-200 group-hover:text-[var(--accent)]"
-                          style={{ color: hoveredId === proj.id ? proj.tagColor : undefined }}
-                        >
-                          {proj.name}
-                        </p>
-                        <p className="font-mono text-[11px] text-zinc-600 mt-0.5 truncate">
-                          {proj.sub}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Right: tag + metric + arrow */}
-                    <div className="flex items-center gap-4 shrink-0 ml-4">
-                      {/* Category tag */}
-                      <span
-                        className="hidden sm:block font-mono text-[9px] font-bold px-2 py-1 rounded tracking-wider uppercase"
-                        style={{
-                          color: proj.tagColor,
-                          background: `${proj.tagColor}14`,
-                          border: `1px solid ${proj.tagColor}28`,
-                        }}
-                      >
-                        {proj.tag}
-                      </span>
-
-                      {/* Key metric */}
-                      <div className="text-right hidden md:block">
-                        <p
-                          className="font-mono font-black text-sm leading-none"
-                          style={{ color: proj.tagColor }}
-                        >
-                          {proj.metric}
-                        </p>
-                        <p className="font-mono text-[9px] text-zinc-600 uppercase tracking-wider mt-0.5">
-                          {proj.metricLabel}
-                        </p>
-                      </div>
-
-                      {/* Arrow */}
-                      <motion.span
-                        animate={{ x: hoveredId === proj.id ? 3 : 0, y: hoveredId === proj.id ? -3 : 0 }}
-                        transition={{ duration: 0.2, ease: motionTiming.ease }}
-                        className="text-zinc-600 group-hover:text-white transition-colors duration-200"
-                      >
-                        <FiArrowUpRight size={16} />
-                      </motion.span>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* GitHub CTA */}
-            <ScrollReveal delay={0.25} distance={20} duration={0.7} className="mt-8">
-              <a
-                href="https://github.com/mohamedshaheemkp"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-zinc-500 hover:text-white transition-colors duration-200 group"
+            <div style={{ overflow: "hidden" }}>
+              <motion.h2
+                className="type-headline"
+                initial={{ y: "100%" }}
+                whileInView={{ y: "0%" }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.85, ease: EASE }}
               >
-                <FiGithub size={14} className="transition-transform duration-200 group-hover:scale-110" />
-                View all on GitHub
-                <FiArrowUpRight size={12} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-            </ScrollReveal>
-          </div>
-
-          {/* ── RIGHT COLUMN — Folder, mobile: centred below list ── */}
-          <div className="flex items-center justify-center w-full lg:w-[380px] min-h-[360px]">
-            {/* Scale guard: 3.0 × 100px base = 300px; 380px col gives comfortable clearance */}
-            <div style={{ transform: 'scale(1)', transformOrigin: 'center center' }}>
-              <FolderShowcase />
+                Selected <span style={{ color: "var(--lime)", fontStyle: "italic" }}>Projects</span>
+              </motion.h2>
             </div>
           </div>
 
+          <motion.a
+            href="https://github.com/mohamedshaheemkp"
+            target="_blank"
+            rel="noreferrer"
+            className="btn-ghost hidden md:inline-flex"
+            style={{ alignSelf: "flex-end", padding: "12px 24px" }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
+            All on GitHub
+            <FiArrowUpRight size={12} />
+          </motion.a>
         </div>
 
+        {/* Divider */}
+        <motion.div
+          className="rule"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ transformOrigin: "left", marginBottom: "0" }}
+        />
 
+        {/* Project rows */}
+        <div>
+          {FEATURED.map((p, i) => (
+            <ProjectRow key={p.id} project={p} i={i} />
+          ))}
+        </div>
 
-        {/* ════════════════════════════════════════════════════════════
-            NON-FEATURED PROJECT GRID (renders if any project has featured: false)
-        ════════════════════════════════════════════════════════════ */}
-        {gridProjects.length > 0 && (
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16"
+        {/* Mobile GitHub link */}
+        <motion.div
+          className="flex md:hidden mt-8"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+        >
+          <a
+            href="https://github.com/mohamedshaheemkp"
+            target="_blank"
+            rel="noreferrer"
+            className="btn-ghost"
           >
-            {gridProjects.map((project) => (
-              <motion.div
-                key={project.id}
-                variants={cardVariants}
-                whileHover={{ y: -4 }}
-                transition={{ duration: motionTiming.normal, ease: motionTiming.ease }}
-                className="will-change-transform"
-                style={{ transform: "translateZ(0)" }}
-              >
-                <SpotlightCard className="h-full p-[28px] flex flex-col justify-between group">
-                  <div>
-                    <div className="flex justify-between items-start mb-6">
-                      <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full font-mono text-[9px] uppercase tracking-wider text-cyan-400">
-                        {project.category}
-                      </span>
-                      <a href={project.github} target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors">
-                        <FiCode size={16} />
-                      </a>
-                    </div>
-                    <h4 className="text-[28px] font-semibold tracking-[-0.03em] leading-tight text-white mb-3 group-hover:text-cyan-400 transition-colors">
-                      {project.title}
-                    </h4>
-                    <p className="text-[17px] leading-[1.5] text-white/70 mb-6 line-clamp-3">
-                      {project.description}
-                    </p>
-                  </div>
-                  <div>
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.tech.slice(0, 3).map(t => (
-                        <span key={t} className="text-[13px] font-mono text-zinc-500 tracking-[0.02em]">{t}</span>
-                      ))}
-                      {project.tech.length > 3 && (
-                        <span className="text-[13px] font-mono text-zinc-600 tracking-[0.02em]">+{project.tech.length - 3}</span>
-                      )}
-                    </div>
-                    <Link to={`/projects/${project.id}`} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white hover:text-cyan-400 transition-colors">
-                      View Details <FiArrowUpRight size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </Link>
-                  </div>
-                </SpotlightCard>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
+            All on GitHub
+            <FiArrowUpRight size={12} />
+          </a>
+        </motion.div>
 
       </div>
     </section>
-  );
+  )
 }
