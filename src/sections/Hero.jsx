@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import GradualBlur from "../components/GradualBlur";
-import TextPressure from "../components/TextPressure";
+import { useRef } from "react";
+import ProgressiveBlur from "../components/ProgressiveBlur";
+import VariableProximity from "../components/VariableProximity";
 import bgImage from "../assets/cinem.webp";
 
 const easeOutExpo = [0.16, 1, 0.3, 1];
@@ -42,12 +43,13 @@ const subtitleVariants = {
 };
 
 export default function Hero() {
+  const containerRef = useRef(null);
   const { scrollY } = useScroll();
   const yParallax = useTransform(scrollY, [0, 1000], [0, 200]);
   const opacityParallax = useTransform(scrollY, [0, 600], [1, 0]);
 
   return (
-    <section className="relative w-full h-screen flex flex-col justify-between px-6 md:px-12 lg:px-24 overflow-hidden bg-[#050505]">
+    <section ref={containerRef} className="relative w-full h-screen flex flex-col justify-between px-6 md:px-12 lg:px-24 overflow-hidden bg-[#050505]">
       
       {/* Cinematic Background */}
       <motion.div 
@@ -85,36 +87,26 @@ export default function Hero() {
         >
           {/* First Name */}
           <motion.div variants={wordVariants} className="overflow-visible flex">
-            <TextPressure
-              text="MOHAMED"
-              flex={false}
-              alpha={false}
-              stroke={false}
-              width={true}
-              weight={true}
-              italic={true}
-              textColor="#ffffff"
-              strokeColor="#ff0000"
-              autoSize={false}
-              textAlign="left"
-              className="text-[14vw] md:text-[9vw] leading-[0.85] font-display font-black text-text-primary uppercase tracking-tighter overflow-visible"
+            <VariableProximity
+              label="MOHAMED"
+              fromFontVariationSettings="'wght' 100, 'wdth' 100"
+              toFontVariationSettings="'wght' 900, 'wdth' 200, 'ital' 1"
+              containerRef={containerRef}
+              radius={150}
+              falloff="linear"
+              className="text-[14vw] md:text-[9vw] leading-[0.85] font-black text-text-primary uppercase tracking-tighter overflow-visible"
             />
           </motion.div>
           {/* Last Name */}
           <motion.div variants={wordVariants} className="overflow-visible flex ml-0 md:ml-12 lg:ml-24">
-            <TextPressure
-              text="SHAHEEM"
-              flex={false}
-              alpha={false}
-              stroke={false}
-              width={true}
-              weight={true}
-              italic={true}
-              textColor="#ffffff"
-              strokeColor="#ff0000"
-              autoSize={false}
-              textAlign="left"
-              className="text-[14vw] md:text-[9vw] leading-[0.85] font-display font-black text-text-primary uppercase tracking-tighter overflow-visible"
+            <VariableProximity
+              label="SHAHEEM"
+              fromFontVariationSettings="'wght' 100, 'wdth' 100"
+              toFontVariationSettings="'wght' 900, 'wdth' 200, 'ital' 1"
+              containerRef={containerRef}
+              radius={150}
+              falloff="linear"
+              className="text-[14vw] md:text-[9vw] leading-[0.85] font-black text-text-primary uppercase tracking-tighter overflow-visible"
             />
           </motion.div>
           
@@ -131,15 +123,11 @@ export default function Hero() {
       {/* Scroll tether line connecting to Core Engine */}
       <div className="absolute bottom-0 left-6 md:left-12 lg:left-24 w-[1px] h-24 bg-gradient-to-b from-transparent to-accent-blue/50 pointer-events-none"></div>
 
-      <GradualBlur
-        target="parent"
-        position="bottom"
-        height="10rem"
-        strength={2}
-        divCount={5}
-        curve="bezier"
-        exponential={true}
-        opacity={1}
+      <ProgressiveBlur 
+        position="bottom" 
+        backgroundColor="#050505" 
+        height="10rem" 
+        blurAmount="8px" 
       />
     </section>
   );

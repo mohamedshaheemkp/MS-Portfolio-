@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useScroll } from "framer-motion";
 import { Link, useSearchParams } from "react-router-dom";
 import StickyCard from "../components/StickyCard";
-import GradualBlur from "../components/GradualBlur";
+import ProgressiveBlur from "../components/ProgressiveBlur";
 
 import imgPoster1 from "../assets/poster 1.webp";
 import imgPoster2 from "../assets/poster 2.webp";
@@ -127,15 +127,11 @@ export default function DesignArchive() {
           />
         ))}
 
-        <GradualBlur
-          target="parent"
-          position="bottom"
-          height="6rem"
-          strength={2}
-          divCount={5}
-          curve="bezier"
-          exponential={true}
-          opacity={1}
+        <ProgressiveBlur 
+          position="bottom" 
+          backgroundColor="#050505" 
+          height="6rem" 
+          blurAmount="8px" 
         />
       </main>
 

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import ScrambledText from "../components/ScrambledText";
 import dashImg from "../assets/agri-dash.webp";
 import liveImg from "../assets/agri-live.webp";
 
@@ -59,9 +60,9 @@ export default function AgriAIShowcase() {
             <h3 className="font-mono text-xs text-text-secondary uppercase tracking-widest">
               01 / The Problem
             </h3>
-            <p className="text-xl md:text-3xl font-body text-text-primary leading-relaxed">
+            <ScrambledText className="text-xl md:text-3xl font-body text-text-primary leading-relaxed !m-0 !max-w-none p-0 border-none bg-transparent" radius={100} duration={1.2} speed={0.5} scrambleChars=".:">
               Modern agriculture generates massive datasets, yet farmers lack real-time, actionable insights. Crop disease and soil degradation often go unnoticed until it's too late, resulting in devastating yield losses.
-            </p>
+            </ScrambledText>
           </motion.div>
 
           <motion.div 
@@ -74,9 +75,9 @@ export default function AgriAIShowcase() {
             <h3 className="font-mono text-xs text-accent-blue uppercase tracking-widest">
               02 / The Model
             </h3>
-            <p className="text-xl md:text-3xl font-body text-text-primary leading-relaxed">
+            <ScrambledText className="text-xl md:text-3xl font-body text-text-primary leading-relaxed !m-0 !max-w-none p-0 border-none bg-transparent" radius={100} duration={1.2} speed={0.5} scrambleChars=".:">
               Built on a custom PyTorch architecture, the AgriAI vision model ingests drone imagery and IoT sensor data, running edge-optimized inferences to detect anomalies before they spread.
-            </p>
+            </ScrambledText>
           </motion.div>
 
         </div>

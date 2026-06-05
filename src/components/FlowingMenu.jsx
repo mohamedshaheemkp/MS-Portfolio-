@@ -23,7 +23,7 @@ function FlowingMenu({
   );
 }
 
-function MenuItem({ link, text, image, number, speed }) {
+function MenuItem({ link, text, image, images, number, speed }) {
   const itemRef = useRef(null);
   const marqueeRef = useRef(null);
   const marqueeInnerRef = useRef(null);
@@ -63,7 +63,7 @@ function MenuItem({ link, text, image, number, speed }) {
     calculateRepetitions();
     window.addEventListener('resize', calculateRepetitions);
     return () => window.removeEventListener('resize', calculateRepetitions);
-  }, [text, image]);
+  }, [text, image, images]);
 
   useEffect(() => {
     const setupMarquee = () => {
@@ -95,7 +95,7 @@ function MenuItem({ link, text, image, number, speed }) {
         animationRef.current.kill();
       }
     };
-  }, [text, image, repetitions, speed]);
+  }, [text, image, images, repetitions, speed]);
 
   const handleMouseEnter = ev => {
     if (!itemRef.current || !marqueeRef.current || !marqueeInnerRef.current) return;
@@ -167,7 +167,7 @@ function MenuItem({ link, text, image, number, speed }) {
                 <div 
                   className="marquee__img" 
                   ref={el => imgRefs.current[idx] = el}
-                  style={{ backgroundImage: `url(${image})` }} 
+                  style={{ backgroundImage: `url(${images ? images[idx % images.length] : image})` }} 
                 />
               </div>
             ))}

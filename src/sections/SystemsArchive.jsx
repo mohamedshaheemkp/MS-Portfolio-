@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import ScrollFloat from "../components/ScrollFloat";
 
 export default function SystemsArchive() {
   const [isHovered, setIsHovered] = useState(false);
@@ -15,9 +16,17 @@ export default function SystemsArchive() {
         onClick={() => navigate("/systems")}
       >
         {/* W */}
-        <span className="text-[30vw] font-display font-black text-text-primary leading-[0.75] tracking-tighter mr-2 md:mr-6 drop-shadow-2xl">
+        <ScrollFloat
+          animationDuration={1.2}
+          ease="power4.out"
+          scrollStart="top bottom-=10%"
+          scrollEnd="center center"
+          stagger={0.05}
+          containerClassName="overflow-visible !flex !items-center !justify-center mr-2 md:mr-6"
+          textClassName="text-[30vw] font-display font-black text-text-primary leading-[0.75] tracking-tighter drop-shadow-2xl"
+        >
           W
-        </span>
+        </ScrollFloat>
 
         {/* The Folder Wrapper (Stationary) */}
         <div className="relative w-[22vw] h-[18vw] min-w-[140px] min-h-[110px] flex items-end justify-center z-10">
@@ -106,9 +115,17 @@ export default function SystemsArchive() {
         </div>
 
         {/* rk */}
-        <span className="text-[30vw] font-display font-black text-text-primary leading-[0.75] tracking-tighter ml-2 md:ml-6 drop-shadow-2xl">
+        <ScrollFloat
+          animationDuration={1.2}
+          ease="power4.out"
+          scrollStart="top bottom-=10%"
+          scrollEnd="center center"
+          stagger={0.05}
+          containerClassName="overflow-visible !flex !items-center !justify-center ml-2 md:ml-6"
+          textClassName="text-[30vw] font-display font-black text-text-primary leading-[0.75] tracking-tighter drop-shadow-2xl"
+        >
           rk
-        </span>
+        </ScrollFloat>
       </div>
       
       {/* Instructional text below */}

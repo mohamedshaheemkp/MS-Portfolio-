@@ -1,27 +1,39 @@
 import FlowingMenu from "../components/FlowingMenu";
-import GradualBlur from "../components/GradualBlur";
+import ProgressiveBlur from "../components/ProgressiveBlur";
 
-import imgPoster from "../assets/poster 1.webp";
-import imgBranding from "../assets/brand 1.webp";
-import imgLogo from "../assets/logo 1.webp";
+import imgPoster1 from "../assets/poster 1.webp";
+import imgPoster2 from "../assets/poster 2.webp";
+import imgPoster3 from "../assets/poster 3.webp";
+import imgPoster4 from "../assets/poster 4.webp";
+import imgPoster5 from "../assets/poster 5.webp";
+import imgPoster6 from "../assets/poster 6.webp";
+
+import imgBrand1 from "../assets/brand 1.webp";
+import imgBrand2 from "../assets/brand 2.webp";
+import imgBrand3 from "../assets/brand 3.webp";
+import imgBrand4 from "../assets/brand 4.webp";
+
+import imgLogo1 from "../assets/logo 1.webp";
+import imgLogo2 from "../assets/logo 2.webp";
+import imgLogo3 from "../assets/logo 3.webp";
 
 const cabinetItems = [
   {
     link: "/design?category=posters",
     text: "POSTERS",
-    image: imgPoster,
+    images: [imgPoster1, imgPoster2, imgPoster3, imgPoster4, imgPoster5, imgPoster6],
     number: "[01]",
   },
   {
     link: "/design?category=branding",
     text: "BRANDING",
-    image: imgBranding,
+    images: [imgBrand1, imgBrand2, imgBrand3, imgBrand4],
     number: "[02]",
   },
   {
     link: "/design?category=logos",
     text: "LOGOS",
-    image: imgLogo,
+    images: [imgLogo1, imgLogo2, imgLogo3],
     number: "[03]",
   }
 ];
@@ -51,15 +63,11 @@ export default function DesignCabinet() {
         </div>
       </div>
 
-      <GradualBlur
-        target="parent"
-        position="bottom"
-        height="8rem"
-        strength={2}
-        divCount={5}
-        curve="bezier"
-        exponential={true}
-        opacity={1}
+      <ProgressiveBlur 
+        position="bottom" 
+        backgroundColor="#050505" 
+        height="8rem" 
+        blurAmount="8px" 
       />
     </section>
   );

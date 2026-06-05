@@ -4,8 +4,10 @@ import { motion, useInView, useScroll, useTransform, useMotionValue } from "fram
 export default function StickyCard({ item }) {
   const containerRef = useRef(null);
   
-  // Lock the scroll position when the card hits its sticky point
-  const [maxScrollY, setMaxScrollY] = useState(Infinity);
+  // Lock the scroll position when the card hits its sticky point.
+  // We use a large finite number instead of Infinity because Framer Motion's
+  // useTransform interpolation breaks (NaN) when working with Infinity ranges.
+  const [maxScrollY, setMaxScrollY] = useState(9999999);
 
   const { scrollY } = useScroll();
   
@@ -17,7 +19,8 @@ export default function StickyCard({ item }) {
 
   useEffect(() => {
     if (isInView) {
-      setMaxScrollY(scrollY.get());
+      // Small timeout ensures layout is fully settled before capturing scroll position
+      setTimeout(() => setMaxScrollY(scrollY.get()), 50);
     }
   }, [isInView, scrollY]);
 
