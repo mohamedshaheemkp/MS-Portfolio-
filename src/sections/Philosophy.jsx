@@ -73,7 +73,7 @@ function CapabilityBlock({ title, items }) {
 
 export default function Philosophy() {
   return (
-    <section className="w-full py-32 md:py-48 px-6 md:px-12 lg:px-24 border-b border-border bg-bg">
+    <section className="w-full py-32 md:py-48 px-6 md:px-12 lg:px-24 bg-bg">
       <div className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
         
         {/* Right Column Grid */}

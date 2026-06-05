@@ -4,7 +4,7 @@ import liveImg from "../assets/agri-live.webp";
 
 export default function AgriAIShowcase() {
   return (
-    <section className="w-full py-32 md:py-48 border-b border-border bg-bg overflow-hidden relative">
+    <section className="w-full py-32 md:py-48 bg-bg overflow-hidden relative">
       
       {/* 01 Header & Title */}
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-24 mb-16 md:mb-24">

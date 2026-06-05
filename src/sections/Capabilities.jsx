@@ -24,7 +24,7 @@ export default function Capabilities() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
-    <section className="w-full py-32 md:py-48 px-6 md:px-12 lg:px-24 border-b border-border bg-bg">
+    <section className="w-full py-32 md:py-48 px-6 md:px-12 lg:px-24 bg-bg">
       <div className="max-w-7xl mx-auto flex flex-col gap-16 md:gap-24">
 
 

@@ -7,7 +7,7 @@ export default function SystemsArchive() {
   const navigate = useNavigate();
 
   return (
-    <section className="relative w-full h-screen flex flex-col items-center justify-center bg-bg border-t border-border overflow-hidden">
+    <section className="relative w-full h-screen flex flex-col items-center justify-center bg-bg overflow-hidden">
 
       <div className="flex items-center justify-center cursor-pointer group w-full px-4"
         onMouseEnter={() => setIsHovered(true)}

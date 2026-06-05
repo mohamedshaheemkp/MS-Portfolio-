@@ -1,4 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
+import GradualBlur from "../components/GradualBlur";
+import TextPressure from "../components/TextPressure";
 import bgImage from "../assets/cinem.webp";
 
 const easeOutExpo = [0.16, 1, 0.3, 1];
@@ -44,11 +46,8 @@ export default function Hero() {
   const yParallax = useTransform(scrollY, [0, 1000], [0, 200]);
   const opacityParallax = useTransform(scrollY, [0, 600], [1, 0]);
 
-  const firstName = "MOHAMED".split("");
-  const lastName = "SHAHEEM".split("");
-
   return (
-    <section className="relative w-full h-screen flex flex-col justify-between px-6 md:px-12 lg:px-24 overflow-hidden border-b border-border bg-[#050505]">
+    <section className="relative w-full h-screen flex flex-col justify-between px-6 md:px-12 lg:px-24 overflow-hidden bg-[#050505]">
       
       {/* Cinematic Background */}
       <motion.div 
@@ -85,21 +84,39 @@ export default function Hero() {
           className="flex flex-col"
         >
           {/* First Name */}
-          <h1 className="text-[14vw] md:text-[9vw] leading-[0.85] font-display font-black text-text-primary flex overflow-hidden uppercase tracking-tighter">
-            {firstName.map((letter, i) => (
-              <motion.span key={`first-${i}`} className="inline-block" variants={wordVariants}>
-                {letter}
-              </motion.span>
-            ))}
-          </h1>
+          <motion.div variants={wordVariants} className="overflow-visible flex">
+            <TextPressure
+              text="MOHAMED"
+              flex={false}
+              alpha={false}
+              stroke={false}
+              width={true}
+              weight={true}
+              italic={true}
+              textColor="#ffffff"
+              strokeColor="#ff0000"
+              autoSize={false}
+              textAlign="left"
+              className="text-[14vw] md:text-[9vw] leading-[0.85] font-display font-black text-text-primary uppercase tracking-tighter overflow-visible"
+            />
+          </motion.div>
           {/* Last Name */}
-          <h1 className="text-[14vw] md:text-[9vw] leading-[0.85] font-display font-black text-text-primary flex overflow-hidden uppercase tracking-tighter ml-0 md:ml-12 lg:ml-24">
-            {lastName.map((letter, i) => (
-              <motion.span key={`last-${i}`} className="inline-block" variants={wordVariants}>
-                {letter}
-              </motion.span>
-            ))}
-          </h1>
+          <motion.div variants={wordVariants} className="overflow-visible flex ml-0 md:ml-12 lg:ml-24">
+            <TextPressure
+              text="SHAHEEM"
+              flex={false}
+              alpha={false}
+              stroke={false}
+              width={true}
+              weight={true}
+              italic={true}
+              textColor="#ffffff"
+              strokeColor="#ff0000"
+              autoSize={false}
+              textAlign="left"
+              className="text-[14vw] md:text-[9vw] leading-[0.85] font-display font-black text-text-primary uppercase tracking-tighter overflow-visible"
+            />
+          </motion.div>
           
           <motion.div variants={subtitleVariants} className="mt-8 md:mt-12 flex flex-col gap-6 ml-0 md:ml-12 lg:ml-24">
             <div className="w-16 h-[2px] bg-accent-blue"></div>
@@ -114,6 +131,16 @@ export default function Hero() {
       {/* Scroll tether line connecting to Core Engine */}
       <div className="absolute bottom-0 left-6 md:left-12 lg:left-24 w-[1px] h-24 bg-gradient-to-b from-transparent to-accent-blue/50 pointer-events-none"></div>
 
+      <GradualBlur
+        target="parent"
+        position="bottom"
+        height="10rem"
+        strength={2}
+        divCount={5}
+        curve="bezier"
+        exponential={true}
+        opacity={1}
+      />
     </section>
   );
 }

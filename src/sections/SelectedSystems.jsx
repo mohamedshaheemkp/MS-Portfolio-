@@ -44,7 +44,7 @@ export default function SelectedSystems() {
   }, [mouseX, mouseY]);
 
   return (
-    <section className="w-full py-32 md:py-48 px-6 md:px-12 lg:px-24 border-b border-border bg-bg relative">
+    <section className="w-full py-32 md:py-48 px-6 md:px-12 lg:px-24 bg-bg relative">
       <div className="max-w-7xl mx-auto flex flex-col gap-16">
         
         <div className="flex items-start mb-8">

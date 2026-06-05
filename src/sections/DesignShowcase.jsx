@@ -13,7 +13,7 @@ const DesignShowcase = () => {
   }));
 
   return (
-    <section id="designs" className="relative bg-black w-full overflow-hidden border-t border-white/[0.05]">
+    <section id="designs" className="relative bg-black w-full overflow-hidden">
       
       <style dangerouslySetInnerHTML={{__html: `
         .no-scrollbar::-webkit-scrollbar {

@@ -8,108 +8,112 @@ export default function Contact() {
     offset: ["start end", "end end"]
   });
 
-  const leftTextX = useTransform(scrollYProgress, [0.6, 1], ["-10%", "0%"]);
-  const rightTextX = useTransform(scrollYProgress, [0.6, 1], ["10%", "0%"]);
-  const coreOpacity = useTransform(scrollYProgress, [0.5, 1], [0, 1]);
-  const coreScale = useTransform(scrollYProgress, [0.5, 1], [0.8, 1]);
+  // Parallax for blueprint grid
+  const gridY = useTransform(scrollYProgress, [0, 1], ["-20%", "0%"]);
+  
+  // Massive Living Name Typography Parallax
+  const leftTextX = useTransform(scrollYProgress, [0, 1], ["-30%", "0%"]);
+  const rightTextX = useTransform(scrollYProgress, [0, 1], ["30%", "0%"]);
+  const textOpacity = useTransform(scrollYProgress, [0.3, 1], [0, 1]);
+  const textScale = useTransform(scrollYProgress, [0.3, 1], [0.8, 1]);
+  
+  // Ambient glow scale and opacity
+  const glowScale = useTransform(scrollYProgress, [0.5, 1], [0.5, 1.2]);
+  const glowOpacity = useTransform(scrollYProgress, [0.5, 1], [0, 0.4]);
 
   return (
-    <section ref={containerRef} className="w-full relative flex flex-col bg-[#050505] overflow-hidden">
-      
-      <div className="w-full flex flex-col px-6 md:px-12 lg:px-24 pt-32 pb-24 md:pb-32 z-10 relative">
+    <section 
+      ref={containerRef} 
+      className="w-full relative h-[100vh] min-h-[700px] flex flex-col bg-[#050505] overflow-hidden justify-end"
+    >
+      {/* 1. Architecture Blueprint Grid */}
+      <div className="absolute inset-0 perspective-[1000px] pointer-events-none overflow-hidden flex items-center justify-center">
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-[1600px] mx-auto w-full flex flex-col gap-0"
+          style={{ y: gridY }}
+          className="w-[200%] h-[200%] opacity-[0.03]"
         >
-          <h2 className="text-[14vw] md:text-[11vw] font-display font-black leading-[0.85] text-text-primary uppercase tracking-tighter hover:text-white transition-colors duration-500 cursor-default">
-            LET'S BUILD
-          </h2>
+          <div 
+            className="w-full h-full"
+            style={{
+              backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+              backgroundSize: '4vw 4vw',
+              transform: 'rotateX(60deg) translateY(-100px)',
+              transformOrigin: 'top center'
+            }}
+          />
         </motion.div>
       </div>
 
-      {/* Lower Area: The Cinematic Footer */}
-      <div className="relative w-full h-[100vh] flex flex-col bg-gradient-to-b from-[#050505] to-[#000000] border-t border-[#111] overflow-hidden">
-        
-        {/* Background Grid Lines */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '4vw 4vw' }}></div>
+      {/* Gradient Mask for Grid */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505] pointer-events-none z-0" />
 
-        {/* Central Glowing System Node */}
-        <motion.div 
-          style={{ opacity: coreOpacity, scale: coreScale }}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none z-0"
-        >
-          {/* Subtle desk/monitor glow ambient effect */}
-          <div className="absolute bottom-0 w-full h-[40vh] bg-accent-blue/10 blur-[120px] rounded-full translate-y-1/2"></div>
-          
-          <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center mb-[10vh]">
-            <motion.div 
-              animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute inset-0 bg-accent-blue rounded-full blur-[70px]"
-            ></motion.div>
-            <motion.div 
-              animate={{ rotate: 360 }}
-              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-              className="absolute w-[60%] h-[60%] border-t border-r border-accent-blue rounded-full opacity-40"
-            ></motion.div>
-            <motion.div 
-              animate={{ opacity: [1, 0, 1] }}
-              transition={{ duration: 1, repeat: Infinity, ease: "stepEnd" }}
-              className="w-2 h-6 md:w-3 md:h-8 bg-accent-blue"
-            ></motion.div>
-          </div>
+      {/* 2. Cinematic Ambient Glow */}
+      <motion.div 
+        style={{ scale: glowScale, opacity: glowOpacity }}
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[70vw] h-[40vh] bg-accent-blue rounded-[100%] blur-[100px] pointer-events-none z-0"
+      />
+
+      {/* 3. Command Center UI - Top Bar */}
+      <div className="absolute top-8 left-0 right-0 px-6 md:px-12 flex justify-between items-center z-20">
+        <div className="flex items-center gap-3 text-text-secondary font-mono text-[10px] md:text-xs uppercase tracking-widest">
+          <motion.span 
+            animate={{ opacity: [1, 0, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-accent-blue"
+          ></motion.span>
+          [ SYSTEM STATUS: LIVE ]
+        </div>
+        <div className="flex items-center gap-3 text-text-secondary font-mono text-[10px] md:text-xs uppercase tracking-widest">
+          NODE // END OF LINE
+        </div>
+      </div>
+
+      {/* 4. Living Name Typography (Massive Scale) */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 gap-0 leading-none">
+        <motion.div style={{ x: leftTextX, opacity: textOpacity, scale: textScale }} className="w-full text-center">
+          <h1 className="text-[18vw] md:text-[15vw] font-display font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-[#333] tracking-tighter select-none drop-shadow-2xl">
+            MOHAMED
+          </h1>
         </motion.div>
+        <motion.div style={{ x: rightTextX, opacity: textOpacity, scale: textScale }} className="w-full text-center mt-[-4vw] md:mt-[-5vw]">
+          <h1 className="text-[18vw] md:text-[15vw] font-display font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-[#333] tracking-tighter select-none drop-shadow-2xl">
+            SHAHEEM
+          </h1>
+        </motion.div>
+      </div>
 
-        {/* TOP NAV ROW */}
-        <div className="absolute top-8 md:top-12 left-0 right-0 px-6 md:px-12 flex justify-between items-center z-20">
-          <div className="font-display font-bold text-sm md:text-lg text-white tracking-wide">
-            Mohamed<span className="text-accent-blue mx-1.5">•</span>Shaheem
-          </div>
-          
-          <div className="flex gap-4 md:gap-8 font-mono text-[10px] md:text-xs uppercase tracking-widest text-text-secondary">
-            <a href="mailto:hello@shaheem.dev" className="hover:text-white transition-colors">Email</a>
-            <a href="https://www.linkedin.com/in/mohamed-shaheem-91a895331" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">In</a>
-            <a href="https://instagram.com/mhd_shm__" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Ig</a>
-            <a href="https://github.com/mohamedshaheemkp" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">GH</a>
-          </div>
+      {/* 5. Terminal UI & Links (Absolute Bottom) */}
+      <div className="relative z-20 w-full px-6 md:px-12 pb-8 md:pb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-12 md:gap-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent pt-32">
+        
+        {/* Initiate Sequence (Contact) */}
+        <div className="flex flex-col gap-2 md:gap-4 group cursor-pointer pointer-events-auto">
+          <span className="font-mono text-[10px] text-text-secondary uppercase tracking-widest transition-colors duration-300 group-hover:text-accent-blue">
+            [ INITIATE SEQUENCE ]
+          </span>
+          <a 
+            href="mailto:hello@shaheem.dev" 
+            className="relative flex items-center font-display font-medium text-2xl md:text-4xl text-white transition-colors duration-500"
+          >
+            hello@shaheem.dev
+            <motion.span 
+              className="absolute -bottom-2 left-0 h-[2px] bg-accent-blue" 
+              initial={{ width: 0 }}
+              whileHover={{ width: "100%" }}
+              transition={{ duration: 0.3 }}
+            />
+          </a>
         </div>
 
-        {/* CENTER RIGHT STACK */}
-        <div className="absolute top-[40%] right-6 md:right-12 hidden md:flex flex-col items-end gap-3 z-20">
-          <span className="font-mono text-[10px] text-text-secondary mb-1 uppercase tracking-widest">Website made using:</span>
-          <span className="font-display font-medium text-sm text-text-primary hover:text-white cursor-default transition-colors">React</span>
-          <span className="font-display font-medium text-sm text-text-primary hover:text-white cursor-default transition-colors">Framer Motion</span>
-          <span className="font-display font-medium text-sm text-text-primary hover:text-white cursor-default transition-colors">Tailwind CSS</span>
-          <span className="font-display font-medium text-sm text-text-primary hover:text-white cursor-default transition-colors">Vite</span>
-        </div>
-
-        {/* BOTTOM LIVING TYPOGRAPHY & SUBTEXT */}
-        <div className="absolute bottom-12 md:bottom-16 left-0 right-0 px-6 md:px-12 flex flex-col md:flex-row justify-between md:items-start z-20 gap-8 md:gap-0">
-          
-          {/* Left Block */}
-          <div className="flex flex-col">
-            <motion.div style={{ x: leftTextX }}>
-              <h1 className="text-[13vw] md:text-[7.5vw] font-display font-black leading-[0.8] text-white tracking-tighter drop-shadow-2xl whitespace-nowrap">
-                MOHAMED
-              </h1>
-            </motion.div>
-            <div className="mt-3 md:mt-6 font-display font-medium text-xs md:text-base text-text-secondary pl-1">
-              AI Engineer & Designer <span className="opacity-50 ml-2">2026</span>
-            </div>
+        {/* Archive Log (Socials) */}
+        <div className="flex flex-col gap-3 md:gap-4 items-start md:items-end pointer-events-auto">
+          <span className="font-mono text-[10px] text-text-secondary uppercase tracking-widest">
+            [ ARCHIVE LOG ]
+          </span>
+          <div className="flex gap-6 font-mono text-xs md:text-sm uppercase tracking-widest text-text-primary">
+            <a href="https://github.com/mohamedshaheemkp" target="_blank" rel="noreferrer" className="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300">GH</a>
+            <a href="https://www.linkedin.com/in/mohamed-shaheem-91a895331" target="_blank" rel="noreferrer" className="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300">IN</a>
+            <a href="https://instagram.com/mhd_shm__" target="_blank" rel="noreferrer" className="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300">IG</a>
           </div>
-          
-          {/* Right Block */}
-          <div className="flex flex-col items-start md:items-end">
-            <motion.div style={{ x: rightTextX }}>
-              <h1 className="text-[13vw] md:text-[7.5vw] font-display font-black leading-[0.8] text-white tracking-tighter drop-shadow-2xl whitespace-nowrap text-left md:text-right">
-                SHAHEEM
-              </h1>
-            </motion.div>
-          </div>
-
         </div>
 
       </div>
