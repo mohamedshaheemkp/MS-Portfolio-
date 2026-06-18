@@ -1,36 +1,60 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import TextRoll from "../components/TextRoll";
+import Cubes from "../components/Cubes";
 
 const nodes = [
-  { id: "ai", project: "AgriAI", tech: "AI & Machine Learning", stack: "Python / PyTorch / Computer Vision" },
-  { id: "auto", project: "Smart Folder Organizer", tech: "Automation", stack: "Python / Watchdog / OS Level" },
-  { id: "frontend", project: "Portfolio V2", tech: "Frontend Engineering", stack: "React / Framer Motion / Vite" },
-  { id: "design", project: "Design Cabinet", tech: "Visual Design", stack: "Figma / Brand Identity / Layout" },
+  { 
+    id: "agriai", 
+    project: "AGRIAI", 
+    subheading: "↳ AI SYSTEMS",
+    category: "AI & MACHINE LEARNING", 
+    color: "#22c55e", 
+    tech: ["TensorFlow", "OpenCV", "YOLO", "FastAPI"],
+    desc: "Crop Disease Detection Platform"
+  },
+  { 
+    id: "smartfolder", 
+    project: "SMART FOLDER ORGANIZER", 
+    subheading: "↳ AUTOMATION SYSTEMS",
+    category: "AUTOMATION", 
+    color: "#3b82f6", 
+    tech: ["Python", "Watchdog", "SQLite", "Tkinter"],
+    desc: "Intelligent File Classification"
+  },
+  { 
+    id: "portfolio", 
+    project: "PORTFOLIO", 
+    subheading: "↳ FRONTEND SYSTEMS",
+    category: "FRONTEND ENGINEERING", 
+    color: "#8b5cf6", 
+    tech: ["React", "Motion", "Tailwind", "GSAP"],
+    desc: "Interactive Personal Portfolio"
+  }
 ];
 
 export default function CoreEngine() {
-  const [activeNode, setActiveNode] = useState(null);
+  const [activeNode, setActiveNode] = useState(nodes[0].id); // Default to first
   
-  // Track the index for the gooey indicator
-  const activeIndex = activeNode ? nodes.findIndex(n => n.id === activeNode) : 0;
+  const activeIndex = nodes.findIndex(n => n.id === activeNode);
+  const activeProject = nodes[activeIndex];
 
   return (
-    <section className="w-full py-32 md:py-48 px-6 md:px-12 lg:px-24 bg-[#050505] overflow-hidden">
-      <div className="max-w-[1600px] mx-auto flex flex-col relative z-10">
+    <section className="w-full py-32 md:py-48 px-6 md:px-12 lg:px-24 bg-[#050505] overflow-hidden min-h-screen flex items-center">
+      <div className="max-w-[1600px] w-full mx-auto flex flex-col relative z-10">
         
         {/* Section Label */}
         <div className="flex items-center gap-4 mb-16 md:mb-32">
-          <span className="w-12 h-[1px] bg-accent-blue"></span>
+          <span className="w-12 h-[1px] bg-[#333]"></span>
           <span className="font-mono text-xs uppercase tracking-widest text-text-secondary">
-            02 — Core Engine
+            02 — CORE ENGINE
           </span>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-stretch justify-between relative">
+        <div className="flex flex-col lg:flex-row items-stretch justify-between relative gap-16 lg:gap-8">
           
           {/* Left Column: Projects */}
-          <div className="flex flex-col w-full lg:w-[50%] z-10 relative">
+          <div className="flex flex-col w-full lg:w-[45%] z-20 relative pt-8">
             
             {/* SVG Defs for Gooey Filter */}
             <svg className="w-0 h-0 absolute" aria-hidden="true">
@@ -52,7 +76,7 @@ export default function CoreEngine() {
 
             {/* Gooey Indicator Column */}
             <div 
-              className="absolute left-0 top-0 bottom-0 w-[30px] pointer-events-none z-0"
+              className="absolute left-0 top-8 bottom-0 w-[30px] pointer-events-none z-0"
               style={{ filter: "url(#SkiperGooeyFilter)" }}
             >
               {/* Background Track Line (Low visual noise) */}
@@ -61,7 +85,7 @@ export default function CoreEngine() {
               {/* Static Anchors (Data nodes) */}
               <div className="w-full h-full flex flex-col pointer-events-none">
                 {nodes.map((node) => (
-                  <div key={`anchor-${node.id}`} className="h-32 md:h-40 flex items-center justify-center">
+                  <div key={`anchor-${node.id}`} className="h-40 md:h-48 flex items-center justify-center">
                     <div className="w-[8px] h-[8px] rounded-full bg-[#333]" />
                   </div>
                 ))}
@@ -70,38 +94,42 @@ export default function CoreEngine() {
               {/* Moving Gooey Blob (Neural data flow) */}
               <motion.div
                 initial={false}
-                animate={{ y: `${activeIndex * 100}%`, opacity: activeNode ? 1 : 0 }}
+                animate={{ y: `${activeIndex * 100}%` }}
                 transition={{ type: "spring", damping: 20, stiffness: 120 }}
-                className="absolute top-0 left-0 w-full h-32 md:h-40 flex items-center justify-center pointer-events-none"
+                className="absolute top-0 left-0 w-full h-40 md:h-48 flex items-center justify-center pointer-events-none"
               >
-                {/* The core shape that merges with the static anchors */}
-                <div className="w-[14px] h-[32px] rounded-full bg-accent-blue drop-shadow-[0_0_12px_rgba(77,124,254,0.6)]" />
+                <div 
+                  className="w-[14px] h-[32px] rounded-full drop-shadow-[0_0_12px_rgba(255,255,255,0.2)] transition-colors duration-500"
+                  style={{ backgroundColor: activeProject.color }}
+                />
               </motion.div>
             </div>
 
             {/* Project List */}
-            <div className="w-full pl-[50px] relative z-10">
+            <div className="w-full pl-[50px] relative z-10 flex flex-col">
               {nodes.map((node) => {
                 const isActive = activeNode === node.id;
                 return (
                   <div 
                     key={node.id}
-                    className="group relative flex flex-col justify-center h-32 md:h-40 cursor-pointer border-b border-[#111] last:border-0"
+                    className="group relative flex flex-col justify-center h-40 md:h-48 cursor-pointer border-b border-[#111] last:border-0"
                     onMouseEnter={() => setActiveNode(node.id)}
-                    onMouseLeave={() => setActiveNode(null)}
                   >
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4 w-full">
-                      {/* TextRoll Integration */}
-                      <div className="text-2xl md:text-4xl font-display font-bold uppercase tracking-wide text-text-secondary w-full transition-colors duration-500">
+                    <div className="flex flex-col gap-2 w-full">
+                      {/* Project Title */}
+                      <div className={`text-3xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-wide transition-colors duration-500 ${isActive ? 'text-white' : 'text-[#444]'}`}>
                         <TextRoll isActive={isActive}>
                           {node.project}
                         </TextRoll>
                       </div>
-
-                      {/* Tech Spec */}
-                      <span className={`font-mono text-[10px] md:text-xs uppercase tracking-widest transition-colors duration-300 md:ml-auto whitespace-nowrap ${isActive ? 'text-accent-blue' : 'text-text-dim'}`}>
-                        [{node.tech}]
-                      </span>
+                      
+                      {/* Subheading */}
+                      <div 
+                        className={`font-mono text-xs md:text-sm tracking-widest pl-2 transition-colors duration-500`}
+                        style={{ color: isActive ? node.color : '#333' }}
+                      >
+                        {node.subheading}
+                      </div>
                     </div>
                   </div>
                 );
@@ -110,24 +138,69 @@ export default function CoreEngine() {
           </div>
 
           {/* Right Column: The Core */}
-          <div className="flex w-full lg:w-[45%] items-center justify-center lg:justify-end mt-16 lg:mt-0 z-10">
-            <motion.div 
-              className={`w-full max-w-[400px] aspect-square rounded-full border flex flex-col items-center justify-center relative transition-colors duration-500 ${activeNode ? 'border-accent-blue bg-accent-blue/5 shadow-[0_0_40px_rgba(77,124,254,0.1)]' : 'border-[#222] bg-[#0a0a0a]'}`}
-            >
-              {/* Outer dashed ring */}
-              <motion.div 
-                animate={{ rotate: activeNode ? 90 : 0 }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
-                className="absolute inset-[-10%] rounded-full border border-dashed border-[#222] opacity-50"
-              />
+          <div className="flex w-full lg:w-[45%] lg:justify-end z-10 relative min-h-[500px]">
+            
+            {/* Background Cubes */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-30 md:opacity-50 pointer-events-auto">
+              <div className="w-[120%] h-[120%] max-w-[800px] max-h-[800px]">
+                <Cubes 
+                  gridSize={10}
+                  maxAngle={60}
+                  radius={5}
+                  borderStyle={`1px solid ${activeProject.color}`}
+                  faceColor="#050505"
+                  rippleColor={activeProject.color}
+                  rippleSpeed={1.4}
+                  autoAnimate={true}
+                  rippleOnClick={false}
+                />
+              </div>
+            </div>
+
+            {/* Rich Text Overlay */}
+            <div className="relative z-10 w-full flex flex-col justify-center py-12 px-6 lg:px-12 pointer-events-none">
               
-              <span className="font-mono text-[10px] uppercase tracking-widest text-text-secondary mb-4">
-                Tech Stack 
-              </span>
-              <span className="font-mono text-sm md:text-base text-center px-8 uppercase tracking-widest text-white leading-loose min-h-[4rem] flex items-center justify-center">
-                {activeNode ? nodes.find(n => n.id === activeNode).stack : "AWAITING INPUT"}
-              </span>
-            </motion.div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeNode}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex flex-col h-full justify-between gap-12"
+                >
+                  
+                  {/* Top Section */}
+                  <div className="inline-flex flex-col self-start backdrop-blur-md bg-black/30 p-6 rounded-2xl border border-white/5">
+                    <h3 className="font-mono text-xs text-[#666] tracking-[0.2em] mb-4">ACTIVE SYSTEM</h3>
+                    <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-2">{activeProject.project}</h2>
+                    <p className="font-mono text-sm tracking-wider" style={{ color: activeProject.color }}>
+                      {activeProject.category}
+                    </p>
+                  </div>
+
+                  {/* Middle Section: Tech List */}
+                  <div className="inline-flex flex-col gap-3 self-start backdrop-blur-md bg-black/30 p-6 rounded-2xl border border-white/5">
+                    {activeProject.tech.map((t, idx) => (
+                      <div key={idx} className="font-mono text-sm md:text-base text-[#888] tracking-widest flex items-center gap-4">
+                        <span className="w-4 h-[1px]" style={{ backgroundColor: activeProject.color, opacity: 0.5 }}></span>
+                        <span className="text-white">{t}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Bottom Section */}
+                  <div className="inline-flex flex-col self-start backdrop-blur-md bg-black/30 p-6 rounded-2xl border border-white/5">
+                    <p className="font-sans text-lg md:text-xl text-[#aaa] font-light">
+                      {activeProject.desc}
+                    </p>
+                  </div>
+
+                </motion.div>
+              </AnimatePresence>
+
+            </div>
+
           </div>
 
         </div>

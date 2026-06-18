@@ -27,11 +27,35 @@ function HomePage() {
   )
 }
 
+import StaggeredMenu from "./components/StaggeredMenu"
+
 function App() {
   const location = useLocation();
 
   return (
     <>
+      <StaggeredMenu
+        position="right"
+        items={[
+          { label: 'HOME', ariaLabel: 'Go to home page', link: '/' },
+          { label: 'SYSTEMS', ariaLabel: 'View systems', link: '/systems' },
+          { label: 'DESIGN', ariaLabel: 'View designs', link: '/design' },
+        ]}
+        socialItems={[
+          { label: 'Twitter', link: 'https://twitter.com' },
+          { label: 'GitHub', link: 'https://github.com' },
+          { label: 'LinkedIn', link: 'https://linkedin.com' }
+        ]}
+        displaySocials={true}
+        displayItemNumbering={true}
+        menuButtonColor="#888"
+        openMenuButtonColor="#fff"
+        changeMenuColorOnOpen={true}
+        colors={['#1a1a1a', '#1e3a8a', '#4d7cfe']}
+        logoText="Mohamed Shaheem"
+        accentColor="#4d7cfe"
+        isFixed={true}
+      />
       <Suspense fallback={null}>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>

@@ -61,22 +61,9 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/50"></div>
       </motion.div>
 
-      {/* Navbar */}
-      <motion.nav 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5, ease: easeOutExpo }}
-        className="relative z-10 w-full max-w-[1600px] mx-auto flex justify-between items-center pt-8 md:pt-12 font-mono text-xs md:text-sm uppercase tracking-widest text-text-secondary"
-      >
-        <span>Mohamed Shaheem</span>
-        <span className="flex items-center gap-2 hover:text-white cursor-pointer transition-colors">
-          Index <span className="text-accent-blue">↘</span>
-        </span>
-      </motion.nav>
-
       {/* Main Content */}
       <motion.div
-        className="relative z-10 max-w-[1600px] w-full mx-auto pb-24 md:pb-32"
+        className="relative z-10 max-w-[1600px] w-full mx-auto pb-24 md:pb-32 pt-32 md:pt-48"
         style={{ y: yParallax, opacity: opacityParallax }}
       >
         <motion.div
