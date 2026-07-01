@@ -40,7 +40,7 @@ export default function CoreEngine() {
   const activeProject = nodes[activeIndex];
 
   return (
-    <section className="w-full py-32 md:py-48 px-6 md:px-12 lg:px-24 bg-[#050505] overflow-hidden min-h-screen flex items-center">
+    <section className="w-full py-32 md:py-48 px-6 md:px-12 lg:px-24 bg-bg overflow-hidden min-h-screen flex items-center">
       <div className="max-w-[1600px] w-full mx-auto flex flex-col relative z-10">
         
         {/* Section Label */}
@@ -144,14 +144,14 @@ export default function CoreEngine() {
             <div className="absolute inset-0 flex items-center justify-center opacity-30 md:opacity-50 pointer-events-auto">
               <div className="w-[120%] h-[120%] max-w-[800px] max-h-[800px]">
                 <Cubes 
-                  gridSize={10}
+                  gridSize={8}
                   maxAngle={60}
                   radius={5}
                   borderStyle={`1px solid ${activeProject.color}`}
-                  faceColor="#050505"
+                  faceColor="#0A0D12"
                   rippleColor={activeProject.color}
                   rippleSpeed={1.4}
-                  autoAnimate={true}
+                  autoAnimate={false}
                   rippleOnClick={false}
                 />
               </div>

@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import ProgressiveBlur from "../components/ProgressiveBlur";
 import VariableProximity from "../components/VariableProximity";
@@ -43,22 +43,23 @@ const subtitleVariants = {
 };
 
 export default function Hero() {
+  const reduceMotion = useReducedMotion();
   const containerRef = useRef(null);
   const { scrollY } = useScroll();
   const yParallax = useTransform(scrollY, [0, 1000], [0, 200]);
   const opacityParallax = useTransform(scrollY, [0, 600], [1, 0]);
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen flex flex-col justify-between px-6 md:px-12 lg:px-24 overflow-hidden bg-[#050505]">
+    <section ref={containerRef} className="relative w-full h-screen flex flex-col justify-between px-6 md:px-12 lg:px-24 overflow-hidden bg-bg">
       
       {/* Cinematic Background */}
       <motion.div 
         className="absolute inset-0 z-0 pointer-events-none"
-        animate={{ scale: [1, 1.1, 1] }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+        animate={reduceMotion ? undefined : { scale: [1, 1.06, 1] }}
+        transition={reduceMotion ? undefined : { duration: 40, repeat: Infinity, ease: "linear" }}
       >
         <img src={bgImage} alt="Cinematic background" className="w-full h-full object-cover opacity-30 mix-blend-luminosity" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-bg/50"></div>
       </motion.div>
 
       {/* Main Content */}
@@ -72,30 +73,30 @@ export default function Hero() {
           animate="visible"
           className="flex flex-col"
         >
-          {/* First Name */}
-          <motion.div variants={wordVariants} className="overflow-visible flex">
-            <VariableProximity
-              label="MOHAMED"
-              fromFontVariationSettings="'wght' 100, 'wdth' 100"
-              toFontVariationSettings="'wght' 900, 'wdth' 200, 'ital' 1"
-              containerRef={containerRef}
-              radius={150}
-              falloff="linear"
-              className="text-[14vw] md:text-[9vw] leading-[0.85] font-black text-text-primary uppercase tracking-tighter overflow-visible"
-            />
-          </motion.div>
-          {/* Last Name */}
-          <motion.div variants={wordVariants} className="overflow-visible flex ml-0 md:ml-12 lg:ml-24">
-            <VariableProximity
-              label="SHAHEEM"
-              fromFontVariationSettings="'wght' 100, 'wdth' 100"
-              toFontVariationSettings="'wght' 900, 'wdth' 200, 'ital' 1"
-              containerRef={containerRef}
-              radius={150}
-              falloff="linear"
-              className="text-[14vw] md:text-[9vw] leading-[0.85] font-black text-text-primary uppercase tracking-tighter overflow-visible"
-            />
-          </motion.div>
+          <h1 className="contents">
+            <motion.div variants={wordVariants} className="overflow-visible flex">
+              <VariableProximity
+                label="MOHAMED"
+                fromFontVariationSettings="'wght' 100, 'wdth' 100"
+                toFontVariationSettings="'wght' 900, 'wdth' 200, 'ital' 1"
+                containerRef={containerRef}
+                radius={150}
+                falloff="linear"
+                className="text-[14vw] md:text-[9vw] leading-[0.85] font-black text-text-primary uppercase tracking-tighter overflow-visible"
+              />
+            </motion.div>
+            <motion.div variants={wordVariants} className="overflow-visible flex ml-0 md:ml-12 lg:ml-24">
+              <VariableProximity
+                label="SHAHEEM"
+                fromFontVariationSettings="'wght' 100, 'wdth' 100"
+                toFontVariationSettings="'wght' 900, 'wdth' 200, 'ital' 1"
+                containerRef={containerRef}
+                radius={150}
+                falloff="linear"
+                className="text-[14vw] md:text-[9vw] leading-[0.85] font-black text-text-primary uppercase tracking-tighter overflow-visible"
+              />
+            </motion.div>
+          </h1>
           
           <motion.div variants={subtitleVariants} className="mt-8 md:mt-12 flex flex-col gap-6 ml-0 md:ml-12 lg:ml-24">
             <div className="w-16 h-[2px] bg-accent-blue"></div>
@@ -112,7 +113,7 @@ export default function Hero() {
 
       <ProgressiveBlur 
         position="bottom" 
-        backgroundColor="#050505" 
+        backgroundColor="#0A0D12"
         height="10rem" 
         blurAmount="8px" 
       />

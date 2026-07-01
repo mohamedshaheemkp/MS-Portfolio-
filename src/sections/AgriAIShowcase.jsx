@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import ScrambledText from "../components/ScrambledText";
-import dashImg from "../assets/agri-dash.webp";
-import liveImg from "../assets/agri-live.webp";
+import dashImg from "../assets/Agri Ai/agri-dash.webp";
+import liveImg from "../assets/Agri Ai/agri-live.webp";
 
 export default function AgriAIShowcase() {
   return (

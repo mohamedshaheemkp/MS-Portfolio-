@@ -1,17 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #050505;
-  --color-surface: #0D0D0D;
-  --color-elevated: #141414;
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: #8C8C8C;
-  --color-border: #1E1E1E;
-  --color-accent-blue: #4D7CFE;
-  --color-accent-red: #FF4D4D;
+  --color-bg: #0A0D12;
+  --color-surface: #1A212B;
+  --color-elevated: #222B37;
+  --color-text-primary: #F5F7FA;
+  --color-text-secondary: #9BA6B4;
+  --color-border: #393E46;
+  --color-accent-blue: #295CFF;
+  --color-accent-red: #F09A82;
+  --color-cyber-teal: #14B8C4;
+  --color-mint-signal: #A8D5BA;
+  --color-soft-ivory: #E8E0A0;
   
   --font-display: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
+  --font-mono: 'DM Mono', monospace;
 
   /* Strict 8px spacing system from blueprint */
   --spacing-1: 4px;
@@ -42,6 +46,11 @@
   
   * {
     border-color: var(--color-border);
+  }
+
+  button, a {
+    outline-color: var(--color-accent-blue);
+    outline-offset: 4px;
   }
   
   ::selection {

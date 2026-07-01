@@ -1,11 +1,5 @@
-@font-face {
-  font-family: 'Compressa VF';
-  src: url('https://res.cloudinary.com/dr6lvwubh/raw/upload/v1529908256/CompressaPRO-GX.woff2');
-  font-style: normal;
-}
-
 .variable-proximity {
-  font-family: 'Compressa VF', sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   text-transform: uppercase;
 }
 

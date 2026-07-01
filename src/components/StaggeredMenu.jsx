@@ -5,7 +5,7 @@ import './StaggeredMenu.css';
 
 export const StaggeredMenu = ({
   position = 'right',
-  colors = ['#111111', '#050505'],
+  colors = ['#1A212B', '#0A0D12'],
   items = [],
   socialItems = [],
   displaySocials = true,
@@ -183,7 +183,7 @@ export const StaggeredMenu = ({
 
     openTlRef.current = tl;
     return tl;
-  }, []);
+  }, [position]);
 
   const playOpen = useCallback(() => {
     if (busyRef.current) return;

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useScroll, useTransform, useMotionValue } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
 export default function StickyCard({ item }) {
   const containerRef = useRef(null);

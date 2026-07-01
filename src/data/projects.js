@@ -1,10 +1,12 @@
-import agriDash from "../assets/agri-dash.webp";
-import agriLive from "../assets/agri-live.webp";
+import agriDash from "../assets/Agri Ai/agri-dash.webp";
+import agriLive from "../assets/Agri Ai/agri-live.webp";
 import heroImage from "../assets/hero.webp";
+import sfoImage from "../assets/SFO.webp";
 
 export const projects = [
   {
     id: "agri-ai",
+    route: "/systems/agriai",
     title: "AgriAI",
     category: "AI",
     subtitle: "Real-time Crop Disease Detection System",
@@ -14,6 +16,8 @@ export const projects = [
     github: "https://github.com/mohamedshaheemkp/Agri-Ai.git",
     live: "#",
     featured: true,
+    accent: "#14B8C4",
+    challenge: "Crop monitoring is slow when it depends on manual inspection. By the time visible symptoms are confirmed, disease and pest damage may already have spread across a field.",
     metrics: [
       { label: "Accuracy", value: "98.4", suffix: "%" },
       { label: "Inference Time", value: "12", suffix: "ms" },
@@ -35,15 +39,18 @@ export const projects = [
   },
   {
     id: "smart-folder-organizer",
+    route: "/systems/smart-folder",
     title: "Smart Folder Organizer",
     category: "Automation",
     subtitle: "Intelligent File Management System",
     description: "Built an intelligent file management system in Python that monitors directories in real time using Watchdog and automatically categorizes files into structured folders based on type and custom rules. Solved the challenge of recursive organization loops and large-directory performance.",
     tech: ["Python", "Tkinter", "Watchdog", "File Handling", "Automation", "OS Module"],
-    images: [],
+    images: [sfoImage],
     github: "https://github.com/mohamedshaheemkp/smart-folder-organizer",
     live: "#",
     featured: true,
+    accent: "#A8D5BA",
+    challenge: "Downloads and working directories accumulate files faster than people can classify them. A useful organizer also needs safe undo behavior, clear logs, and protection against recursive moves.",
     metrics: [
       { label: "Files Sorted", value: "∞", suffix: "" },
       { label: "Detection Speed", value: "<1", suffix: "s" },
@@ -65,6 +72,7 @@ export const projects = [
   },
   {
     id: "ai-portfolio",
+    route: "/systems/portfolio",
     title: "AI Portfolio",
     category: "Web Development",
     subtitle: "Cinematic Personal Branding",
@@ -74,6 +82,8 @@ export const projects = [
     github: "https://github.com/mohamedshaheemkp/MS-Portfolio-.git",
     live: "https://ms-portfolio-fawn.vercel.app/",
     featured: true,
+    accent: "#295CFF",
+    challenge: "A hybrid AI engineering and design practice cannot be represented well by a generic project grid. The portfolio needed to communicate systems thinking through structure, motion, and editorial hierarchy.",
     metrics: [
       { label: "Lighthouse Score", value: "98", suffix: "" },
       { label: "Animation Nodes", value: "120", suffix: "+" },
@@ -81,7 +91,7 @@ export const projects = [
     ],
     timeline: [
       { step: "Concept Design", desc: "Studied Linear, Vercel, and modern AI startups to establish a dark-mode visual language." },
-      { step: "Architecture", desc: "Set up a Vite + React scaffolding with Lenis for smooth scrolling." },
+      { step: "Architecture", desc: "Set up a Vite and React architecture with route-aware editorial sections." },
       { step: "Animation Implementation", desc: "Used Framer Motion to map scroll progress to complex 3D transforms." },
       { step: "Optimization", desc: "Lazy-loaded heavy assets and reduced reflows to maintain 60fps." }
     ],
@@ -90,7 +100,7 @@ export const projects = [
       { title: "Magnetic Interactions", desc: "Buttons and links dynamically attract the cursor using spring physics." },
       { title: "Custom Routing", desc: "Seamless page transitions via Framer Motion AnimatePresence." }
     ],
-    architecture: "Built on a modern React 19 stack powered by Vite. The UI is exclusively styled with Tailwind CSS v4. Animation orchestration relies heavily on Framer Motion's useScroll and useSpring hooks attached to a Lenis virtual scroll instance.",
+    architecture: "Built on React 19 and Vite with Tailwind CSS v4. Framer Motion and focused GSAP interactions provide route transitions, scroll-linked motion, and tactile interface feedback without a virtual scrolling layer.",
     results: "Achieved a premium, stutter-free experience across desktop and mobile, resulting in increased engagement and significantly higher perceived technical competency."
   }
 ];

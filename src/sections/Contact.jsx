@@ -24,7 +24,7 @@ export default function Contact() {
   return (
     <section 
       ref={containerRef} 
-      className="w-full relative h-[100vh] min-h-[700px] flex flex-col bg-[#050505] overflow-hidden justify-end"
+      className="w-full relative h-[100vh] min-h-[700px] flex flex-col bg-bg overflow-hidden justify-end"
     >
       {/* 1. Architecture Blueprint Grid */}
       <div className="absolute inset-0 perspective-[1000px] pointer-events-none overflow-hidden flex items-center justify-center">
@@ -45,7 +45,7 @@ export default function Contact() {
       </div>
 
       {/* Gradient Mask for Grid */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505] pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-bg pointer-events-none z-0" />
 
       {/* 2. Cinematic Ambient Glow */}
       <motion.div 
@@ -83,7 +83,7 @@ export default function Contact() {
       </div>
 
       {/* 5. Terminal UI & Links (Absolute Bottom) */}
-      <div className="relative z-20 w-full px-6 md:px-12 pb-8 md:pb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-12 md:gap-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent pt-32">
+      <div className="relative z-20 w-full px-6 md:px-12 pb-8 md:pb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-12 md:gap-0 bg-gradient-to-t from-bg via-bg/80 to-transparent pt-32">
         
         {/* Initiate Sequence (Contact) */}
         <div className="flex flex-col gap-2 md:gap-4 group cursor-pointer pointer-events-auto">

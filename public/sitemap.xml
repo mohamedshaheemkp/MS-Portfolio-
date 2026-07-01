@@ -5,5 +5,9 @@
     <loc>https://ms-portfolio-fawn.vercel.app/</loc>
     <priority>1.0</priority>
   </url>
-
+  <url><loc>https://ms-portfolio-fawn.vercel.app/systems</loc></url>
+  <url><loc>https://ms-portfolio-fawn.vercel.app/systems/agriai</loc></url>
+  <url><loc>https://ms-portfolio-fawn.vercel.app/systems/smart-folder</loc></url>
+  <url><loc>https://ms-portfolio-fawn.vercel.app/systems/portfolio</loc></url>
+  <url><loc>https://ms-portfolio-fawn.vercel.app/design</loc></url>
 </urlset>

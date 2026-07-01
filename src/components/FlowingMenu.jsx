@@ -30,9 +30,18 @@ function MenuItem({ link, text, image, images, number, speed }) {
   const animationRef = useRef(null);
   const imgRefs = useRef([]);
   const [repetitions, setRepetitions] = useState(4);
+  const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
 
   const animationDefaults = { duration: 0.6, ease: 'expo' };
+
+  useEffect(() => {
+    const element = itemRef.current;
+    if (!element) return;
+    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { rootMargin: '100px' });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   const findClosestEdge = (mouseX, mouseY, width, height) => {
     const topEdgeDist = distMetric(mouseX, mouseY, width / 2, 0);
@@ -67,7 +76,7 @@ function MenuItem({ link, text, image, images, number, speed }) {
 
   useEffect(() => {
     const setupMarquee = () => {
-      if (!marqueeInnerRef.current) return;
+      if (!marqueeInnerRef.current || !isVisible || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       const marqueeContent = marqueeInnerRef.current.querySelector('.marquee__part');
       if (!marqueeContent) return;
@@ -95,7 +104,7 @@ function MenuItem({ link, text, image, images, number, speed }) {
         animationRef.current.kill();
       }
     };
-  }, [text, image, images, repetitions, speed]);
+  }, [text, image, images, repetitions, speed, isVisible]);
 
   const handleMouseEnter = ev => {
     if (!itemRef.current || !marqueeRef.current || !marqueeInnerRef.current) return;
