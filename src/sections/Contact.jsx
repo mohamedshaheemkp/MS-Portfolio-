@@ -1,5 +1,64 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+
+function MagneticLink({ children, className, href, target, rel }) {
+  const ref = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  // Smooth springs for magnetic attraction
+  const springX = useSpring(x, { stiffness: 150, damping: 15 });
+  const springY = useSpring(y, { stiffness: 150, damping: 15 });
+
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(pointer: fine)");
+    setIsDesktop(mediaQuery.matches);
+    const handler = (e) => setIsDesktop(e.matches);
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, []);
+
+  const handleMouseMove = (e) => {
+    if (!isDesktop || !ref.current) return;
+    const { clientX, clientY } = e;
+    const rect = ref.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const distanceX = clientX - centerX;
+    const distanceY = clientY - centerY;
+
+    // Pull factor is 0.35, clamped to maximum 10px radius
+    const pullFactor = 0.35;
+    const targetX = Math.max(-10, Math.min(10, distanceX * pullFactor));
+    const targetY = Math.max(-10, Math.min(10, distanceY * pullFactor));
+
+    x.set(targetX);
+    y.set(targetY);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.a
+      ref={ref}
+      href={href}
+      target={target}
+      rel={rel}
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x: springX, y: springY }}
+    >
+      {children}
+    </motion.a>
+  );
+}
 
 export default function Contact() {
   const containerRef = useRef(null);
@@ -23,9 +82,20 @@ export default function Contact() {
 
   return (
     <section 
+      id="contact"
       ref={containerRef} 
       className="w-full relative h-[100vh] min-h-[700px] flex flex-col bg-bg overflow-hidden justify-end"
     >
+      
+      {/* Section Label */}
+      <div className="absolute top-24 left-0 right-0 px-6 md:px-12 lg:px-24 pointer-events-none z-20">
+        <div className="max-w-[1600px] mx-auto flex items-center gap-4">
+          <span className="w-12 h-[1px] bg-[#333]"></span>
+          <span className="font-mono text-xs uppercase tracking-widest text-text-secondary">
+            06 — CONTACT
+          </span>
+        </div>
+      </div>
       {/* 1. Architecture Blueprint Grid */}
       <div className="absolute inset-0 perspective-[1000px] pointer-events-none overflow-hidden flex items-center justify-center">
         <motion.div 
@@ -90,7 +160,7 @@ export default function Contact() {
           <span className="font-mono text-[10px] text-text-secondary uppercase tracking-widest transition-colors duration-300 group-hover:text-accent-blue">
             [ INITIATE SEQUENCE ]
           </span>
-          <a 
+          <MagneticLink
             href="mailto:hello@shaheem.dev" 
             className="relative flex items-center font-display font-medium text-2xl md:text-4xl text-white transition-colors duration-500"
           >
@@ -101,7 +171,7 @@ export default function Contact() {
               whileHover={{ width: "100%" }}
               transition={{ duration: 0.3 }}
             />
-          </a>
+          </MagneticLink>
         </div>
 
         {/* Archive Log (Socials) */}
@@ -110,9 +180,9 @@ export default function Contact() {
             [ ARCHIVE LOG ]
           </span>
           <div className="flex gap-6 font-mono text-xs md:text-sm uppercase tracking-widest text-text-primary">
-            <a href="https://github.com/mohamedshaheemkp" target="_blank" rel="noreferrer" className="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300">GH</a>
-            <a href="https://www.linkedin.com/in/mohamed-shaheem-91a895331" target="_blank" rel="noreferrer" className="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300">IN</a>
-            <a href="https://instagram.com/mhd_shm__" target="_blank" rel="noreferrer" className="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300">IG</a>
+            <MagneticLink href="https://github.com/mohamedshaheemkp" target="_blank" rel="noreferrer" className="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300">GH</MagneticLink>
+            <MagneticLink href="https://www.linkedin.com/in/mohamed-shaheem-91a895331" target="_blank" rel="noreferrer" className="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300">IN</MagneticLink>
+            <MagneticLink href="https://instagram.com/mhd_shm__" target="_blank" rel="noreferrer" className="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-300">IG</MagneticLink>
           </div>
         </div>
 

@@ -1,10 +1,11 @@
-import { lazy, Suspense } from "react"
+import { lazy, Suspense, useState, useEffect } from "react"
 import { Routes, Route, useLocation, Navigate } from "react-router-dom"
 import { AnimatePresence } from "framer-motion"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import { Analytics } from "@vercel/analytics/react"
 
 import Hero from "./sections/Hero"
+import IntroSequence from "./components/IntroSequence"
 
 const CoreEngine = lazy(() => import("./sections/CoreEngine"))
 const AgriAIShowcase = lazy(() => import("./sections/AgriAIShowcase"))
@@ -33,12 +34,42 @@ function HomePage() {
 }
 
 import StaggeredMenu from "./components/StaggeredMenu"
+import CustomCursor from "./components/CustomCursor"
+import StatusLabel from "./components/StatusLabel"
 
 function App() {
   const location = useLocation();
+  const [isIntroComplete, setIsIntroComplete] = useState(() => {
+    return sessionStorage.getItem("intro_complete") === "true";
+  });
+
+  // Lock body scroll while intro sequence is active
+  useEffect(() => {
+    if (!isIntroComplete && location.pathname === "/") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isIntroComplete, location.pathname]);
 
   return (
     <>
+      <AnimatePresence mode="wait">
+        {!isIntroComplete && location.pathname === "/" && (
+          <IntroSequence 
+            onComplete={() => {
+              sessionStorage.setItem("intro_complete", "true");
+              setIsIntroComplete(true);
+            }} 
+          />
+        )}
+      </AnimatePresence>
+
+      <CustomCursor />
+      <StatusLabel />
       <StaggeredMenu
         position="right"
         items={[

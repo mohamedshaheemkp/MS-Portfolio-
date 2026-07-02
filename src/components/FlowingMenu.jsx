@@ -162,6 +162,7 @@ function MenuItem({ link, text, image, images, number, speed }) {
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        data-cursor="OPEN"
       >
         <span className="menu__item-number">{number}</span>
         <span className="menu__item-title">{text}</span>

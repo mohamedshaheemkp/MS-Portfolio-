@@ -1,14 +1,106 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import ScrollFloat from "../components/ScrollFloat";
 
 export default function SystemsArchive() {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
+  const sectionRef = useRef(null);
+
+  // Mouse tracking for parallax elements
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth springs for coordinate updates
+  const springX = useSpring(mouseX, { damping: 50, stiffness: 200 });
+  const springY = useSpring(mouseY, { damping: 50, stiffness: 200 });
+
+  const reduceMotion = useReducedMotion();
+
+  // Offset transforms for floating chips (varying rates for 3D depth)
+  const chip1X = useTransform(springX, (x) => reduceMotion ? 0 : x * 0.05);
+  const chip1Y = useTransform(springY, (y) => reduceMotion ? 0 : y * 0.05);
+
+  const chip2X = useTransform(springX, (x) => reduceMotion ? 0 : x * -0.07);
+  const chip2Y = useTransform(springY, (y) => reduceMotion ? 0 : y * -0.07);
+
+  const chip3X = useTransform(springX, (x) => reduceMotion ? 0 : x * 0.08);
+  const chip3Y = useTransform(springY, (y) => reduceMotion ? 0 : y * 0.08);
+
+  const chip4X = useTransform(springX, (x) => reduceMotion ? 0 : x * -0.04);
+  const chip4Y = useTransform(springY, (y) => reduceMotion ? 0 : y * -0.04);
+
+  const handleMouseMove = (e) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const x = e.clientX - rect.left - centerX;
+    const y = e.clientY - rect.top - centerY;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleSectionMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   return (
-    <section className="relative w-full h-screen flex flex-col items-center justify-center bg-bg overflow-hidden">
+    <section 
+      id="systems-archive" 
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleSectionMouseLeave}
+      className="relative w-full h-screen flex flex-col items-center justify-center bg-bg overflow-hidden"
+    >
+      {/* Floating Telemetry Parallax Chips */}
+      {/* Chip 1 (Top Left) */}
+      <motion.div
+        style={{ x: chip1X, y: chip1Y }}
+        className="absolute top-[20%] left-[5%] md:left-[15%] pointer-events-none z-10 opacity-20 font-mono text-[9px] md:text-[10px] tracking-widest text-text-secondary bg-[#0E131F]/40 border border-white/5 px-3 py-1.5 rounded-full flex items-center gap-2"
+      >
+        <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
+        3 SYSTEMS
+      </motion.div>
+
+      {/* Chip 2 (Top Right) */}
+      <motion.div
+        style={{ x: chip2X, y: chip2Y }}
+        className="absolute top-[25%] right-[5%] md:right-[15%] pointer-events-none z-10 opacity-20 font-mono text-[9px] md:text-[10px] tracking-widest text-text-secondary bg-[#0E131F]/40 border border-white/5 px-3 py-1.5 rounded-full flex items-center gap-2"
+      >
+        <span className="w-1.5 h-1.5 rounded-full bg-[#14B8C4]"></span>
+        2026
+      </motion.div>
+
+      {/* Chip 3 (Bottom Left) */}
+      <motion.div
+        style={{ x: chip3X, y: chip3Y }}
+        className="absolute bottom-[25%] left-[5%] md:left-[15%] pointer-events-none z-10 opacity-20 font-mono text-[9px] md:text-[10px] tracking-widest text-text-secondary bg-[#0E131F]/40 border border-white/5 px-3 py-1.5 rounded-full flex items-center gap-2"
+      >
+        <span className="w-1.5 h-1.5 rounded-full bg-[#A8D5BA]"></span>
+        REACT // FRAMER MOTION
+      </motion.div>
+
+      {/* Chip 4 (Bottom Right) */}
+      <motion.div
+        style={{ x: chip4X, y: chip4Y }}
+        className="absolute bottom-[20%] right-[5%] md:right-[15%] pointer-events-none z-10 opacity-20 font-mono text-[9px] md:text-[10px] tracking-widest text-text-secondary bg-[#0E131F]/40 border border-white/5 px-3 py-1.5 rounded-full flex items-center gap-2"
+      >
+        <span className="w-1.5 h-1.5 rounded-full bg-[#295CFF]"></span>
+        AI ENGINEERING
+      </motion.div>
+
+      {/* Section Label */}
+      <div className="absolute top-8 md:top-16 lg:top-24 left-0 right-0 px-6 md:px-12 lg:px-24 pointer-events-none z-20">
+        <div className="max-w-[1600px] mx-auto flex items-center gap-4">
+          <span className="w-12 h-[1px] bg-[#333]"></span>
+          <span className="font-mono text-xs uppercase tracking-widest text-text-secondary">
+            04 — SYSTEMS ARCHIVE
+          </span>
+        </div>
+      </div>
 
       <div className="flex items-center justify-center cursor-pointer group w-full px-4"
         onMouseEnter={() => setIsHovered(true)}

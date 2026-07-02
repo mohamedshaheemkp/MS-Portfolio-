@@ -1,5 +1,6 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, animate, useReducedMotion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import TextRoll from "../components/TextRoll";
 import Cubes from "../components/Cubes";
 
@@ -11,7 +12,8 @@ const nodes = [
     category: "AI & MACHINE LEARNING", 
     color: "#22c55e", 
     tech: ["TensorFlow", "OpenCV", "YOLO", "FastAPI"],
-    desc: "Crop Disease Detection Platform"
+    desc: "Crop Disease Detection Platform",
+    route: "/systems/agriai"
   },
   { 
     id: "smartfolder", 
@@ -20,7 +22,8 @@ const nodes = [
     category: "AUTOMATION", 
     color: "#3b82f6", 
     tech: ["Python", "Watchdog", "SQLite", "Tkinter"],
-    desc: "Intelligent File Classification"
+    desc: "Intelligent File Classification",
+    route: "/systems/smart-folder"
   },
   { 
     id: "portfolio", 
@@ -29,18 +32,90 @@ const nodes = [
     category: "FRONTEND ENGINEERING", 
     color: "#8b5cf6", 
     tech: ["React", "Motion", "Tailwind", "GSAP"],
-    desc: "Interactive Personal Portfolio"
+    desc: "Interactive Personal Portfolio",
+    route: "/systems/portfolio"
   }
 ];
 
 export default function CoreEngine() {
   const [activeNode, setActiveNode] = useState(nodes[0].id); // Default to first
+  const navigate = useNavigate();
+  const reduceMotion = useReducedMotion();
   
   const activeIndex = nodes.findIndex(n => n.id === activeNode);
   const activeProject = nodes[activeIndex];
 
+  // Mouse tracking for background spotlight/glow
+  const sectionRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth springs for mouse movement
+  const springX = useSpring(mouseX, { damping: 50, stiffness: 200 });
+  const springY = useSpring(mouseY, { damping: 50, stiffness: 200 });
+
+  const glowX = reduceMotion ? mouseX : springX;
+  const glowY = reduceMotion ? mouseY : springY;
+
+  // Color motion value to transition colors smoothly
+  const colorMotion = useMotionValue(activeProject.color);
+
+  useEffect(() => {
+    animate(colorMotion, activeProject.color, {
+      duration: 0.8,
+      ease: "easeOut"
+    });
+  }, [activeProject.color, colorMotion]);
+
+  // Create the dynamic background radial gradient
+  const glowBg = useTransform(colorMotion, (color) => {
+    return `radial-gradient(400px circle at center, ${color} 0%, transparent 70%)`;
+  });
+
+  const handleMouseMove = (e) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  };
+
+  const handleProjectClick = (node) => {
+    if (activeNode === node.id) {
+      navigate(node.route);
+    } else {
+      setActiveNode(node.id);
+    }
+  };
+
   return (
-    <section className="w-full py-32 md:py-48 px-6 md:px-12 lg:px-24 bg-bg overflow-hidden min-h-screen flex items-center">
+    <section 
+      id="core-engine" 
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="w-full py-32 md:py-48 px-6 md:px-12 lg:px-24 bg-bg overflow-hidden min-h-screen flex items-center relative group"
+    >
+      {/* Dynamic Cursor Glow Backdrop */}
+      <motion.div
+        className="absolute pointer-events-none rounded-full blur-[80px] z-0"
+        style={{
+          width: "800px",
+          height: "800px",
+          background: glowBg,
+          left: glowX,
+          top: glowY,
+          x: "-50%",
+          y: "-50%",
+        }}
+        animate={{
+          opacity: isHovered ? 0.15 : 0,
+          scale: isHovered ? 1 : 0.8
+        }}
+        transition={{ duration: 0.5 }}
+      />
+
       <div className="max-w-[1600px] w-full mx-auto flex flex-col relative z-10">
         
         {/* Section Label */}
@@ -114,6 +189,9 @@ export default function CoreEngine() {
                     key={node.id}
                     className="group relative flex flex-col justify-center h-40 md:h-48 cursor-pointer border-b border-[#111] last:border-0"
                     onMouseEnter={() => setActiveNode(node.id)}
+                    onClick={() => handleProjectClick(node)}
+                    data-cursor="VIEW"
+                    style={{ "--cursor-color": node.color }}
                   >
                     <div className="flex flex-col gap-2 w-full">
                       {/* Project Title */}
