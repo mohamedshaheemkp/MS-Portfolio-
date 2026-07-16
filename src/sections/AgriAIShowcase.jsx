@@ -331,7 +331,7 @@ export default function AgriAIShowcase() {
 
       {/* 02 Interactive Visual Viewport */}
       <div className="w-full max-w-[1800px] mx-auto px-0 md:px-12 lg:px-24 mb-24 md:mb-32">
-        <div className="relative aspect-[16/10] md:aspect-video bg-[#0A0A0A] border-y md:border border-border shadow-2xl overflow-hidden group">
+        <div className="relative aspect-[4/3] sm:aspect-[16/10] md:aspect-video bg-[#0A0A0A] border-y md:border border-border shadow-2xl overflow-hidden group">
           <AnimatePresence mode="wait">
             {renderVisual()}
           </AnimatePresence>

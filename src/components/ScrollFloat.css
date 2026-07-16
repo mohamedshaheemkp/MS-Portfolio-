@@ -21,5 +21,6 @@
   line-height: 0.9;
   letter-spacing: -0.06em;
   text-transform: uppercase;
-  color: var(--text-primary);
+  color: var(--color-text-primary);
 }
+

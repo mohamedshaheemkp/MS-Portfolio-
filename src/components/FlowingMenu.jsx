@@ -63,6 +63,8 @@ function MenuItem({ link, text, image, images, number, speed }) {
       if (!marqueeContent) return;
 
       const contentWidth = marqueeContent.offsetWidth;
+      if (!contentWidth) return;
+      
       const viewportWidth = window.innerWidth;
 
       const needed = Math.ceil(viewportWidth / contentWidth) + 2;

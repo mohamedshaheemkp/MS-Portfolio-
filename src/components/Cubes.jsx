@@ -32,10 +32,22 @@ const Cubes = ({
   const enterDur = duration.enter;
   const leaveDur = duration.leave;
 
+  const cubesRef = useRef([]);
+
+  useEffect(() => {
+    if (sceneRef.current) {
+      cubesRef.current = Array.from(sceneRef.current.querySelectorAll('.cube'));
+    }
+  }, [gridSize]);
+
   const tiltAt = useCallback(
     (rowCenter, colCenter) => {
       if (!sceneRef.current) return;
-      sceneRef.current.querySelectorAll('.cube').forEach(cube => {
+      const cubes = cubesRef.current.length ? cubesRef.current : Array.from(sceneRef.current.querySelectorAll('.cube'));
+      if (!cubesRef.current.length && cubes.length) {
+        cubesRef.current = cubes;
+      }
+      cubes.forEach(cube => {
         const r = +cube.dataset.row;
         const c = +cube.dataset.col;
         const dist = Math.hypot(r - rowCenter, c - colCenter);

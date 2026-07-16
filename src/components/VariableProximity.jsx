@@ -26,8 +26,10 @@ const VariableProximity = forwardRef(function VariableProximity({
   }, [fromFontVariationSettings, toFontVariationSettings]);
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
     const update = (clientX, clientY) => {
-      if (!containerRef.current) return;
       letterRefs.current.forEach((letter) => {
         if (!letter) return;
         const rect = letter.getBoundingClientRect();
@@ -37,16 +39,33 @@ const VariableProximity = forwardRef(function VariableProximity({
         letter.style.fontVariationSettings = axes.map(({ axis, fromValue, toValue }) => `'${axis}' ${fromValue + (toValue - fromValue) * strength}`).join(", ");
       });
     };
+
+    const reset = () => {
+      letterRefs.current.forEach((letter) => {
+        if (!letter) return;
+        letter.style.fontVariationSettings = fromFontVariationSettings;
+      });
+    };
+
     const onPointerMove = (event) => {
       cancelAnimationFrame(frameRef.current);
       frameRef.current = requestAnimationFrame(() => update(event.clientX, event.clientY));
     };
-    window.addEventListener("pointermove", onPointerMove, { passive: true });
+
+    const onPointerLeave = () => {
+      cancelAnimationFrame(frameRef.current);
+      reset();
+    };
+
+    container.addEventListener("pointermove", onPointerMove, { passive: true });
+    container.addEventListener("pointerleave", onPointerLeave, { passive: true });
+
     return () => {
-      window.removeEventListener("pointermove", onPointerMove);
+      container.removeEventListener("pointermove", onPointerMove);
+      container.removeEventListener("pointerleave", onPointerLeave);
       cancelAnimationFrame(frameRef.current);
     };
-  }, [axes, containerRef, falloff, radius]);
+  }, [axes, containerRef, falloff, radius, fromFontVariationSettings]);
 
   let letterIndex = 0;
   const words = label.split(" ");
