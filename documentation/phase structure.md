@@ -1,298 +1,215 @@
-I actually think we should go one level above an implementation plan.
+MS Portfolio v2
+Master Production Roadmap
+(2026 Edition)
+Philosophy
 
-What we need is a production roadmap, the same way a product team would build a premium website. Instead of "build Hero → build About → build Projects", we'll first build the foundation, then the design system, then the experience.
+The portfolio is built in layers.
 
-The goal isn't just to finish the portfolio—it's to create something that would pass a senior frontend code review.
+Each layer becomes the foundation for the next.
 
-MS Portfolio v2 — Production Implementation Roadmap
-Phase 0
-Research & Architecture
-        ↓
-Phase 1
+No layer should depend on unfinished architecture.
+
+Think of it like constructing a skyscraper.
+
+Research
+↓
+
+Architecture
+
+↓
+
 Foundation
-        ↓
-Phase 2
+
+↓
+
 Design System
-        ↓
-Phase 3
-Core Infrastructure
-        ↓
-Phase 4
-Page Sections
-        ↓
-Phase 5
-Interactions
-        ↓
-Phase 6
-Advanced Motion
-        ↓
-Phase 7
-Performance
-        ↓
-Phase 8
-Content Polish
-        ↓
-Phase 9
-Testing
-        ↓
-Deployment
-PHASE 0 — Research & Planning
 
-Objective
+↓
 
-Never touch code until everything is planned.
+Infrastructure
 
-0.1 Competitor Research
+↓
 
-Analyze
+Features
+
+↓
+
+Experience
+
+↓
+
+Optimization
+
+↓
+
+Production
+
+↓
+
+Evolution
+PASS STRUCTURE
+
+Instead of one giant implementation timeline, the project is divided into three major passes.
+
+PASS 1
+Build
+
+↓
+
+PASS 2
+Experience
+
+↓
+
+PASS 3
+Production
+
+Each pass contains multiple phases.
+
+PASS 1 — BUILD
+
+Goal:
+
+Build a complete, functional portfolio with excellent architecture before adding advanced effects.
+
+Phase 0
+Vision & Research
+
+Purpose
+
+Understand what we're building.
+
+Deliverables
+
+Brand Vision
+Design Direction
+Visual Language
+Competitor Analysis
+Audience Analysis
+Portfolio Goals
+Success Metrics
+
+Research
 
 Juan Mora
 Bruno Simon
 Olivier Larose
-Locomotive
+Cuberto
 Daniel Spatzek
 Maxime Heckel
-Cuberto
+Locomotive
 
-For each
+Outputs
 
-Document
+DESIGN_DIRECTION.md
 
-Layout
-Typography
-Motion
-Scroll
-CTA
-Storytelling
-Interaction
-Navigation
-Footer
-Loading experience
-0.2 User Journey
+RESEARCH.md
 
-Design the visitor flow.
+ART_DIRECTION.md
 
-Landing
+CONTENT_STRATEGY.md
+Phase 1
+Product Strategy
 
-↓
+Purpose
 
-Curiosity
+Define the portfolio before writing code.
 
-↓
+Deliverables
 
-Trust
+User Personas
+Visitor Journey
+Information Architecture
+Navigation Flow
+Content Map
+Feature Priorities
+MVP Scope
+Future Scope
 
-↓
+Outputs
 
-Projects
+PRODUCT.md
 
-↓
+SITE_MAP.md
 
-Technical ability
+ROADMAP.md
+Phase 2
+Foundation
 
-↓
+Purpose
 
-Personality
+Create the project skeleton.
 
-↓
+Includes
 
-Contact
+Folder Architecture
+Project Structure
+Package Setup
+ESLint
+Prettier
+Husky
+Git Hooks
+Environment Setup
+Path Aliases
 
-↓
+Libraries
 
-Hire
-
-Every section must move users toward the next step.
-
-0.3 Information Architecture
-
-Example:
-
-Hero
-
-↓
-
-About
-
-↓
-
-Selected Work
-
-↓
-
-Systems Archive
-
-↓
-
-Design Showcase
-
-↓
-
-Timeline
-
-↓
-
-Skills
-
-↓
-
-Certificates
-
-↓
-
-Testimonials
-
-↓
-
-FAQ
-
-↓
-
-Contact
-PHASE 1 — Project Foundation
-
-Before UI.
-
-Folder Structure
-src
-
-app
-
-components
-    layout
-    navigation
-    ui
-    sections
-    animations
-    shared
-
-hooks
-
-lib
-
-styles
-
-utils
-
-constants
-
-types
-
-data
-
-assets
-    images
-    videos
-    icons
-    models
-
-config
-
-providers
-Code Standards
-
-Every file
-
-One responsibility
-
-One export
-
-One purpose
-
-No
-
-500-line components
-Install Core Libraries
 React
-
 Vite
-
 Tailwind
-
 Motion
-
 Lenis
-
-React Icons
-
 clsx
-
 tailwind-merge
 
-react-intersection-observer
+Deliverables
 
-react-use
+Clean repository
 
-three
+Stable architecture
 
-drei
+No feature code
+Phase 3
+Design System
 
-leva
+This becomes the heart of the project.
 
-Only install when actually needed.
+Includes
 
-PHASE 2 — Design System
+Color Tokens
+Background
 
-The most important phase.
+Surface
 
-Colors
+Elevated
 
-Instead of random colors
+Border
 
-Create tokens
+Text
 
-background
+Muted
 
-surface
+Accent
 
-surfaceElevated
+Success
 
-textPrimary
+Warning
 
-textSecondary
-
-border
-
-accent
-
-accentHover
-
-success
-
-warning
-
-danger
+Danger
 Typography
 
-Fonts
-
 Display
-
-Body
-
-Mono
-
-Then
-
-Display XL
-
-Display L
 
 Heading
 
 Body
 
-Caption
+Mono
 
-Label
-
-Never use
-
-text-[53px]
-
-Every size comes from tokens.
+Labels
 
 Spacing
+
 4
 
 8
@@ -313,9 +230,8 @@ Spacing
 
 128
 
-Nothing random.
-
 Radius
+
 sm
 
 md
@@ -325,30 +241,55 @@ lg
 xl
 
 full
+
 Shadows
-soft
 
-medium
+Soft
 
-hard
-PHASE 3 — Core Infrastructure
+Medium
 
-Now we start coding.
+Large
+
+Motion Tokens
+
+Duration
+
+Delay
+
+Spring
+
+Ease
+
+Z Index
+Breakpoints
+
+Outputs
+
+design-system/
+
+tokens/
+
+theme/
+
+globals.css
+Phase 4
+Core Infrastructure
+
+Reusable engineering systems.
+
+Includes
 
 Layout System
+
 Container
-
-Section
-
-Grid
 
 Stack
 
-Split Layout
+Grid
 
-Columns
+Split
 
-Reusable.
+Section
 
 Navigation
 
@@ -358,302 +299,295 @@ Tablet
 
 Mobile
 
-Progress
-
-Active Section
-
-Hide on scroll
-
-Reveal on scroll up
-
 Footer
 
-Reusable
+Theme Provider
 
-Every page
+Context
 
-Theme
+Hooks
 
-Dark
+Utilities
 
-Maybe future light mode
+Animation Providers
 
-PHASE 4 — Build Sections
+Data Providers
 
-This is where pages begin.
+Outputs
 
-Hero
+Everything reusable
 
-Purpose
+Nothing page-specific
+Phase 5
+Component Library
 
-First impression
+Only reusable components.
 
-Features
-
-Fullscreen
-Huge typography
-Personal image
-Animated intro
-CTA
-Scroll indicator
-About
-
-Not biography.
-
-Instead
-
-How I think.
-
-How I solve problems.
-
-Why AI.
-
-Why Design.
-Featured Projects
-
-Each project
-
-Large thumbnail
-
-Description
-
-Role
-
-Tech
-
-Outcome
-
-Live
-
-GitHub
-Systems Archive
-
-Inspired by Juan Mora.
-
-Interactive folder system.
-
-Projects
-
-↓
-
-Click
-
-↓
-
-Folder opens
-
-↓
-
-Case Study
-
-↓
-
-Architecture
-
-↓
-
-Media
-
-↓
-
-Code
-
-↓
-
-Outcome
-Design Showcase
-
-Poster
-
-Branding
-
-3D
-
-Motion
-
-UI
-
-Everything categorized.
-
-Skills
-
-Instead of
-
-Python ★★★★★
-
-Use
-
-Engineering
-
-AI
-
-Frontend
-
-Creative
-
-Tools
-Timeline
-
-Journey
-
-Student
-
-↓
-
-Designer
-
-↓
-
-Developer
-
-↓
-
-AI
-
-↓
-
-Today
-Contact
-
-Simple
-
-Elegant
-
-PHASE 5 — Component Library
-
-Everything reusable.
+Examples
 
 Buttons
 
 Cards
 
-Badges
-
-Tags
-
-Timeline
+Modal
 
 Tooltip
 
-Modal
+Accordion
 
 Drawer
 
-Accordion
-
-Marquee
+Timeline
 
 Gallery
 
-Image
+Carousel
 
-Video
+Badge
+
+Tags
 
 Cursor
 
-Loading
-
-Toast
+Project Card
 
 Section Header
 
-Project Card
+Media Viewer
 
-Case Study Card
+Everything documented.
 
-Skill Card
+Phase 6
+Content Architecture
 
-Certificate Card
+One of the biggest improvements over the original roadmap.
 
-PHASE 6 — Motion System
+Purpose
 
-Instead of animations everywhere
+Separate content from UI.
 
-Create rules.
+Folders
+
+data/
+
+projects/
+
+certificates/
+
+timeline/
+
+skills/
+
+experience/
+
+navigation/
+
+Every page consumes data.
+
+Nothing hardcoded.
+
+Content Schema
+
+Projects
+
+Media
+
+Links
+
+Metadata
+
+Tags
+
+Status
+
+Technology
+
+Architecture
+
+Case Studies
+
+Future additions become trivial.
+
+Phase 7
+Core Experience
+
+Now build pages.
+
+Hero
+
+About
+
+Projects
+
+Systems Archive
+
+AI Showcase
+
+Creative Archive
+
+Timeline
+
+Skills
+
+Certificates
+
+Contact
+
+Each section
+
+Uses
+
+Design System
+Components
+Data Layer
+
+No duplicated code.
+
+PASS 2 — EXPERIENCE
+
+Goal
+
+Transform the functional website into a memorable experience.
+
+Phase 8
+Motion System
+
+Create animation architecture.
+
+Rules
 
 Page Entry
 
-Fade
-
-+
-
-Slide
-
 Section Reveal
 
-Opacity
-
-+
-
-24px translate
-
-+
-
-stagger
-
 Hover
-
-Lift
-
-Glow
-
-Scale 1.02
 
 Cursor
 
 Magnetic
 
-Text
-
-Media
-
-Blend mode
-
 Scroll
 
 Parallax
 
-Pinned
+Pinning
 
-Progress
+Transitions
 
-Video reveal
+Every animation reusable.
 
-Page Transition
+Folder
 
-Motion based.
+animations/
 
-PHASE 7 — Advanced Features
+variants/
 
-Now premium.
+hooks/
+Phase 9
+Interactive Systems
 
-Loading Screen
-
-Smooth Scroll
-
-Custom Cursor
+Examples
 
 Command Palette
 
-Keyboard Shortcuts
+Search
 
-Project Search
+Project Filters
 
-Theme Switch
+Folder Explorer
 
-Scroll Progress
+Systems Archive Navigation
 
-Interactive Background
+Interactive Timelines
 
-Subtle only.
+Theme Switcher
 
-Music Toggle
+Keyboard Navigation
 
-Optional.
+AI Showcase interactions
 
-PHASE 8 — Performance
+Creative Archive explorer
 
-Very important.
+Phase 10
+Storytelling
+
+Focus
+
+Emotional flow.
+
+Sequence
+
+Curiosity
+
+↓
+
+Trust
+
+↓
+
+Capability
+
+↓
+
+Depth
+
+↓
+
+Personality
+
+↓
+
+Confidence
+
+↓
+
+Hire
+
+Review
+
+Typography
+
+Rhythm
+
+Visual hierarchy
+
+Reading speed
+
+CTA placement
+
+Phase 11
+Cinematic Experience
+
+Optional premium layer.
+
+Examples
+
+Page transitions
+
+Camera movement
+
+Advanced scrolling
+
+Scene choreography
+
+Video reveals
+
+Micro-interactions
+
+Ambient lighting
+
+Motion hierarchy
+
+Nothing added unless it improves storytelling.
+
+PASS 3 — PRODUCTION
+
+Goal
+
+Prepare for public launch.
+
+Phase 12
+Performance
 
 Images
 
@@ -661,41 +595,51 @@ WebP
 
 AVIF
 
-Responsive
-
-Videos
-
-Lazy load
+Lazy Loading
 
 Fonts
 
-Self host
+Self Hosted
 
-Components
+Dynamic Imports
 
-Dynamic import
+Bundle Analysis
 
-Bundle
+Code Splitting
 
-Analyze
+Caching
 
-Motion
+Prefetching
 
-Reduce layout shifts
+Reduced Motion
 
+Phase 13
 Accessibility
 
 Keyboard
 
-Screen readers
+ARIA
 
-Reduced motion
+Screen Readers
 
+Focus States
+
+Contrast
+
+Reduced Motion
+
+Semantic HTML
+
+Accessible Navigation
+
+Phase 14
 SEO
 
 Metadata
 
 OpenGraph
+
+Twitter
 
 JSON-LD
 
@@ -703,170 +647,172 @@ Sitemap
 
 Robots
 
-PHASE 9 — Polish
+Canonical URLs
 
-Now we become perfectionists.
+Structured Data
 
-Typography audit
+Portfolio Schema
 
-Spacing audit
+Project Schema
 
-Animation audit
+Phase 15
+Testing
 
-Accessibility audit
+Unit Testing
 
-Performance audit
+Component Testing
 
-Code cleanup
+Visual Regression
 
-Dead code removal
+Cross Browser
 
-Refactor
+Responsive Testing
+
+Manual QA
+
+Performance Audits
+
+Accessibility Audits
+
+Lighthouse
+
+Target
+
+95+
+
+Phase 16
+Polish
+
+Audit
+
+Spacing
+
+Typography
+
+Consistency
+
+Animation
+
+Interaction
+
+Content
+
+Copywriting
+
+Refactoring
+
+Dead Code
 
 Documentation
 
-Final Structure
-MS Portfolio
+Phase 17
+Launch
 
-├── Foundation
-│
-├── Design System
-│
-├── Infrastructure
-│
-├── Components
-│
-├── Hero
-│
-├── About
-│
-├── Featured Projects
-│
-├── Systems Archive
-│
-├── Design Showcase
-│
-├── Timeline
-│
-├── Skills
-│
-├── Certificates
-│
-├── Contact
-│
-├── Motion
-│
-├── Performance
-│
-└── Polish
-Engineering Standards (Non-Negotiable)
-
-For every piece of code we write, we'll follow these rules:
-
-Architecture
-Feature-first folder organization.
-Components under ~200 lines where practical.
-Shared logic extracted into hooks or utilities.
-No duplicated UI patterns.
-Styling
-No arbitrary spacing or colors in components.
-Everything comes from design tokens.
-Mobile-first responsive design.
-Motion
-Every animation must communicate state, hierarchy, or interaction.
-Respect prefers-reduced-motion.
-Reusable motion variants instead of inline animation objects.
-Performance
-Lighthouse target: 95+ in Performance, Accessibility, Best Practices, and SEO.
-Lazy-load heavy assets.
-Optimize images and videos before adding them.
-Documentation
-
-We'll maintain:
-
-DESIGN_SYSTEM.md
-COMPONENT_GUIDE.md
-ANIMATION_GUIDE.md
-ARCHITECTURE.md
-README.md
-
-These documents make the repository feel like a professional engineering project rather than just a portfolio.
-
-One addition I strongly recommend
-
-I think we should create this portfolio in three passes, not one:
-
-Pass 1 — Foundation
-
-Build the complete website with clean architecture, responsive layouts, and no advanced motion.
-
-Pass 2 — Experience
-
-Add all interactions, animations, transitions, cursor effects, and storytelling.
-
-Pass 3 — Production
-
-Optimize performance, accessibility, SEO, polish typography and spacing, and refactor the codebase until it reaches production quality.
-
-This approach prevents the project from becoming difficult to maintain and results in a portfolio that is both visually impressive and professionally engineered.
-
-
-
-
-
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-MS Portfolio Master Implementation Plan
-
-Volume 0
-Project Overview
-
-Volume 1
-Research & Strategy
-
-Volume 2
-Information Architecture
-
-Volume 3
-Design System
-
-Volume 4
-UX & User Journey
-
-Volume 5
-Frontend Architecture
-
-Volume 6
-Component Library
-
-Volume 7
-Motion System
-
-Volume 8
-Section-by-Section Implementation
-
-Volume 9
-Project Case Study Framework
-
-Volume 10
-Performance & Accessibility
-
-Volume 11
-SEO & Metadata
-
-Volume 12
-Testing & QA
-
-Volume 13
 Deployment
 
-Volume 14
-Maintenance & Future Roadmap
+Vercel
 
-Appendices
-Checklists
-Templates
-Coding Standards
-Naming Conventions
-References
+Analytics
+
+Monitoring
+
+Error Tracking
+
+Versioning
+
+Release Notes
+
+Portfolio Announcement
+
+PASS 4 — EVOLUTION
+
+The original roadmap ended after deployment.
+
+I don't think that's enough.
+
+Real products evolve.
+
+Phase 18
+Portfolio OS
+
+Knowledge Graph
+
+Plugin Architecture
+
+Content Engine
+
+Automation
+
+Project Generation
+
+Archive Expansion
+
+AI Modules
+
+Documentation Engine
+
+Phase 19
+Continuous Improvement
+
+Gather feedback.
+
+Interview feedback
+
+Recruiter feedback
+
+Analytics
+
+Heatmaps (if used)
+
+Performance reports
+
+Accessibility reports
+
+User testing
+
+Monthly refinement
+
+Engineering Standards (Non-Negotiable)
+Architecture
+Feature-first organization where appropriate.
+Components should generally stay under ~200 lines unless there's a justified reason.
+Single responsibility per component.
+Shared logic belongs in hooks or utilities.
+No duplicated UI patterns.
+Content is data-driven rather than hardcoded.
+Design
+No arbitrary colors, spacing, or typography in components.
+Every visual decision comes from the design system.
+Consistent spacing rhythm and responsive behavior.
+Mobile-first implementation.
+Motion
+Every animation communicates hierarchy, interaction, or state.
+Respect prefers-reduced-motion.
+Centralize animation variants and timing tokens.
+Avoid inline animation duplication.
+Performance
+Lighthouse target: 95+ for Performance, Accessibility, Best Practices, and SEO.
+Lazy-load heavy assets.
+Optimize images and videos before integration.
+Keep bundle growth intentional and measurable.
+Documentation
+
+Maintain these living documents:
+
+README.md
+
+ARCHITECTURE.md
+
+DESIGN_SYSTEM.md
+
+COMPONENT_GUIDE.md
+
+MOTION_GUIDE.md
+
+CONTENT_MODEL.md
+
+PERFORMANCE.md
+
+CONTRIBUTING.md
+
+CHANGELOG.md
