@@ -1,22 +1,22 @@
-import { lazy, Suspense, useState, useEffect } from "react"
-import { Routes, Route, useLocation, Navigate } from "react-router-dom"
-import { AnimatePresence } from "framer-motion"
-import { SpeedInsights } from "@vercel/speed-insights/react"
-import { Analytics } from "@vercel/analytics/react"
+import { lazy, Suspense, useState, useEffect } from 'react'
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
+import { SpeedInsights } from '@vercel/speed-insights/react'
+import { Analytics } from '@vercel/analytics/react'
 
-import Hero from "./sections/Hero"
-import IntroSequence from "./components/IntroSequence"
+import Hero from './sections/Hero'
+import IntroSequence from './components/IntroSequence'
 
-const CoreEngine = lazy(() => import("./sections/CoreEngine"))
-const AgriAIShowcase = lazy(() => import("./sections/AgriAIShowcase"))
-const SystemsArchive = lazy(() => import("./sections/SystemsArchive"))
-const DesignCabinet = lazy(() => import("./sections/DesignCabinet"))
-const Contact = lazy(() => import("./sections/Contact"))
-const Systems = lazy(() => import("./pages/Systems"))
-const DesignArchive = lazy(() => import("./pages/DesignArchive"))
-const AgriAIPage = lazy(() => import("./pages/AgriAIPage"))
-const SmartFolderPage = lazy(() => import("./pages/SmartFolderPage"))
-const PortfolioPage = lazy(() => import("./pages/PortfolioPage"))
+const CoreEngine = lazy(() => import('./sections/CoreEngine'))
+const AgriAIShowcase = lazy(() => import('./sections/AgriAIShowcase'))
+const SystemsArchive = lazy(() => import('./sections/SystemsArchive'))
+const DesignCabinet = lazy(() => import('./sections/DesignCabinet'))
+const Contact = lazy(() => import('./sections/Contact'))
+const Systems = lazy(() => import('./pages/Systems'))
+const DesignArchive = lazy(() => import('./pages/DesignArchive'))
+const AgriAIPage = lazy(() => import('./pages/AgriAIPage'))
+const SmartFolderPage = lazy(() => import('./pages/SmartFolderPage'))
+const PortfolioPage = lazy(() => import('./pages/PortfolioPage'))
 
 function HomePage() {
   return (
@@ -33,37 +33,37 @@ function HomePage() {
   )
 }
 
-import StaggeredMenu from "./components/StaggeredMenu"
-import CustomCursor from "./components/CustomCursor"
-import StatusLabel from "./components/StatusLabel"
+import StaggeredMenu from './components/StaggeredMenu'
+import CustomCursor from './components/CustomCursor'
+import StatusLabel from './components/StatusLabel'
 
 function App() {
-  const location = useLocation();
+  const location = useLocation()
   const [isIntroComplete, setIsIntroComplete] = useState(() => {
-    return sessionStorage.getItem("intro_complete") === "true";
-  });
+    return sessionStorage.getItem('intro_complete') === 'true'
+  })
 
   // Lock body scroll while intro sequence is active
   useEffect(() => {
-    if (!isIntroComplete && location.pathname === "/") {
-      document.body.style.overflow = "hidden";
+    if (!isIntroComplete && location.pathname === '/') {
+      document.body.style.overflow = 'hidden'
     } else {
-      document.body.style.overflow = "";
+      document.body.style.overflow = ''
     }
     return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isIntroComplete, location.pathname]);
+      document.body.style.overflow = ''
+    }
+  }, [isIntroComplete, location.pathname])
 
   return (
     <>
       <AnimatePresence mode="wait">
-        {!isIntroComplete && location.pathname === "/" && (
-          <IntroSequence 
+        {!isIntroComplete && location.pathname === '/' && (
+          <IntroSequence
             onComplete={() => {
-              sessionStorage.setItem("intro_complete", "true");
-              setIsIntroComplete(true);
-            }} 
+              sessionStorage.setItem('intro_complete', 'true')
+              setIsIntroComplete(true)
+            }}
           />
         )}
       </AnimatePresence>
@@ -80,7 +80,7 @@ function App() {
         socialItems={[
           { label: 'Instagram', link: 'https://instagram.com/mhd_shm__' },
           { label: 'GitHub', link: 'https://github.com/mohamedshaheemkp' },
-          { label: 'LinkedIn', link: 'https://www.linkedin.com/in/mohamed-shaheem-91a895331' }
+          { label: 'LinkedIn', link: 'https://www.linkedin.com/in/mohamed-shaheem-91a895331' },
         ]}
         displaySocials={true}
         displayItemNumbering={true}

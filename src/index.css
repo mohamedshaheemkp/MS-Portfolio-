@@ -1,18 +1,18 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --color-bg: #0A0D12;
-  --color-surface: #1A212B;
-  --color-elevated: #222B37;
-  --color-text-primary: #F5F7FA;
-  --color-text-secondary: #9BA6B4;
-  --color-border: #393E46;
-  --color-accent-blue: #295CFF;
-  --color-accent-red: #F09A82;
-  --color-cyber-teal: #14B8C4;
-  --color-mint-signal: #A8D5BA;
-  --color-soft-ivory: #E8E0A0;
-  
+  --color-bg: #0a0d12;
+  --color-surface: #1a212b;
+  --color-elevated: #222b37;
+  --color-text-primary: #f5f7fa;
+  --color-text-secondary: #9ba6b4;
+  --color-border: #393e46;
+  --color-accent-blue: #295cff;
+  --color-accent-red: #f09a82;
+  --color-cyber-teal: #14b8c4;
+  --color-mint-signal: #a8d5ba;
+  --color-soft-ivory: #e8e0a0;
+
   --font-display: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'DM Mono', monospace;
@@ -38,21 +38,27 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
     letter-spacing: -0.04em;
     font-weight: 700;
   }
-  
+
   * {
     border-color: var(--color-border);
   }
 
-  button, a {
+  button,
+  a {
     outline-color: var(--color-accent-blue);
     outline-offset: 4px;
   }
-  
+
   ::selection {
     background-color: var(--color-text-primary);
     color: var(--color-bg);
@@ -83,9 +89,8 @@
   .custom-cursor-active *,
   .custom-cursor-active a,
   .custom-cursor-active button,
-  .custom-cursor-active [role="button"],
+  .custom-cursor-active [role='button'],
   .custom-cursor-active .cursor-pointer {
     cursor: none !important;
   }
 }
-

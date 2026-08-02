@@ -186,16 +186,16 @@ No dead ends.
 
 Each section should create a specific emotional state.
 
-Section	Emotion
-Hero	Curiosity
-About	Connection
-Featured Projects	Confidence
-Systems Archive	Respect
-Design Archive	Creativity
-Timeline	Growth
-Skills	Competence
-Certificates	Credibility
-Contact	Action
+Section Emotion
+Hero Curiosity
+About Connection
+Featured Projects Confidence
+Systems Archive Respect
+Design Archive Creativity
+Timeline Growth
+Skills Competence
+Certificates Credibility
+Contact Action
 2.6 Visitor Questions
 
 The portfolio must answer these questions in order.
@@ -807,20 +807,20 @@ Without redesigning navigation.
 Hero
 │
 ├── About
-│      │
-│      ├── Timeline
-│      │
-│      └── Skills
+│ │
+│ ├── Timeline
+│ │
+│ └── Skills
 │
 ├── Featured Work
-│      │
-│      ├── Systems Archive
-│      │       │
-│      │       ├── GitHub
-│      │       ├── Architecture
-│      │       └── Case Study
-│      │
-│      └── Creative Archive
+│ │
+│ ├── Systems Archive
+│ │ │
+│ │ ├── GitHub
+│ │ ├── Architecture
+│ │ └── Case Study
+│ │
+│ └── Creative Archive
 │
 └── Contact
 

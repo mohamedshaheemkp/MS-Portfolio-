@@ -456,15 +456,15 @@ The portfolio must occupy the intersection of:
 
 Engineering
 
-+
+-
 
 Design
 
-+
+-
 
 Artificial Intelligence
 
-+
+-
 
 Storytelling
 
@@ -801,11 +801,11 @@ Create and maintain a dedicated research folder.
 research/
 
 ├── competitors/
-│   ├── juan-mora.md
-│   ├── bruno-simon.md
-│   ├── maxime-heckel.md
-│   ├── cuberto.md
-│   └── ...
+│ ├── juan-mora.md
+│ ├── bruno-simon.md
+│ ├── maxime-heckel.md
+│ ├── cuberto.md
+│ └── ...
 │
 ├── ux/
 ├── motion/

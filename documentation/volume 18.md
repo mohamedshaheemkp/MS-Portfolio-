@@ -55,19 +55,19 @@ The portfolio should feel like
 
 Apple Product Film
 
-+
+-
 
 A24 Cinematography
 
-+
+-
 
 Editorial Magazine
 
-+
+-
 
 Engineering Documentation
 
-+
+-
 
 Modern Interactive Experience
 
@@ -1060,6 +1060,7 @@ Instead, MS Portfolio should adopt Cinematic Motifs.
 A motif is a recurring visual or motion idea that appears throughout the experience, creating subconscious familiarity.
 
 Example Motifs
+
 1. The Archive Reveal
 
 Every time the user enters a deeper layer of information:

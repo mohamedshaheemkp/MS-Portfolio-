@@ -957,29 +957,29 @@ For example:
 AgriAI
 
 ├── Detection Engine
-│   ├── YOLO Pipeline
-│   ├── Dataset Explorer
-│   └── Detection Metrics
+│ ├── YOLO Pipeline
+│ ├── Dataset Explorer
+│ └── Detection Metrics
 │
 ├── Disease Classification
-│   ├── DenseNet Architecture
-│   ├── Training Pipeline
-│   └── Evaluation Dashboard
+│ ├── DenseNet Architecture
+│ ├── Training Pipeline
+│ └── Evaluation Dashboard
 │
 ├── Weather Intelligence
-│   ├── Forecast Model
-│   ├── Time-Series Pipeline
-│   └── Prediction Results
+│ ├── Forecast Model
+│ ├── Time-Series Pipeline
+│ └── Prediction Results
 │
 ├── Recommendation Engine
-│   ├── Decision Logic
-│   ├── Knowledge Base
-│   └── Treatment Suggestions
+│ ├── Decision Logic
+│ ├── Knowledge Base
+│ └── Treatment Suggestions
 │
 └── Deployment Architecture
-    ├── Frontend
-    ├── Backend
-    ├── Model Serving
-    └── Data Flow
+├── Frontend
+├── Backend
+├── Model Serving
+└── Data Flow
 
 This transforms one academic project into a complete AI ecosystem, demonstrating systems thinking rather than isolated model development. It also aligns perfectly with the Systems Archive introduced in Volume 10 and reinforces the portfolio's identity as the work of an engineer who builds integrated AI systems rather than standalone models.

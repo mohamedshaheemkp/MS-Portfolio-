@@ -1005,23 +1005,23 @@ SYSTEM
 │
 
 ├── Engineering Layer
-│   Code
-│   Architecture
-│   AI
-│   Performance
+│ Code
+│ Architecture
+│ AI
+│ Performance
 │
 ├── Experience Layer
-│   UX
-│   UI
-│   Motion
-│   Interaction
+│ UX
+│ UI
+│ Motion
+│ Interaction
 │
 └── Communication Layer
-    Branding
-    Visual Identity
-    Posters
-    Presentations
-    Documentation
+Branding
+Visual Identity
+Posters
+Presentations
+Documentation
 
 For example:
 

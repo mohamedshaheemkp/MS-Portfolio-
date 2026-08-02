@@ -707,28 +707,28 @@ within one cohesive experience.
 
 The complete blueprint now consists of:
 
-Volume	Focus
-0	Vision & Product Definition
-1	Research & Competitive Analysis
-2	Information Architecture
-3	Brand Identity
-4	Design System
-5	Engineering Architecture
-6	Motion Architecture
-7	Component Library
-8	Homepage Experience
-9	Project & Case Studies
-10	Systems Archive
-11	AI Showcase
-12	Creative Showcase
-13	Content & Storytelling
-14	Production Quality
-15	Development Roadmap
-16	Deployment & Operations
-17	Visual Direction Bible
-18	Cinematic Motion
-19	Portfolio Operating System
-20	Master Build Order
+Volume Focus
+0 Vision & Product Definition
+1 Research & Competitive Analysis
+2 Information Architecture
+3 Brand Identity
+4 Design System
+5 Engineering Architecture
+6 Motion Architecture
+7 Component Library
+8 Homepage Experience
+9 Project & Case Studies
+10 Systems Archive
+11 AI Showcase
+12 Creative Showcase
+13 Content & Storytelling
+14 Production Quality
+15 Development Roadmap
+16 Deployment & Operations
+17 Visual Direction Bible
+18 Cinematic Motion
+19 Portfolio Operating System
+20 Master Build Order
 20.32 Acceptance Criteria
 
 Volume 20 is complete when:

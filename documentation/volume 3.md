@@ -114,11 +114,11 @@ Overly futuristic
 The portfolio occupies the intersection of:
 
 Software Engineer
-        │
+│
 AI Engineer
-        │
+│
 UI/UX Designer
-        │
+│
 Graphic Designer
 
 Every visual decision must reinforce this positioning.

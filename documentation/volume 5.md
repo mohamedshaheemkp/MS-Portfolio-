@@ -200,23 +200,23 @@ src
 ├── app
 │
 ├── assets
-│   ├── images
-│   ├── videos
-│   ├── icons
-│   ├── logos
-│   ├── models
-│   ├── fonts
-│   └── textures
+│ ├── images
+│ ├── videos
+│ ├── icons
+│ ├── logos
+│ ├── models
+│ ├── fonts
+│ └── textures
 │
 ├── components
-│   ├── ui
-│   ├── shared
-│   ├── layout
-│   ├── navigation
-│   ├── sections
-│   ├── ai
-│   ├── creative
-│   └── project
+│ ├── ui
+│ ├── shared
+│ ├── layout
+│ ├── navigation
+│ ├── sections
+│ ├── ai
+│ ├── creative
+│ └── project
 │
 ├── features
 │

@@ -60,35 +60,35 @@ MS Portfolio should feel like a hybrid of
 
 Editorial Magazine
 
-+
+-
 
 Architecture Studio
 
-+
+-
 
 Apple Design
 
-+
+-
 
 Linear
 
-+
+-
 
 Stripe
 
-+
+-
 
 OpenAI
 
-+
+-
 
 Swiss Editorial
 
-+
+-
 
 Museum Exhibition
 
-+
+-
 
 Engineering Documentation
 
@@ -106,14 +106,14 @@ The website should feel like
 
 Every section should intentionally evoke emotion.
 
-Section	Emotion
-Hero	Curiosity
-About	Connection
-Projects	Confidence
-Systems Archive	Discovery
-AI Showcase	Respect
-Creative Archive	Inspiration
-Contact	Action
+Section Emotion
+Hero Curiosity
+About Connection
+Projects Confidence
+Systems Archive Discovery
+AI Showcase Respect
+Creative Archive Inspiration
+Contact Action
 
 Never random.
 
