@@ -351,6 +351,17 @@ export const StaggeredMenu = ({
     }
   }, [playClose, animateIcon, animateColor, animateText, onMenuClose])
 
+  // Escape key handler to close menu
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && open) {
+        closeMenu()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [open, closeMenu])
+
   React.useEffect(() => {
     if (!closeOnClickAway || !open) return
 
@@ -384,7 +395,7 @@ export const StaggeredMenu = ({
     >
       <div ref={preLayersRef} className="sm-prelayers" aria-hidden="true">
         {(() => {
-          const raw = colors && colors.length ? colors.slice(0, 4) : ['#1e1e22', '#35353c']
+          const raw = colors && colors.length ? colors.slice(0, 4) : ['#111111', '#080808']
           let arr = [...raw]
           if (arr.length >= 3) {
             const mid = Math.floor(arr.length / 2)
@@ -396,38 +407,80 @@ export const StaggeredMenu = ({
         })()}
       </div>
       <header
-        className="staggered-menu-header px-6 md:px-12 lg:px-24 pt-8 md:pt-12 mx-auto max-w-[1600px] left-0 right-0"
+        className="staggered-menu-header px-6 md:px-12 lg:px-24 pt-8 md:pt-10 mx-auto max-w-[1600px] left-0 right-0"
         aria-label="Main navigation header"
       >
+        {/* Left Logo */}
         <div
-          className="sm-logo font-mono text-xs md:text-sm uppercase tracking-widest text-text-secondary"
+          className="sm-logo font-mono text-xs md:text-sm uppercase tracking-widest text-[#A0A0A0]"
           aria-label="Logo"
         >
-          <span className="cursor-pointer hover:text-white transition-colors">{logoText}</span>
+          <span
+            onClick={() => {
+              if (window.location.pathname !== '/') {
+                navigate('/')
+              } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }
+            }}
+            className="cursor-pointer hover:text-white transition-colors font-bold text-white tracking-widest"
+          >
+            {logoText}
+          </span>
         </div>
-        <button
-          ref={toggleBtnRef}
-          className="sm-toggle hover:text-white transition-colors"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          aria-controls="staggered-menu-panel"
-          onClick={toggleMenu}
-          type="button"
-        >
-          <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
-            <span ref={textInnerRef} className="sm-toggle-textInner">
-              {textLines.map((l, i) => (
-                <span className="sm-toggle-line" key={i}>
-                  {l}
-                </span>
-              ))}
+
+        {/* Right Desktop Nav Links + Mobile Menu Toggle */}
+        <div className="flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-widest text-[#A0A0A0]">
+            {items.map((it) => (
+              <a
+                key={it.label}
+                href={it.link}
+                className="hover:text-white transition-colors py-2"
+                onClick={(e) => {
+                  if (it.link.startsWith('/#') || it.link.startsWith('#')) {
+                    e.preventDefault()
+                    const targetId = it.link.replace('/#', '').replace('#', '')
+                    if (window.location.pathname !== '/') {
+                      navigate('/')
+                      setTimeout(() => {
+                        document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' })
+                      }, 300)
+                    } else {
+                      document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' })
+                    }
+                  }
+                }}
+              >
+                {it.label}
+              </a>
+            ))}
+          </nav>
+
+          <button
+            ref={toggleBtnRef}
+            className="sm-toggle hover:text-white transition-colors min-h-[44px] min-w-[44px]"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            aria-controls="staggered-menu-panel"
+            onClick={toggleMenu}
+            type="button"
+          >
+            <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
+              <span ref={textInnerRef} className="sm-toggle-textInner">
+                {textLines.map((l, i) => (
+                  <span className="sm-toggle-line" key={i}>
+                    {l}
+                  </span>
+                ))}
+              </span>
             </span>
-          </span>
-          <span ref={iconRef} className="sm-icon" aria-hidden="true">
-            <span ref={plusHRef} className="sm-icon-line" />
-            <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
-          </span>
-        </button>
+            <span ref={iconRef} className="sm-icon" aria-hidden="true">
+              <span ref={plusHRef} className="sm-icon-line" />
+              <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
+            </span>
+          </button>
+        </div>
       </header>
 
       <aside
@@ -446,7 +499,7 @@ export const StaggeredMenu = ({
               items.map((it, idx) => (
                 <li className="sm-panel-itemWrap" key={it.label + idx}>
                   <a
-                    className="sm-panel-item"
+                    className="sm-panel-item min-h-[44px] flex items-center"
                     href={it.link}
                     aria-label={it.ariaLabel}
                     data-index={idx + 1}
@@ -454,8 +507,24 @@ export const StaggeredMenu = ({
                       e.preventDefault()
                       closeMenu()
                       setTimeout(() => {
-                        navigate(it.link)
-                      }, 400) // Wait for menu to close before navigating
+                        if (it.link.startsWith('/#') || it.link.startsWith('#')) {
+                          const targetId = it.link.replace('/#', '').replace('#', '')
+                          if (window.location.pathname !== '/') {
+                            navigate('/')
+                            setTimeout(() => {
+                              document
+                                .getElementById(targetId)
+                                ?.scrollIntoView({ behavior: 'smooth' })
+                            }, 300)
+                          } else {
+                            document
+                              .getElementById(targetId)
+                              ?.scrollIntoView({ behavior: 'smooth' })
+                          }
+                        } else {
+                          navigate(it.link)
+                        }
+                      }, 350)
                     }}
                   >
                     <span className="sm-panel-itemLabel">{it.label}</span>
@@ -480,7 +549,7 @@ export const StaggeredMenu = ({
                       href={s.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="sm-socials-link"
+                      className="sm-socials-link inline-block py-1 min-h-[44px]"
                     >
                       {s.label}
                     </a>

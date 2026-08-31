@@ -17,6 +17,7 @@ const DesignArchive = lazy(() => import('./pages/DesignArchive'))
 const AgriAIPage = lazy(() => import('./pages/AgriAIPage'))
 const SmartFolderPage = lazy(() => import('./pages/SmartFolderPage'))
 const PortfolioPage = lazy(() => import('./pages/PortfolioPage'))
+const Career = lazy(() => import('./pages/Career'))
 
 function HomePage() {
   return (
@@ -73,9 +74,10 @@ function App() {
       <StaggeredMenu
         position="right"
         items={[
-          { label: 'HOME', ariaLabel: 'Go to home page', link: '/' },
-          { label: 'SYSTEMS', ariaLabel: 'View systems', link: '/systems' },
-          { label: 'DESIGN', ariaLabel: 'View designs', link: '/design' },
+          { label: 'WORK', ariaLabel: 'View systems & work archive', link: '/systems' },
+          { label: 'ABOUT', ariaLabel: 'Jump to core philosophy', link: '/#core-engine' },
+          { label: 'CAREER', ariaLabel: 'View career profile', link: '/career' },
+          { label: 'CONTACT', ariaLabel: 'Jump to contact', link: '/#contact' },
         ]}
         socialItems={[
           { label: 'Instagram', link: 'https://instagram.com/mhd_shm__' },
@@ -84,12 +86,12 @@ function App() {
         ]}
         displaySocials={true}
         displayItemNumbering={true}
-        menuButtonColor="#888"
-        openMenuButtonColor="#fff"
+        menuButtonColor="#A0A0A0"
+        openMenuButtonColor="#FFFFFF"
         changeMenuColorOnOpen={true}
-        colors={['#1A212B', '#17334A', '#295CFF']}
-        logoText="Mohamed Shaheem"
-        accentColor="#295CFF"
+        colors={['#151515', '#111111', '#080808']}
+        logoText="SHAHEEM"
+        accentColor="#4A7CFF"
         isFixed={true}
       />
       <Suspense fallback={<div className="min-h-screen bg-bg" aria-label="Loading page" />}>
@@ -101,6 +103,7 @@ function App() {
             <Route path="/systems/smart-folder" element={<SmartFolderPage />} />
             <Route path="/systems/portfolio" element={<PortfolioPage />} />
             <Route path="/design" element={<DesignArchive />} />
+            <Route path="/career" element={<Career />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AnimatePresence>
