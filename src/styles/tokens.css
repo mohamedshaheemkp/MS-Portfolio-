@@ -1,0 +1,73 @@
+:root {
+  --color-background: #000000;
+  --color-surface: #0A0A0A;
+  --color-surfaceelevated: #161616;
+  --color-foreground: rgba(255, 255, 255, 0.6);
+  --color-muted: #808080;
+  --color-accent: #FF462E;
+  --radius-card: 8px;
+  --radius-button: 10px;
+  --radius-container: 11px;
+  --radius-pill: 259px;
+  --container-max-width: 1280px;
+  --container-padding: 60px 48px;
+  --layout-gap-sm: 24px;
+  --layout-gap-md: 16px;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-md: 18px;
+  --font-size-lg: 34px;
+  --font-size-xl: 48px;
+  --font-size-display: 120px;
+  --font-size-displaylarge: 222px;
+  --font-display: 'Clash Display', 'Clash Display Placeholder', sans-serif;
+  --font-body: 'Inter Display', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --type-body-size: 18px;
+  --type-body-weight: 500;
+  --type-body-line-height: 23.4px;
+  --type-button-size: 12px;
+  --type-button-weight: 400;
+  --type-button-line-height: normal;
+  --type-caption-size: 12px;
+  --type-caption-weight: 400;
+  --type-caption-line-height: normal;
+  --type-display-size: 222.659px;
+  --type-display-weight: 600;
+  --type-display-line-height: 178.127px;
+  --type-display-letter-spacing: -3px;
+  --type-display-transform: uppercase;
+  --type-heading-size: 120px;
+  --type-heading-weight: 600;
+  --type-heading-line-height: 90px;
+  --type-heading-letter-spacing: -1.6px;
+  --type-heading-transform: uppercase;
+  --type-hero-size: 72px;
+  --type-hero-weight: 800;
+  --type-hero-line-height: 1.05;
+  --type-hero-letter-spacing: -0.02em;
+  --type-label-size: 13px;
+  --type-label-weight: 600;
+  --type-label-line-height: 20px;
+  --type-label-letter-spacing: normal;
+  --type-label-transform: uppercase;
+  --type-mono-size: 14px;
+  --type-mono-weight: 400;
+  --type-mono-line-height: 1.5;
+  --type-navigation-size: 14px;
+  --type-navigation-weight: 500;
+  --type-navigation-line-height: 1.4;
+  --type-subheading-size: 90px;
+  --type-subheading-weight: 600;
+  --type-subheading-line-height: 70px;
+  --type-subheading-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --type-heading-size: 40px;
+    --type-heading-line-height: 30px;
+    --type-subheading-size: 40px;
+    --type-subheading-line-height: 30px;
+  }
+}
